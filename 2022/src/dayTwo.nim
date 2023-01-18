@@ -19,7 +19,7 @@ const resultArray: array[9, int] = [
     # 2 I win, so I chosed paper
 # 3..5 opponent choose paper
 # 6..8 opponent choose scissor
-const pointFromYourChooseArray: array[9, int] = [
+const pointFromYourChoiceArray: array[9, int] = [
     3, 1, 2,
     1, 2, 3,
     2, 3, 1
@@ -46,7 +46,7 @@ proc computePointWhenSecondIsResult*(opponentStrat, yourResult: char): int =
     let opponentIndex = int(opponentStrat) - Aint
     let yourIndex = int(yourResult) - Xint
 
-    result = yourIndex * 3 + pointFromYourChooseArray[opponentIndex * 3 + yourIndex]
+    result = yourIndex * 3 + pointFromYourChoiceArray[opponentIndex * 3 + yourIndex]
 
 proc readFileAndComputeScores(filename: string, option = '1') =
     var opponentStrat = '\0'
