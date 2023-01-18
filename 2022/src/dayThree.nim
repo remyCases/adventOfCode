@@ -1,5 +1,5 @@
 import os, std/[sugar, tables, sets], math
-import ../../../Nim/ArgParser/argparser
+import ../../utils/argparser
 
 const lowerLetter: HashSet[char] = collect(initHashSet()):
     for i in {'a' .. 'z'}: {i}

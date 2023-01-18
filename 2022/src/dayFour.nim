@@ -1,5 +1,5 @@
 import os, std/[tables, parseutils]
-import ../../../Nim/ArgParser/argparser
+import ../../utils/argparser
 
 proc computeTotalOverlap(startFirstRange, endFirstRange, startSecondRange, endSecondRange: int): int =
     if (startFirstRange <= startSecondRange) and (endFirstRange >= endSecondRange): # A B B A

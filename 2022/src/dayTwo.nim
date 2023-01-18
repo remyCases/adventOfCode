@@ -1,5 +1,5 @@
 import os, parseutils, std/tables
-import ../../../Nim/ArgParser/argparser
+import ../../utils/argparser
 
 # 0..2 opponent choose rock
     # 0 I choose rock
