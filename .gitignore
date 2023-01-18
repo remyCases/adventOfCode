@@ -1,0 +1,5 @@
+/**/bin
+/**/nimcache
+/**/testresults
+/**/.vscode
+*.exe
