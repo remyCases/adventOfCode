@@ -14,9 +14,9 @@ const resultArray: array[9, int] = [
 ]
 
 # 0..2 opponent choose rock
-    # 0 I loose
-    # 1 tie
-    # 2 I win
+    # 0 I loose, so I chosed scissor
+    # 1 tie, so I chosed rock
+    # 2 I win, so I chosed paper
 # 3..5 opponent choose paper
 # 6..8 opponent choose scissor
 const pointFromYourChooseArray: array[9, int] = [
@@ -27,8 +27,6 @@ const pointFromYourChooseArray: array[9, int] = [
 
 const Aint = 0x41
 const Xint = 0x58
-
-const partToken: CmdOption = CmdOption(long: "part", short: "p", required: true, choice: @["1", "2"])
 
 proc parse(line: string, opponentStrat, yourStrat: var char) =
     if line.len == 0: return
@@ -73,6 +71,7 @@ when isMainModule:
     const file = "2022/data/input_day_two.txt"
     let filename = getCurrentDir() / file
 
+    const partToken: CmdOption = CmdOption(long: "part", short: "p", required: true, choice: @["1", "2"])
     var t = {partToken: ""}.toTable
     handleTokens(t)
     let part = t[partToken]
