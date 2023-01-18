@@ -70,7 +70,7 @@ proc readFileAndComputeScores(filename: string, option = '1') =
     echo score
 
 when isMainModule:
-    const file = "data/input_day_two.txt"
+    const file = "2022/data/input_day_two.txt"
     let filename = getCurrentDir() / file
 
     var t = {partToken: ""}.toTable

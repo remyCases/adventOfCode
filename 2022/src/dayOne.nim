@@ -30,6 +30,6 @@ proc readFileAndComputeCalories(filename: string) =
     echo calorieTotal
 
 when isMainModule:
-    const file = "data/input_day_one.txt"
+    const file = "2022/data/input_day_one.txt"
     let filename = getCurrentDir() / file
     readFileAndComputeCalories(filename)
