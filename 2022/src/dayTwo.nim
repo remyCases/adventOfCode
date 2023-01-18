@@ -65,7 +65,7 @@ proc readFileAndComputeScores(filename: string, option = '1') =
         parse(line, opponentStrat, yourStrat)
         let point = procCompute(opponentStrat, yourStrat)
         score += point
-    echo score
+    echo "score: ", score
 
 when isMainModule:
     const file = "2022/data/input_day_two.txt"

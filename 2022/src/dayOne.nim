@@ -27,7 +27,7 @@ proc readFileAndComputeCalories(filename: string) =
     var calorieTotal = 0
     for i in bufferInt:
         calorieTotal += i
-    echo calorieTotal
+    echo "calorieTotal: ", calorieTotal
 
 when isMainModule:
     const file = "2022/data/input_day_one.txt"
