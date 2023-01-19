@@ -23,7 +23,7 @@ proc push[T](root: var Queue[T], node: Queue[T]) =
 proc push[T](root: var Queue[T], data: T) =
     push(root, newNode(data))
 
-proc pop[T](root: var Queue[T]): Queue[T] =
+proc popNoFree[T](root: var Queue[T]): Queue[T] =
     if root == nil:
         return nil
     else:
@@ -31,11 +31,35 @@ proc pop[T](root: var Queue[T]): Queue[T] =
         root = root.next
         result.next = nil
 
-proc head[T](root: Queue[T]): T =
+proc headValue[T](root: Queue[T]): T =
     if root == nil:
         raise 
     else:
         return root.value
+
+proc separateHead[T](root: var Queue[T], indexToSeparate: int): Queue[T] =
+
+    result = root
+    var currentIndex = 0
+    var prev: Queue[T] = nil
+    while currentIndex < indexToSeparate:
+        if root == nil:
+            raise newException(RangeDefect, "Asked index to high, out of queue")
+        prev = root
+        root = root.next
+        currentIndex.inc
+    
+    prev.next = nil
+
+proc reunite[T](head: Queue[T], tail: var Queue[T])  =
+    if head == nil:
+        return
+    else:
+        var it = head
+        while it.next != nil:
+            it = it.next
+        it.next = tail
+        tail = head
 
 proc `$`[T](root: Queue[T]): string =
     result = ""
@@ -55,15 +79,18 @@ proc `$`[T](roots: seq[Queue[T]]): string =
             it = it.next
         result &= "\n"
 
-proc applyCommand[T](roots: var seq[Queue[T]], count, src, des: int) =
+proc applyCommandOneByOne[T](roots: var seq[Queue[T]], count, src, des: int) =
     var c = count
     while c > 0:
-        push(roots[des], pop(roots[src]))
+        push(roots[des], popNoFree(roots[src]))
         c.dec
 
-proc computeTopCrate(roots: var seq[Queue[char]]): string =
+proc applyCommandByChunk[T](roots: var seq[Queue[T]], count, src, des: int) =
+    reunite(separateHead(roots[src], count), roots[des])
+
+proc computeTopCrate[T](roots: var seq[Queue[T]]): string =
     for root in roots:
-        result &= $head(root)
+        result &= $headValue(root)
 
 proc parseCargo(line: string, roots: var seq[Queue[char]]) =
     if line.len == 0: return
@@ -109,6 +136,15 @@ proc readFileAndComputeTopCrate(filename: string, roots: var seq[Queue[char]], o
     parseHeader(filename, roots, indexSeperate)
     echo $roots
     var n = 0
+    
+    let applyCommand = case option:
+    of '1':
+        applyCommandOneByOne[char]
+    of '2':
+        applyCommandByChunk[char]
+    else:
+        return
+    
     for line in filename.lines:
         n.inc
         if n < indexSeperate: continue # pass first lines, it's the header
