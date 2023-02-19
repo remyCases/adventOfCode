@@ -1,6 +1,5 @@
 import os, std/[tables, parseutils], math
-import ../../utils/argparser
-import ../../utils/queue
+import ../../../utils/queue
 
 const upperLetter = { 'A' .. 'Z' }
 
@@ -80,14 +79,11 @@ proc readFileAndComputeTopCrate(filename: string, roots: var seq[Queue[char]], o
         applyCommand(roots, count, src-1, des-1)
     echo "Top crate: ", computeTopCrate(roots)
 
-when isMainModule:
+proc main*(part: char) =
     const file = "2022/data/input_day_five.txt"
     let filename = getCurrentDir() / file
-
-    const partToken: CmdOption = CmdOption(long: "part", short: "p", required: true, choice: @["1", "2"])
-    var t = {partToken: ""}.toTable
-    handleTokens(t)
-    let part = t[partToken]
-
     var roots: seq[Queue[char]]
-    readFileAndComputeTopCrate(filename, roots, char(part[0]))
+    readFileAndComputeTopCrate(filename, roots, part)
+
+when isMainModule:
+    main('1')

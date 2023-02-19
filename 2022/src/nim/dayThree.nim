@@ -1,5 +1,4 @@
-import os, std/[sugar, tables, sets], math
-import ../../utils/argparser
+import os, std/[sugar, sets], math
 
 const lowerLetter: HashSet[char] = collect(initHashSet()):
     for i in {'a' .. 'z'}: {i}
@@ -73,13 +72,10 @@ proc readFileAndComputePriority(filename: string, option = '1') =
         priority += procCompute(intersect)
     echo "priority: ", priority
 
-when isMainModule:
+proc main*(part: char) =
     const file = "2022/data/input_day_three.txt"
     let filename = getCurrentDir() / file
+    readFileAndComputePriority(filename, part)
 
-    const partToken: CmdOption = CmdOption(long: "part", short: "p", required: true, choice: @["1", "2"])
-    var t = {partToken: ""}.toTable
-    handleTokens(t)
-    let part = t[partToken]
-
-    readFileAndComputePriority(filename, char(part[0]))
+when isMainModule:
+    main('1')

@@ -1,5 +1,4 @@
-import os, parseutils, std/[algorithm, tables]
-import ../../utils/argparser
+import os, parseutils, std/algorithm
 
 const bufferLen: int = 3
 var bufferInt: array[bufferLen, int] = [0, 0, 0]
@@ -24,19 +23,25 @@ proc readFileAndComputeCalories(filename: string, option = '1') =
         else:
             parse(line, calorieCount)
             calorieCumul += calorieCount
-    echo bufferInt
-    var calorieTotal = 0
-    for i in bufferInt:
-        calorieTotal += i
-    echo "calorieTotal: ", calorieTotal
 
-when isMainModule:
+    var calorieTotal = 0
+    case option:
+    of '1':
+        calorieTotal = bufferInt[bufferLen - 1]
+        echo "calorieTotal: ", calorieTotal
+    of '2':
+        echo bufferInt
+    
+        for i in bufferInt:
+            calorieTotal += i
+        echo "calorieTotal: ", calorieTotal
+    else:
+        return
+
+proc main*(part: char) =
     const file = "2022/data/input_day_one.txt"
     let filename = getCurrentDir() / file
+    readFileAndComputeCalories(filename, part)
 
-    const partToken: CmdOption = CmdOption(long: "part", short: "p", required: true, choice: @["1", "2"])
-    var t = {partToken: ""}.toTable
-    handleTokens(t)
-    let part = t[partToken]
-
-    readFileAndComputeCalories(filename, char(part[0]))
+when isMainModule:
+    main('1')

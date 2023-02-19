@@ -6,7 +6,7 @@ AUTHOR. RémyCases
 ENVIRONMENT DIVISION.
 INPUT-OUTPUT SECTION.
 FILE-CONTROL.
-       SELECT DataFile ASSIGN TO "input_day_one.dat" 
+       SELECT DataFile ASSIGN TO "2022/data/input_day_one.txt" 
            ORGANIZATION IS LINE SEQUENTIAL 
            ACCESS IS SEQUENTIAL.
 
@@ -25,7 +25,10 @@ WORKING-STORAGE SECTION.
 01 WSCaloriesSumMax PIC 9(8).
 01 WSEOF PIC A(1).
 
-PROCEDURE DIVISION.
+LINKAGE SECTION.
+01 LPart PIC 9 VALUE 1.
+
+PROCEDURE DIVISION USING LPart.
 Main.
        OPEN INPUT DataFile.
               PERFORM UNTIL WSEOF='Y'
@@ -36,10 +39,17 @@ Main.
               END-PERFORM
        CLOSE DataFile
        
-       COMPUTE WSCaloriesSumMax = WSCaloriesFirstMax +
-       WSCaloriesSecondMax + WSCaloriesThirdMax
+       IF LPart EQUAL TO 1 THEN
+           COMPUTE WSCaloriesSumMax = WSCaloriesFirstMax
+       END-IF
+
+       IF LPart EQUAL TO 2 THEN
+           COMPUTE WSCaloriesSumMax = WSCaloriesFirstMax +
+           WSCaloriesSecondMax + WSCaloriesThirdMax
+       END-IF
+
        DISPLAY "Max Calories: " WSCaloriesSumMax
-       STOP RUN.
+EXIT PROGRAM.
 
 BranchingCompute.
        *> Empty Line is the separator between chunk of data

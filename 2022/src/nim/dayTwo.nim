@@ -1,5 +1,4 @@
-import os, parseutils, std/tables
-import ../../utils/argparser
+import os, parseutils
 
 # 0..2 opponent choose rock
     # 0 I choose rock
@@ -67,13 +66,10 @@ proc readFileAndComputeScores(filename: string, option = '1') =
         score += point
     echo "score: ", score
 
-when isMainModule:
+proc main*(part: char) =
     const file = "2022/data/input_day_two.txt"
     let filename = getCurrentDir() / file
+    readFileAndComputeScores(filename, part)
 
-    const partToken: CmdOption = CmdOption(long: "part", short: "p", required: true, choice: @["1", "2"])
-    var t = {partToken: ""}.toTable
-    handleTokens(t)
-    let part = t[partToken]
-
-    readFileAndComputeScores(filename, char(part[0]))
+when isMainModule:
+    main('1')

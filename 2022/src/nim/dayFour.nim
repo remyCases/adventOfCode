@@ -1,5 +1,4 @@
-import os, std/[tables, parseutils]
-import ../../utils/argparser
+import os, std/parseutils
 
 proc computeTotalOverlap(startFirstRange, endFirstRange, startSecondRange, endSecondRange: int): int =
     if (startFirstRange <= startSecondRange) and (endFirstRange >= endSecondRange): # A B B A
@@ -44,13 +43,10 @@ proc readFileAndComputePriority(filename: string, option = '1') =
         overlapCount += overlap
     echo "overlapCount: ", overlapCount
 
-when isMainModule:
+proc main*(part: char) =
     const file = "2022/data/input_day_four.txt"
     let filename = getCurrentDir() / file
+    readFileAndComputePriority(filename, part)
 
-    const partToken: CmdOption = CmdOption(long: "part", short: "p", required: true, choice: @["1", "2"])
-    var t = {partToken: ""}.toTable
-    handleTokens(t)
-    let part = t[partToken]
-
-    readFileAndComputePriority(filename, char(part[0]))
+when isMainModule:
+    main('1')
