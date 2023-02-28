@@ -1,29 +1,29 @@
 import os, std/[tables, parseutils], math
-import ../../../utils/queue
+import ../../../utils/linkedstack
 
 const upperLetter = { 'A' .. 'Z' }
 
-proc applyCommandOneByOne[T](roots: var seq[Queue[T]], count, src, des: int) =
+proc applyCommandOneByOne[T](roots: var seq[LinkedNode[T]], count, src, des: int) =
     var c = count
     while c > 0:
         push(roots[des], popNoFree(roots[src]))
         c.dec
 
-proc applyCommandByChunk[T](roots: var seq[Queue[T]], count, src, des: int) =
+proc applyCommandByChunk[T](roots: var seq[LinkedNode[T]], count, src, des: int) =
     reunite(separateHead(roots[src], count), roots[des])
 
-proc computeTopCrate[T](roots: var seq[Queue[T]]): string =
+proc computeTopCrate[T](roots: var seq[LinkedNode[T]]): string =
     for root in roots:
         result &= $headValue(root)
 
-proc parseCargo(line: string, roots: var seq[Queue[char]]) =
+proc parseCargo(line: string, roots: var seq[LinkedNode[char]]) =
     if line.len == 0: return
     for n, l in line.pairs:
         if l in upperLetter:
             let index = euclDiv(n, 4)
             push(roots[index], l)
 
-proc parseHeader(filename: string, roots: var seq[Queue[char]], endOfHeader: int) =
+proc parseHeader(filename: string, roots: var seq[LinkedNode[char]], endOfHeader: int) =
     # iterate backward
     let cargo = filename.readLines(endOfHeader)
     let cargoLen = cargo.len
@@ -54,7 +54,7 @@ proc parseFileFromCargoAndCommand(filename: string): int =
             break
         result.inc
 
-proc readFileAndComputeTopCrate(filename: string, roots: var seq[Queue[char]], option = '1') =
+proc readFileAndComputeTopCrate(filename: string, roots: var seq[LinkedNode[char]], option = '1') =
     var count, src, des: int
     let indexSeperate = parseFileFromCargoAndCommand(filename)
     parseHeader(filename, roots, indexSeperate)
@@ -82,7 +82,7 @@ proc readFileAndComputeTopCrate(filename: string, roots: var seq[Queue[char]], o
 proc main*(part: char) =
     const file = "2022/data/input_day_five.txt"
     let filename = getCurrentDir() / file
-    var roots: seq[Queue[char]]
+    var roots: seq[LinkedNode[char]]
     readFileAndComputeTopCrate(filename, roots, part)
 
 when isMainModule:

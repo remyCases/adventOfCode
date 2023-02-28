@@ -1,4 +1,4 @@
-import ../src/dayTwo
+import ../src/nim/dayTwo
 
 block SecondIsStrat:
     doAssert computePointWhenSecondIsStrat('A', 'X') == 4
