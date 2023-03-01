@@ -17,4 +17,8 @@ Main.
        IF WDay EQUAL TO 1 THEN
            CALL '2022/lib/DAYONE' USING WPart
        END-IF
+
+       IF WDay EQUAL TO 2 THEN
+           CALL '2022/lib/DAYTWO' USING WPart
+       END-IF
        STOP RUN.

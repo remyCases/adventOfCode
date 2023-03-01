@@ -9,6 +9,7 @@ GOTO End
 
 :CobolBuild
     cobc -m -o ./2022/lib/dayOne.dll -conf=./utils/default.conf ./2022/src/cobol/dayOne.cob
+    cobc -m -o ./2022/lib/dayTwo.dll -conf=./utils/default.conf ./2022/src/cobol/dayTwo.cob
     cobc -x -free -o ./2022/bin/mainCob -conf=./utils/default.conf ./2022/src/cobol/mainCob.cob
 GOTO End
 
