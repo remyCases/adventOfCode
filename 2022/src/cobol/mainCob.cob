@@ -21,4 +21,12 @@ Main.
        IF WDay EQUAL TO 2 THEN
            CALL '2022/lib/DAYTWO' USING WPart
        END-IF
+
+       IF WDay EQUAL TO 3 THEN
+           CALL '2022/lib/DAYTHREE' USING WPart
+       END-IF
+
+       IF WDay EQUAL TO 4 THEN
+           CALL '2022/lib/DAYFOUR' USING WPart
+       END-IF
        STOP RUN.
