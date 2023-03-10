@@ -28,6 +28,7 @@ WORKING-STORAGE SECTION.
 01 ADDRSS USAGE POINTER VALUE NULL.
 01 ANCHOR BASED USAGE POINTER.
 01 ANCHOR-TMP USAGE POINTER.
+01 ANCHOR-TMP2 USAGE POINTER.
 01 ANCHOR-DES BASED USAGE POINTER.
 01 ANCHOR-SRC BASED USAGE POINTER.
 01 ANCHOR-TABLE USAGE POINTER VALUE NULL.
@@ -45,13 +46,16 @@ LINKAGE SECTION.
        05 NODE-DATA PIC X USAGE DISPLAY.
        05 NEXT-ITEM USAGE POINTER.
 01 L-Option.
+       05 L-Part PIC 9 VALUE 1.
        05 L-NLink PIC 9 VALUES 0.
        05 L-Input PIC X(80).
 
+*> Expected value sent in L-Option:
+*> MOVE "13ZN MCD P" TO L-Option
+*> MOVE "19GTRW GCHPMSVW CLTSGM JHDMWRF PQLHSWFJ PJDNFMS ZBDFGCSJ RTB HNWLC" TO L-Option
 PROCEDURE DIVISION USING L-Option.
 Main.
-       *>MOVE "3ZN MCD P" TO WS-Option
-       *>MOVE "9GTRW GCHPMSVW CLTSGM JHDMWRF PQLHSWFJ PJDNFMS ZBDFGCSJ RTB HNWLC" TO WS-Option
+       DISPLAY L-Part
 
        *> Utilities
        MOVE LENGTH OF NODE TO NBYTES-NODE
@@ -82,11 +86,18 @@ Main.
            PERFORM UNTIL WS-EOF='Y'
                READ DataFile INTO F-Data
                    AT END MOVE 'Y' TO WS-EOF
-                   NOT AT END PERFORM SwitchElementLinkedStack
+                   NOT AT END 
+                   IF L-Part EQUALS TO 1
+                       PERFORM SwitchElementEachLinkedStack
+                   END-IF
+                   IF L-Part EQUALS TO 2
+                       PERFORM SwitchElementByBlockLinkedStack
+                   END-IF
                END-READ
            END-PERFORM
        CLOSE DataFile
        
+       *> Display linkedstacks after all moving operation were done
        SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
        PERFORM L-NLink TIMES
            SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
@@ -164,7 +175,33 @@ PushExistingLinkedStack.
            SET ANCHOR TO ANCHOR-TMP
        END-IF.
 
-SwitchElementLinkedStack.
+CutLinkedStack.
+       SET ANCHOR-TMP TO ANCHOR
+       PERFORM LCOUNT TIMES
+           SET ADDRESS OF NODE TO ANCHOR
+           SET ANCHOR TO NEXT-ITEM
+
+           IF ANCHOR EQUALS TO NULL
+               NEXT SENTENCE
+           END-IF
+       END-PERFORM
+       SET NEXT-ITEM TO NULL.
+
+GluLinkedStack.
+       SET ANCHOR-TMP2 TO ANCHOR-TMP
+       PERFORM WITH TEST BEFORE UNTIL (ANCHOR-TMP2 = NULL)
+           SET ADDRESS OF NODE TO ANCHOR-TMP2
+
+           IF NEXT-ITEM EQUALS TO NULL
+               SET NEXT-ITEM TO ANCHOR
+               SET ANCHOR TO ANCHOR-TMP
+               NEXT SENTENCE
+           END-IF
+
+           SET ANCHOR-TMP2 TO NEXT-ITEM
+       END-PERFORM.
+
+SwitchElementEachLinkedStack.
        UNSTRING F-Data DELIMITED BY ' '
        INTO TMP WS-Quantity TMP WS-Src TMP WS-Des
        PERFORM WS-Quantity TIMES
@@ -184,6 +221,27 @@ SwitchElementLinkedStack.
            
            PERFORM PushExistingLinkedStack
        END-PERFORM.
+
+SwitchElementByBlockLinkedStack.
+       UNSTRING F-Data DELIMITED BY ' '
+       INTO TMP WS-Quantity TMP WS-Src TMP WS-Des
+
+       SET ANCHOR-TMP TO NULL
+
+       SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
+       COMPUTE INCREMENT = NBYTES-NODE * (WS-Src - 1)
+       SET ANCHOR-TABLE UP BY INCREMENT
+       SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
+
+       MOVE WS-Quantity TO LCOUNT
+       PERFORM CutLinkedStack
+
+       SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
+       COMPUTE INCREMENT = NBYTES-NODE * (WS-Des - 1)
+       SET ANCHOR-TABLE UP BY INCREMENT
+       SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
+
+       PERFORM GluLinkedStack.
 
 FreeLinkedStack.
        PERFORM WITH TEST BEFORE UNTIL (ANCHOR = NULL)

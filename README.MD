@@ -37,7 +37,7 @@ To execute:
 ```
 For instance `.\2022\bin\mainCobol 21` will run the first part of the second day.
 
-Currently only the four first days are solved for the Cobol part.
+Currently only the five first days are solved for the Cobol part.
 
 ## Wait, that's not the right solutions concidering the data I have...
 
