@@ -9,6 +9,7 @@ WORKING-STORAGE SECTION.
 01 Woption.
        02 WDay PIC 9.
        02 WPart PIC 9.
+01 Wword PIC X(80).
 
 PROCEDURE DIVISION.
 Main.
@@ -28,5 +29,10 @@ Main.
 
        IF WDay EQUAL TO 4 THEN
            CALL '2022/lib/DAYFOUR' USING WPart
+       END-IF
+       
+       MOVE "9GTRW GCHPMSVW CLTSGM JHDMWRF PQLHSWFJ PJDNFMS ZBDFGCSJ RTB HNWLC" TO Wword
+       IF WDay EQUAL TO 5 THEN
+           CALL '2022/lib/DAYFIVE' USING Wword
        END-IF
        STOP RUN.
