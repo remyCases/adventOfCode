@@ -11,7 +11,7 @@ Currently only a [Nim](https://nim-lang.org/), [Cobol](https://gnucobol.sourcefo
 |Days | C99 | GnuCobol | Nim | Rust |
 |-----|:-:|:-----:|:---:|:----:|
 | 1 |:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-| 2 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
+| 2 |:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
 | 3 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
 | 4 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
 | 5 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:

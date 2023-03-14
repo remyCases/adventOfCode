@@ -1,7 +1,8 @@
-mod dayOne;
+mod day_one;
+mod day_two;
 
 use clap::Parser;
-use std::io::Error;
+use anyhow::Result;
 
 #[derive(Parser)]
 struct Args {
@@ -11,10 +12,11 @@ struct Args {
     part: u8,
 }
 
-fn main() -> Result<(), Error> {
+fn main() -> Result<()> {
     let args = Args::parse();
     match args.day {
-        1 => dayOne::main(args.part)?,
+        1 => day_one::main(args.part)?,
+        2 => day_two::main(args.part)?,
         _ => println!("{:}, {:}", args.day, args.part)
     };
     Ok(())

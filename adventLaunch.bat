@@ -15,7 +15,7 @@ GOTO End
 GOTO End
 
 :RustLaunch
-    .\2022\bin\release\mainRust --day %DAY% --part %PART%
+    .\2022\bin\release\main_rust --day %DAY% --part %PART%
 GOTO End
 
 :End
