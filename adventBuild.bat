@@ -1,3 +1,7 @@
+REM Copyright (C) 2023 Rémy Cases
+REM See LICENSE file for extended copyright information.
+REM This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
+
 @echo off
 IF %1 == nim GOTO NimBuild
 IF %1 == cobol GOTO CobolBuild

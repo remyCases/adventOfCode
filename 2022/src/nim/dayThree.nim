@@ -1,3 +1,7 @@
+# Copyright (C) 2023 Rémy Cases
+# See LICENSE file for extended copyright information.
+# This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
+
 import os, std/[sugar, sets], math
 
 const lowerLetter: HashSet[char] = collect(initHashSet()):

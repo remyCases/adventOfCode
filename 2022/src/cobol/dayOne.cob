@@ -1,4 +1,8 @@
        >>SOURCE FORMAT FREE
+*> Copyright (C) 2023 Rémy Cases
+*> See LICENSE file for extended copyright information.
+*> This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
+
 IDENTIFICATION DIVISION.
 PROGRAM-ID. DAYONE.
 AUTHOR. RémyCases
