@@ -1,6 +1,7 @@
 @echo off
 IF %1 == nim GOTO NimBuild
 IF %1 == cobol GOTO CobolBuild
+IF %1 == rust GOTO RustBuild
 GOTO End
 
 :NimBuild
@@ -14,6 +15,10 @@ GOTO End
     cobc -m -o ./2022/lib/dayFour.dll -conf=./utils/default.conf ./2022/src/cobol/dayFour.cob
     cobc -m -o ./2022/lib/dayFive.dll -conf=./utils/default.conf ./2022/src/cobol/dayFive.cob
     cobc -x -free -o ./2022/bin/mainCob -conf=./utils/default.conf ./2022/src/cobol/mainCob.cob
+GOTO End
+
+:RustBuild
+    cargo build --release --manifest-path .\2022\src\rust\Cargo.toml --target-dir .\2022\bin
 GOTO End
 
 :End

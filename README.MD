@@ -4,11 +4,41 @@
 
 This project is an attempt to solve the [advent of code](https://adventofcode.com/) challenge in various programming languages I'm learning.
 
-Currently only a [Nim](https://nim-lang.org/) and a [Cobol](https://gnucobol.sourceforge.io/) versions are available. Maybe a Rust version will emerged, depending of my spare time and my willingness to test myself.
+Currently only a [Nim](https://nim-lang.org/), [Cobol](https://gnucobol.sourceforge.io/) and [Rust](https://www.rust-lang.org/) versions are available. Maybe other version will emerged (eg: C, Zig, Haskell, ...), depending of my spare time and my willingness to test myself.
+
+## Solved challenges
+
+|Days | C99 | GnuCobol | Nim | Rust |
+|-----|:-:|:-----:|:---:|:----:|
+| 1 |:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
+| 2 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
+| 3 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
+| 4 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
+| 5 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
+| 6 |:x:|:x:|:heavy_check_mark:|:x:
+| 7 |:x:|:x:|:x:|:x:
+| 8 |:x:|:x:|:x:|:x:
+| 9 |:x:|:x:|:x:|:x:
+|10 |:x:|:x:|:x:|:x:
+|11 |:x:|:x:|:x:|:x:
+|12 |:x:|:x:|:x:|:x:
+|13 |:x:|:x:|:x:|:x:
+|14 |:x:|:x:|:x:|:x:
+|15 |:x:|:x:|:x:|:x:
+|16 |:x:|:x:|:x:|:x:
+|17 |:x:|:x:|:x:|:x:
+|18 |:x:|:x:|:x:|:x:
+|19 |:x:|:x:|:x:|:x:
+|20 |:x:|:x:|:x:|:x:
+|21 |:x:|:x:|:x:|:x:
+|22 |:x:|:x:|:x:|:x:
+|23 |:x:|:x:|:x:|:x:
+|24 |:x:|:x:|:x:|:x:
+|25 |:x:|:x:|:x:|:x:
 
 ## How to run the Nim code
 
-First you'll need the Nim compiler. You should find tutorials about installation on the official website.
+First you'll need the Nim compiler. You should find tutorials about installation on the [official website](https://nim-lang.org/).
 
 Once it's done, to compile, simplely run in the root folder: 
 ```
@@ -17,10 +47,10 @@ adventBuild.dat nim
 
 To execute:
 ```
-.\2022\bin\mainNim -d DAY -p PART
+adventLaunch.dat nim DAY PART
 ```
 
-As far as I know, there is always two parts during each days, so `-p 1` will run the first part, and `-p 2` the second part. Currently only the six first days are solved for the Nim part.
+As far as I know, there is always two parts during each days, so `PART=1` will run the first part, and `PART=2` the second part.
 
 ## How to run the Cobol code
 
@@ -33,11 +63,24 @@ adventBuild.dat cobol
 
 To execute:
 ```
-.\2022\bin\mainCobol DAY PART
+adventLaunch.dat cobol DAY PART
 ```
-For instance `.\2022\bin\mainCobol 21` will run the first part of the second day.
+For instance `.\adventLaunch.dat cobol 2 1` will run the first part of the second day.
 
-Currently only the five first days are solved for the Cobol part.
+
+## How to run the Rust code
+
+Same as Nim, compiler and cargo can be found on the official [website](https://www.rust-lang.org/).
+
+Then, to build:
+```
+adventBuild.dat rust
+```
+
+To execute:
+```
+adventLaunch.dat rust DAY PART
+```
 
 ## Wait, that's not the right solutions concidering the data I have...
 
