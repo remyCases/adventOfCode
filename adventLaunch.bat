@@ -1,8 +1,8 @@
+@ECHO OFF
 REM Copyright (C) 2023 Rémy Cases
 REM See LICENSE file for extended copyright information.
 REM This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-@ECHO OFF
 SET /A DAY = %2
 SET /A PART = %3
 IF %1 == nim GOTO NimLaunch
