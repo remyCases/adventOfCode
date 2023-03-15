@@ -9,74 +9,87 @@ PROGRAM-ID. DAYFIVE.
 ENVIRONMENT DIVISION.
 INPUT-OUTPUT SECTION.
 FILE-CONTROL.
-       SELECT DataFile ASSIGN TO "2022/data/input_day_five_truncated.txt" 
+       SELECT DATAFILE ASSIGN TO "2022/data/input_day_five.txt" 
            ORGANIZATION IS LINE SEQUENTIAL 
            ACCESS IS SEQUENTIAL.
 
 DATA DIVISION.
 FILE SECTION.
-FD DataFile.
-01 F-Data PIC X(50) VALUE ZEROES.
+FD DATAFILE.
+01 F-DATA PIC X(50) VALUE ZEROES.
 
 WORKING-STORAGE SECTION.
-01 WS-EOF PIC A.
-01 WS-Action.
-       05 WS-Quantity PIC 99 VALUES 0.
-       05 WS-Src PIC 9 VALUES 0.
-       05 WS-Des PIC 9 VALUES 0.
-           
-01 LCOUNT PIC 99 USAGE DISPLAY VALUE 0.
+*> Data to store in a linked list
+01 WS-DATA.
+       05 WS-CHARDATA OCCURS 80 TIMES INDEXED BY I PIC X.
+01 WS-DATALEN PIC 99 VALUE 0.
+
+*> Action to perform on linked lists
+01 WS-ACTION.
+       05 WS-QUANTITY PIC 99 VALUES 0.
+       05 WS-SRC PIC 9 VALUES 0.
+       05 WS-DES PIC 9 VALUES 0.
+
+*> Variable to store size and operation of dynamic array
 01 NBYTES-NODE PIC S9(9) BINARY.
-01 NBYTES-ANCHOR PIC S9(9) BINARY.
+01 NBYTES-ANCHOR-TABLE PIC S9(9) BINARY.
 01 INCREMENT PIC S9(9) BINARY.
+
+*> Generic pointer used during allocate
 01 ADDRSS USAGE POINTER VALUE NULL.
+
+*> Pointer of anchor of a linked-list
 01 ANCHOR BASED USAGE POINTER.
+
+*> Temporary pointers for operations on anchor without modifying 
+*> ANCHOR value
 01 ANCHOR-TMP USAGE POINTER.
 01 ANCHOR-TMP2 USAGE POINTER.
-01 ANCHOR-DES BASED USAGE POINTER.
-01 ANCHOR-SRC BASED USAGE POINTER.
+
+*> Pointers for a list of ANCHOR
 01 ANCHOR-TABLE USAGE POINTER VALUE NULL.
 01 ANCHOR-TABLE-REF USAGE POINTER VALUE NULL.
-01 WS-Data.
-       05 WS-CharData OCCURS 80 TIMES INDEXED BY I PIC X.
-01 WS-DataLen PIC 99 VALUE 0.
-01 ID-P PIC 9(3).
-01 INPUT-DATA PIC X USAGE DISPLAY.
-01 TMP PIC X(50) USAGE DISPLAY.
+
+*> Container to store the result of the challenge
 01 WS-RESULT PIC X(50) VALUE " ".
+
+*> DUMMY VARIABLE AND TEMPORARY ONES
+01 UNSTRING_DUMPSTER PIC X(50) USAGE DISPLAY.
+01 POINTER-FOR-UNSTRING PIC 9(3).         
+01 TMP-CNT PIC 99 USAGE DISPLAY VALUE 0.
+01 EOF PIC A.
+01 INPUT-DATA PIC X USAGE DISPLAY.
 
 LINKAGE SECTION.
 01 NODE.
        05 NODE-DATA PIC X USAGE DISPLAY.
        05 NEXT-ITEM USAGE POINTER.
-01 L-Option.
-       05 L-Part PIC 9 VALUE 1.
-       05 L-NLink PIC 9 VALUES 0.
-       05 L-Input PIC X(80).
+01 L-OPTION.
+       05 L-PART PIC 9 VALUE 1.
+       05 L-NLINKED PIC 9 VALUES 0.
+       05 L-INPUT PIC X(80).
 
-*> Expected value sent in L-Option:
-*> MOVE "13ZN MCD P" TO L-Option
-*> MOVE "19GTRW GCHPMSVW CLTSGM JHDMWRF PQLHSWFJ PJDNFMS ZBDFGCSJ RTB HNWLC" TO L-Option
-PROCEDURE DIVISION USING L-Option.
+*> Expected value sent in L-OPTION:
+*> MOVE "13ZN MCD P" TO L-OPTION
+*> MOVE "19GTRW GCHPMSVW CLTSGM JHDMWRF PQLHSWFJ PJDNFMS ZBDFGCSJ RTB HNWLC" TO L-OPTION
+PROCEDURE DIVISION USING L-OPTION.
 Main.
-       DISPLAY L-Part
-
        *> Utilities
        MOVE LENGTH OF NODE TO NBYTES-NODE
-       MOVE 1 TO ID-P
-       COMPUTE NBYTES-ANCHOR = NBYTES-NODE * L-NLink
+       MOVE 1 TO POINTER-FOR-UNSTRING
+       COMPUTE NBYTES-ANCHOR-TABLE = NBYTES-NODE * L-NLINKED
    
        *> Creation of all linkedstacks
-       ALLOCATE NBYTES-ANCHOR CHARACTERS RETURNING ADDRSS
+       ALLOCATE NBYTES-ANCHOR-TABLE CHARACTERS RETURNING ADDRSS
        SET ANCHOR-TABLE TO ADDRSS
        SET ANCHOR-TABLE-REF TO ANCHOR-TABLE
        SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
 
-       PERFORM L-NLink TIMES
-           MOVE ZEROES TO WS-DataLen
-           UNSTRING L-Input DELIMITED BY ALL ' ' INTO WS-Data
-           WITH POINTER ID-P
-           INSPECT WS-Data TALLYING WS-DataLen FOR CHARACTERS BEFORE ' '
+       PERFORM L-NLINKED TIMES
+           MOVE ZEROES TO WS-DATALEN
+           UNSTRING L-INPUT DELIMITED BY ALL ' ' INTO WS-DATA
+           WITH POINTER POINTER-FOR-UNSTRING
+           INSPECT WS-DATA TALLYING WS-DATALEN FOR CHARACTERS BEFORE ' '
 
            SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
            PERFORM CreateLinkedStack
@@ -86,24 +99,28 @@ Main.
        DISPLAY " "
        
        *> Operations on linkedstacks
-       OPEN INPUT DataFile.
-           PERFORM UNTIL WS-EOF='Y'
-               READ DataFile INTO F-Data
-                   AT END MOVE 'Y' TO WS-EOF
-                   NOT AT END 
-                   IF L-Part EQUALS TO 1
-                       PERFORM SwitchElementEachLinkedStack
-                   END-IF
-                   IF L-Part EQUALS TO 2
-                       PERFORM SwitchElementByBlockLinkedStack
+       OPEN INPUT DATAFILE.
+           PERFORM UNTIL EOF='Y'
+               READ DATAFILE INTO F-DATA
+                   AT END MOVE 'Y' TO EOF
+                   NOT AT END
+                   MOVE F-DATA TO EOF
+                   *> to skip header
+                   IF EOF EQUALS 'm'
+                       IF L-Part EQUALS TO 1
+                           PERFORM SwitchElementEachLinkedStack
+                       END-IF
+                       IF L-Part EQUALS TO 2
+                           PERFORM SwitchElementByBlockLinkedStack
+                       END-IF
                    END-IF
                END-READ
            END-PERFORM
-       CLOSE DataFile
+       CLOSE DATAFILE
        
        *> Display linkedstacks after all moving operation were done
        SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
-       PERFORM L-NLink TIMES
+       PERFORM L-NLINKED TIMES
            SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
            SET ADDRESS OF NODE TO ANCHOR
            STRING WS-RESULT NODE-DATA DELIMITED BY " "
@@ -116,7 +133,7 @@ Main.
 
        *> Freeing all linkedstacks
        SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
-       PERFORM L-NLink TIMES
+       PERFORM L-NLINKED TIMES
            SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
            PERFORM FreeLinkedStack
            SET ANCHOR-TABLE UP BY NBYTES-NODE
@@ -131,11 +148,11 @@ Main.
        GOBACK.
        
 CreateLinkedStack.
-       MOVE 0 TO LCOUNT
+       MOVE ZEROES TO TMP-CNT
        SET ANCHOR TO NULL
-       PERFORM WS-DataLen TIMES
-           ADD 1 TO LCOUNT
-           MOVE WS-CharData(LCOUNT) TO INPUT-DATA
+       PERFORM WS-DATALEN TIMES
+           ADD 1 TO TMP-CNT
+           MOVE WS-CHARDATA(TMP-CNT) TO INPUT-DATA
            PERFORM PushLinkedStack
        END-PERFORM.
 
@@ -181,7 +198,7 @@ PushExistingLinkedStack.
 
 CutLinkedStack.
        SET ANCHOR-TMP TO ANCHOR
-       PERFORM LCOUNT TIMES
+       PERFORM TMP-CNT TIMES
            SET ADDRESS OF NODE TO ANCHOR
            SET ANCHOR TO NEXT-ITEM
 
@@ -206,20 +223,23 @@ GluLinkedStack.
        END-PERFORM.
 
 SwitchElementEachLinkedStack.
-       UNSTRING F-Data DELIMITED BY ' '
-       INTO TMP WS-Quantity TMP WS-Src TMP WS-Des
-       PERFORM WS-Quantity TIMES
+       UNSTRING F-DATA DELIMITED BY ' '
+       INTO 
+           UNSTRING_DUMPSTER WS-QUANTITY 
+           UNSTRING_DUMPSTER WS-SRC 
+           UNSTRING_DUMPSTER WS-DES
+       PERFORM WS-QUANTITY TIMES
            SET ANCHOR-TMP TO NULL
 
            SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
-           COMPUTE INCREMENT = NBYTES-NODE * (WS-Src - 1)
+           COMPUTE INCREMENT = NBYTES-NODE * (WS-SRC - 1)
            SET ANCHOR-TABLE UP BY INCREMENT
            SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
        
            PERFORM PopLinkedStack
     
            SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
-           COMPUTE INCREMENT = NBYTES-NODE * (WS-Des - 1)
+           COMPUTE INCREMENT = NBYTES-NODE * (WS-DES - 1)
            SET ANCHOR-TABLE UP BY INCREMENT
            SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
            
@@ -227,21 +247,24 @@ SwitchElementEachLinkedStack.
        END-PERFORM.
 
 SwitchElementByBlockLinkedStack.
-       UNSTRING F-Data DELIMITED BY ' '
-       INTO TMP WS-Quantity TMP WS-Src TMP WS-Des
+       UNSTRING F-DATA DELIMITED BY ' '
+       INTO
+           UNSTRING_DUMPSTER WS-QUANTITY
+           UNSTRING_DUMPSTER WS-SRC
+           UNSTRING_DUMPSTER WS-DES
 
        SET ANCHOR-TMP TO NULL
 
        SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
-       COMPUTE INCREMENT = NBYTES-NODE * (WS-Src - 1)
+       COMPUTE INCREMENT = NBYTES-NODE * (WS-SRC - 1)
        SET ANCHOR-TABLE UP BY INCREMENT
        SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
 
-       MOVE WS-Quantity TO LCOUNT
+       MOVE WS-QUANTITY TO TMP-CNT
        PERFORM CutLinkedStack
 
        SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
-       COMPUTE INCREMENT = NBYTES-NODE * (WS-Des - 1)
+       COMPUTE INCREMENT = NBYTES-NODE * (WS-DES - 1)
        SET ANCHOR-TABLE UP BY INCREMENT
        SET ADDRESS OF ANCHOR TO ANCHOR-TABLE
 
