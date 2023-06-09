@@ -4,13 +4,13 @@
 
 import argparse
 import std/parseutils
-import dayOne, dayTwo, dayThree, dayFour, dayFive, daySix, daySeven
-
-var parser = newParser:
-  option("-d", "--day", choices = @["1", "2", "3", "4", "5", "6", "7"], required = true)
-  option("-p", "--part", choices = @["1", "2"], required = true)
+import dayOne, dayTwo, dayThree, dayFour, dayFive, daySix, daySeven, dayEight
 
 when isMainModule:
+    var parser = newParser:
+        option("-d", "--day", choices = @["1", "2", "3", "4", "5", "6", "7", "8"], required = true)
+        option("-p", "--part", choices = @["1", "2"], required = true)
+
     var opts = parser.parse()
     var day: int
     discard opts.day.parseInt(day, 0)
@@ -32,5 +32,7 @@ when isMainModule:
         daySix.main(part)
     of 7:
         daySeven.main(part)
+    of 8:
+        dayEight.main(part)
     else:
         echo "Incorrect day selected."

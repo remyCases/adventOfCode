@@ -3,5 +3,9 @@
 /**/nimcache
 /**/testresults
 /**/.vscode
+/**/CMakeFiles
+CMakeCache.txt
+Makefile
+*.cmake
 *.exe
 *.LOCK

@@ -8,7 +8,7 @@ import ../../../utils/triplelinkedtree
 const MAX_VALUE_SIZE = 100000
 
 type
-    ParseType = enum
+    ParseType* = enum
         file, folder, ls_command, cd_command
 
 proc parseFile(line: string, parseType: var ParseType, name: var string, size: var int) =
@@ -20,6 +20,7 @@ proc parseFile(line: string, parseType: var ParseType, name: var string, size: v
             name = line[index_cd + 3..^1]
         elif index_ls != -1:
             parseType = ls_command
+            name = ""
     else:
         let index_dir: int = line.find("dir")
         if index_dir != -1:
@@ -31,12 +32,39 @@ proc parseFile(line: string, parseType: var ParseType, name: var string, size: v
             i.inc parseInt(line, size, i)
             name = line[i + 1..^1]
 
+proc processLine*(
+    line: string, 
+    it: var TripleLinkedTreeNode[int], 
+    parseType: var ParseType,
+    name: var string, 
+    size: var int,
+    was_ls_before: var bool
+    ) =
+    parseFile(line, parseType, name, size)
+    case parseType:
+    of folder:
+        if was_ls_before: it.addChild(name, 0)
+    of file:
+        if was_ls_before: it.data += size
+    of ls_command:
+        was_ls_before = true
+    of cd_command:
+        was_ls_before = false
+        if name == "..":
+            it = it.parent
+        else:
+            if it.name == "":
+                it.name = name
+            else:
+                discard it.toDirectly(it, name)
+
+
 proc readFileAndComputeFolderSize(filename: string, option = '1') =
     var 
         parseType: ParseType
         name: string
         size: int
-        head = newNode[int]("home", 0)
+        head = newNode[int]("/", 0)
         it: TripleLinkedTreeNode[int]
         was_ls_before = false
         array_data_tree = newSeq[int]()
@@ -45,20 +73,7 @@ proc readFileAndComputeFolderSize(filename: string, option = '1') =
 
     it = head
     for line in filename.lines:
-        parseFile(line, parseType, name, size)
-        case parseType:
-        of folder:
-            if was_ls_before: it.addChild(name, 0)
-        of file:
-            if was_ls_before: it.data += size
-        of ls_command:
-            was_ls_before = true
-        of cd_command:
-            was_ls_before = false
-            if name == "..":
-                it = it.parent
-            else:
-                discard it.toDirectly(it, name)
+        processLine(line, it, parseType, name, size, was_ls_before)
 
     sumPostorder(head)
     trasversePreorderData(head, array_data_tree)

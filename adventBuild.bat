@@ -6,6 +6,7 @@ REM This file is part of adventOfCode project from https://github.com/remyCases/
 IF %1 == nim GOTO NimBuild
 IF %1 == cobol GOTO CobolBuild
 IF %1 == rust GOTO RustBuild
+IF %1 == c99 GOTO C99Build
 GOTO End
 
 :NimBuild
@@ -23,6 +24,12 @@ GOTO End
 
 :RustBuild
     cargo build --release --manifest-path .\2022\src\rust\Cargo.toml --target-dir .\2022\bin
+GOTO End
+
+:C99Build
+    del CMakeCache.txt
+    cmake -G "MinGW Makefiles"
+    make all
 GOTO End
 
 :End
