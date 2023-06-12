@@ -27,7 +27,6 @@ GOTO End
 GOTO End
 
 :C99Build
-    del CMakeCache.txt
     cmake -B./build -G "MinGW Makefiles"
     cd build && make all
 GOTO End

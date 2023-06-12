@@ -4,14 +4,14 @@
 
 This project is an attempt to solve the [advent of code](https://adventofcode.com/) challenge in various programming languages I'm learning.
 
-Currently only a [Nim](https://nim-lang.org/), [Cobol](https://gnucobol.sourceforge.io/) and [Rust](https://www.rust-lang.org/) versions are available. Maybe other version will emerged (eg: C, Zig, Haskell, ...), depending of my spare time and my willingness to test myself.
+Currently only a [Nim](https://nim-lang.org/), [Cobol](https://gnucobol.sourceforge.io/) and [Rust](https://www.rust-lang.org/) versions are available. Maybe other version will emerged (eg: Zig, Haskell, ...), depending of my spare time and my willingness to test myself.
 
 ## Solved challenges
 
 |Days | C99 | GnuCobol | Nim | Rust |
 |-----|:-:|:-----:|:---:|:----:|
 | 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-| 2 |:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
+| 2 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
 | 3 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
 | 4 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
 | 5 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:

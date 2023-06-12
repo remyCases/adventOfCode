@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "dayOne.h"
+#include "dayTwo.h"
 
 int main(int argc, char**argv) {
     
@@ -20,6 +21,9 @@ int main(int argc, char**argv) {
     switch (chosen_day) {
     case 1:
         day_one_solution(chosen_part);
+        break;
+    case 2:
+        day_two_solution(chosen_part);
         break;
     default:
         printf("Incorrect day was given.\n");

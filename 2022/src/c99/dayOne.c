@@ -5,6 +5,7 @@
 #include "dayOne.h"
 
 #define SIZE_MAX_ARRAY 3u
+#define EXPECTED_ARGUMENTS 1
 
 static void add_to_sorted_array(uint32_t p_array[SIZE_MAX_ARRAY], int size, uint32_t new_element) {
 
@@ -33,44 +34,32 @@ int day_one_solution(int part) {
         return EXIT_FAILURE;
     }
 
-    char buf[BUFFER_SIZE] = "";
-    char* out_fgets = NULL;
+    io_buffer_t io_buffer = { 0 };
+    set_io_buffer(&io_buffer);
+
     uint32_t calories_count = 0u;
     uint32_t calories_array[SIZE_MAX_ARRAY] =  {0u, 0u, 0u};
     uint32_t calories_input = 0u;
     uint32_t calories_sum = 0u;
-    size_t iteration = 0u;
-    int count = 0;
 
-    while(iteration < MAX_ITERATION_ALLOWED) {
+    while(io_buffer.iteration < MAX_ITERATION_ALLOWED) {
 
-        out_fgets = fgets(buf, BUFFER_SIZE, fp); /* read each line in file */
-        if (!out_fgets) { /* reach end of file */
+        io_buffer.out_fgets = fgets(io_buffer.buf, BUFFER_SIZE, fp); /* read each line in file */
+        if (!io_buffer.out_fgets) { /* reach end of file */
             break;
         }
 
-        if (buf[0] == '\n') { /* empty line */
+        if (io_buffer.buf[0] == '\n') { /* empty line */
             add_to_sorted_array(calories_array, SIZE_MAX_ARRAY, calories_count);
             calories_count = 0;
         } else {
-            count = sscanf(buf, "%10d", &calories_input);
-            if (count == EOF) { /* reach end of file */
-                if (ferror(fp)) { /* check for error */
-                    perror("fscanf");
-                    return EXIT_FAILURE;
-                }
-                break;
-            }
-            else if (count != 1) { /* incorrect number of element found */
-                fprintf(stderr, "Error: fscanf successfully matched and assigned %i input items, 1 expected\n", count);
-                return EXIT_FAILURE;
-            }
+            PARSE_ELEMENT("%10d", &calories_input)
             calories_count += calories_input;
         }
-        iteration ++;
+        io_buffer.iteration ++;
     }
 
-    if (iteration == MAX_ITERATION_ALLOWED) {
+    if (io_buffer.iteration == MAX_ITERATION_ALLOWED) {
         printf("Max iteration allowed (%u), result can be false.\n", MAX_ITERATION_ALLOWED);
     }
 
