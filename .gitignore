@@ -1,11 +1,10 @@
-/**/bin
-/**/lib
-/**/nimcache
-/**/testresults
-/**/.vscode
-/**/CMakeFiles
-CMakeCache.txt
-Makefile
 *.cmake
 *.exe
 *.LOCK
+
+# generic folder
+build
+.vscode
+
+# for rust-analyzer
+2022/src/rust/target

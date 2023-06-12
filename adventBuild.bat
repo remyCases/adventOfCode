@@ -6,7 +6,7 @@ REM This file is part of adventOfCode project from https://github.com/remyCases/
 IF %1 == nim GOTO NimBuild
 IF %1 == cobol GOTO CobolBuild
 IF %1 == rust GOTO RustBuild
-IF %1 == c99 GOTO C99Build
+IF %1 == C99 GOTO C99Build
 GOTO End
 
 :NimBuild
@@ -14,22 +14,22 @@ GOTO End
 GOTO End
 
 :CobolBuild
-    cobc -m -o ./2022/lib/dayOne.dll -conf=./utils/default.conf ./2022/src/cobol/dayOne.cob
-    cobc -m -o ./2022/lib/dayTwo.dll -conf=./utils/default.conf ./2022/src/cobol/dayTwo.cob
-    cobc -m -o ./2022/lib/dayThree.dll -conf=./utils/default.conf ./2022/src/cobol/dayThree.cob
-    cobc -m -o ./2022/lib/dayFour.dll -conf=./utils/default.conf ./2022/src/cobol/dayFour.cob
-    cobc -m -o ./2022/lib/dayFive.dll -conf=./utils/default.conf ./2022/src/cobol/dayFive.cob
-    cobc -x -free -o ./2022/bin/mainCob -conf=./utils/default.conf ./2022/src/cobol/mainCob.cob
+    cobc -m -o ./build/2022/lib/dayOne.dll -conf=./utils/default.conf ./2022/src/cobol/dayOne.cob
+    cobc -m -o ./build/2022/lib/dayTwo.dll -conf=./utils/default.conf ./2022/src/cobol/dayTwo.cob
+    cobc -m -o ./build/2022/lib/dayThree.dll -conf=./utils/default.conf ./2022/src/cobol/dayThree.cob
+    cobc -m -o ./build/2022/lib/dayFour.dll -conf=./utils/default.conf ./2022/src/cobol/dayFour.cob
+    cobc -m -o ./build/2022/lib/dayFive.dll -conf=./utils/default.conf ./2022/src/cobol/dayFive.cob
+    cobc -x -free -o ./build/2022/bin/mainCob -conf=./utils/default.conf ./2022/src/cobol/mainCob.cob
 GOTO End
 
 :RustBuild
-    cargo build --release --manifest-path .\2022\src\rust\Cargo.toml --target-dir .\2022\bin
+    cargo build --release --manifest-path .\2022\src\rust\Cargo.toml --target-dir .\build\2022
 GOTO End
 
 :C99Build
     del CMakeCache.txt
-    cmake -G "MinGW Makefiles"
-    make all
+    cmake -B./build -G "MinGW Makefiles"
+    cd build && make all
 GOTO End
 
 :End

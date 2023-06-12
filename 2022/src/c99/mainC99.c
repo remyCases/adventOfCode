@@ -1,43 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
+#include <string.h>
 
-#define MAX_ITERATION_ALLOWED 100000u
+#include "dayOne.h"
 
 int main(int argc, char**argv) {
-    FILE* fp = fopen("2022/data/input_day_one.txt", "r");
-    if (!fp) {
+    
+    // expected argument DAY PART
+    if (argc != 3) {
         return EXIT_FAILURE;
     }
 
-    uint16_t calories_count = 0u;
-    uint16_t calories_input = 0u;
-    int count = 0;
-    size_t iteration = 0;
+    int chosen_day = 0u;
+    int chosen_part = 0u;
 
-    while(iteration < MAX_ITERATION_ALLOWED) {
-        count = fscanf(fp, "%10d", &calories_input);
-        if (count == EOF) {
-            if (ferror(fp)) {
-                perror("fscanf");
-                return EXIT_FAILURE;
-            }
-            break;
-        }
-        else if (count != 1) {
-            fprintf(stderr, "Error: fscanf successfully matched and assigned %i input items, 1 expected\n", count);
-            return EXIT_FAILURE;
-        }
-        calories_count += calories_input;
-        iteration ++;
-    }
+    (void)sscanf(argv[1], "%i", &chosen_day);
+    (void)sscanf(argv[2], "%i", &chosen_part);
 
-    if (iteration == MAX_ITERATION_ALLOWED) {
-        printf("Max iteration allowed (%u), result can be false.\n", MAX_ITERATION_ALLOWED);
+    switch (chosen_day) {
+    case 1:
+        day_one_solution(chosen_part);
+        break;
+    default:
+        printf("Incorrect day was given.\n");
+        break;
     }
-    printf("calorieTotal: %d", calories_count);
-    if(fclose(fp)) {
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
 }

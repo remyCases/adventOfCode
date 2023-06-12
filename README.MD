@@ -10,7 +10,7 @@ Currently only a [Nim](https://nim-lang.org/), [Cobol](https://gnucobol.sourcefo
 
 |Days | C99 | GnuCobol | Nim | Rust |
 |-----|:-:|:-----:|:---:|:----:|
-| 1 |:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
+| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
 | 2 |:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
 | 3 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
 | 4 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
@@ -80,6 +80,20 @@ adventBuild.dat rust
 To execute:
 ```
 adventLaunch.dat rust DAY PART
+```
+
+## How to run the C99 code
+
+GCC is used in this project, on windows it can be installed through [msys2](https://packages.msys2.org/base/mingw-w64-gcc). [CMake](https://cmake.org/) is used for compilation and build.
+
+Then, to build:
+```
+adventBuild.dat C99
+```
+
+To execute:
+```
+adventLaunch.dat C99 DAY PART
 ```
 
 ## Wait, that's not the right solutions concidering the data I have...
