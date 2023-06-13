@@ -26,7 +26,7 @@ static uint32_t compute_points(char ch1, char ch2, int part) {
     switch (part)
     {
     case 1:
-        points = pointsFromResultsArray[3 * (index1) + index2] + index2 + 1;
+        points = pointsFromResultsArray[3 * index1 + index2] + index2 + 1;
         break;
     case 2:
         points = pointFromYourChoiceArray[index1 * 3 + index2] + index2 * 3;

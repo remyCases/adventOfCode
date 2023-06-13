@@ -12,7 +12,7 @@ Currently only a [Nim](https://nim-lang.org/), [Cobol](https://gnucobol.sourcefo
 |-----|:-:|:-----:|:---:|:----:|
 | 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
 | 2 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-| 3 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
+| 3 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:
 | 4 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
 | 5 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
 | 6 |:x:|:x:|:heavy_check_mark:|:x:
