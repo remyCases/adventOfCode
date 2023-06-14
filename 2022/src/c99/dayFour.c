@@ -1,3 +1,7 @@
+// Copyright (C) 2023 Rémy Cases
+// See LICENSE file for extended copyright information.
+// This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -34,11 +38,23 @@ int day_four_solution(int part) {
         if (io_buffer.buf[0] == '\n') { /* empty line */
         } else {
             PARSE_ELEMENT("%hu-%hu,%hu-%hu", &fs_range, &fe_range, &ss_range, &se_range)
-            if (fs_range <= ss_range && se_range <= fe_range) {
-                count += 1u;
+
+            if (part==1) {
+                if (fs_range <= ss_range && se_range <= fe_range) { /* A BB A => +1 */
+                    count += 1u;
+                } 
+                else if (ss_range <= fs_range && fe_range <= se_range) { /* B AA B => +1 */
+                    count += 1u;
+                }
             } 
-            else if (ss_range <= fs_range && fe_range <= se_range) {
-                count += 1u;
+            else if (part==2) {
+                if (fe_range < ss_range) { /* AA BB => 0 */
+                } 
+                else if (se_range < fs_range) { /* BB AA => 0 */
+                } 
+                else {
+                    count += 1u;
+                }
             }
         }
         io_buffer.iteration ++;
@@ -53,7 +69,7 @@ int day_four_solution(int part) {
         printf("Counts: %d\n", count);
         break;
     case 2:
-        printf("part2: WIP\n");
+        printf("Counts: %d\n", count);
         break;
     default:
         break;
