@@ -20,7 +20,7 @@ GOTO End
 GOTO End
 
 :RustLaunch
-    .\build\2022\release\main_rust --day %DAY% --part %PART%
+    .\build\2022\bin\release\main_rust --day %DAY% --part %PART%
 GOTO End
 
 :C99Launch
