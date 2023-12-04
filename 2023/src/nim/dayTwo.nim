@@ -45,7 +45,7 @@ proc computeSumId(maxRed: int, maxBlue: int, maxGreen: int, gameId: int, sumId: 
 proc computePower(maxRed: int, maxBlue: int, maxGreen: int, gameId: int, power: var int) =
     power += maxRed * maxBlue * maxGreen
 
-proc readFileAndCalibration(filename: string, option = '1') =
+proc readComputeResult(filename: string, option = '1') =
     var tmp = 0
     var token = ""
     var result = 0
@@ -66,12 +66,18 @@ proc readFileAndCalibration(filename: string, option = '1') =
         parse(line, gameId, tmp, token, maxRed, maxBlue, maxGreen)
         compute(maxRed, maxBlue, maxGreen, gameId, result)
         
-    echo "Sum of possible game ID: ", result
+    case option:
+    of '1':
+        echo "Sum of possible game ID: ", result
+    of '2':
+        echo "Power of games: ", result
+    else:
+        return
 
 proc main*(part: char) =
     const file = "2023/data/input_day_two"
     let filename = getCurrentDir() / file
-    readFileAndCalibration(filename, part)
+    readComputeResult(filename, part)
 
 when isMainModule:
     main('1')
