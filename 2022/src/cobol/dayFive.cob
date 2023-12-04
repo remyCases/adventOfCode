@@ -26,9 +26,9 @@ WORKING-STORAGE SECTION.
 
 *> Action to perform on linked lists
 01 WS-ACTION.
-       05 WS-QUANTITY PIC 99 VALUES 0.
-       05 WS-SRC PIC 9 VALUES 0.
-       05 WS-DES PIC 9 VALUES 0.
+       05 WS-QUANTITY PIC 99.
+       05 WS-SRC PIC 9.
+       05 WS-DES PIC 9.
 
 *> Variable to store size and operation of dynamic array
 01 NBYTES-NODE PIC S9(9) BINARY.
@@ -66,7 +66,7 @@ LINKAGE SECTION.
        05 NEXT-ITEM USAGE POINTER.
 01 L-OPTION.
        05 L-PART PIC 9 VALUE 1.
-       05 L-NLINKED PIC 9 VALUES 0.
+       05 L-NLINKED PIC 9.
        05 L-INPUT PIC X(80).
 
 *> Expected value sent in L-OPTION:
