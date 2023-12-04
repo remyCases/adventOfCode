@@ -2,7 +2,7 @@
 # See LICENSE file for extended copyright information.
 # This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-import os, parseutils, algorithm
+import os, algorithm
 
 const digits = { 1 .. 9 }
 const zero = int('0')

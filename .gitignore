@@ -7,4 +7,4 @@ build
 .vscode
 
 # for rust-analyzer
-2022/src/rust/target
+utils/target
