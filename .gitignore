@@ -8,3 +8,9 @@ build
 
 # for rust-analyzer
 utils/target
+
+# test files
+*/data/test
+
+# generated cargo.toml
+utils/Cargo.toml
