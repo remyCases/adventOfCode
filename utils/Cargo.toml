@@ -17,3 +17,6 @@ anyhow = "1.0"
 [[bin]] 
 name="main_rust2022" 
 path="../2022/src/rust/main_rust.rs" 
+[[bin]] 
+name="main_rust2023" 
+path="../2023/src/rust/main_rust.rs" 

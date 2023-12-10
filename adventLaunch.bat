@@ -25,7 +25,7 @@ GOTO End
 GOTO End
 
 :RustLaunch
-    .\build\%2\bin\release\main_rust --day %DAY% --part %PART%
+    .\build\rust\bin\release\main_rust%2 --day %DAY% --part %PART%
 GOTO End
 
 :C99Launch

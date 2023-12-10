@@ -17,7 +17,6 @@ COB_TARGETS := $(COBFOLDER:%/src/cobol/mainCob.cob=cob_%)
 
 RUSTFOLDER := $(wildcard */src/rust/main_rust.rs)
 CARGO_TARGETS := $(RUSTFOLDER:%/src/rust/main_rust.rs=cargo_%)
-RUST_TARGETS := $(RUSTFOLDER:%/src/rust/main_rust.rs=rust_%)
 
 BINS := $(wildcard build/*/bin/*.exe)
 LIBS := $(wildcard build/*/lib/*.dll)
@@ -32,7 +31,7 @@ build_nim: $(NIM_TARGETS)
 nim_%: 
 	nim c -o=build/$*/bin/mainNim -d=release --nimcache=build/$*/nimcache --hints=on ./$*/src/nim/mainNim.nim
 
-build_rust: build_cargo $(RUST_TARGETS)
+build_rust: build_cargo rust_target
 build_cargo: header_cargo $(CARGO_TARGETS)
 
 header_cargo:
@@ -43,8 +42,8 @@ cargo_%:
 	@echo name="main_rust$*" >> $(CARGO_FILE)
 	@echo path="../$*/src/rust/main_rust.rs" >> $(CARGO_FILE)
 
-rust_%:
-	cargo build --release --manifest-path $(CARGO_FILE) --target-dir ./build/$*/bin
+rust_target:
+	cargo build --release --manifest-path $(CARGO_FILE) --target-dir ./build/rust/bin
 
 build_c99: $(C99_TARGETS)
 	cd build && make all
