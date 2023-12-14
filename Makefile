@@ -31,6 +31,9 @@ build_nim: $(NIM_TARGETS)
 nim_%: 
 	nim c -o=build/$*/bin/mainNim -d=release --nimcache=build/$*/nimcache --hints=on ./$*/src/nim/mainNim.nim
 
+clippy: build_cargo
+	cargo clippy --manifest-path $(CARGO_FILE)
+
 build_rust: build_cargo rust_target
 build_cargo: header_cargo $(CARGO_TARGETS)
 
