@@ -1,20 +1,20 @@
-# Copyright (C) 2023 RÃ©my Cases
+# Copyright (C) 2023 RǸmy Cases
 # See LICENSE file for extended copyright information.
 # This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
 [package]
 name = "AdventOfCodeRust"
 version = "0.2.0"
-authors = ["RÃ©myCases"]
+authors = ["RǸmyCases"]
 edition = "2021"
 autobins = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = { version = "4.0.0", features = ["derive"] }
-anyhow = "1.0"
-nom = "7.1.3"
+clap = { version = "4", features = ["derive"] }
+anyhow = "1"
+nom = { version = "7" }
 [[bin]] 
 name="main_rust2022" 
 path="../2022/src/rust/main_rust.rs" 

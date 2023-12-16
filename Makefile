@@ -35,6 +35,7 @@ clippy: build_cargo
 	cargo clippy --manifest-path $(CARGO_FILE)
 
 build_rust: build_cargo rust_target
+build_rust_debug: build_cargo rust_target_debug
 build_cargo: header_cargo $(CARGO_TARGETS)
 
 header_cargo:
@@ -47,6 +48,9 @@ cargo_%:
 
 rust_target:
 	cargo build --release --manifest-path $(CARGO_FILE) --target-dir ./build/rust/bin
+	
+rust_target_debug:
+	cargo build --manifest-path $(CARGO_FILE) --target-dir ./build/rust/bin
 
 build_c99: $(C99_TARGETS)
 	cd build && make all
