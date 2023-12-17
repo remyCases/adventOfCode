@@ -5,6 +5,8 @@
 mod day_one;
 mod day_two;
 mod day_three;
+mod day_four;
+mod day_five;
 
 use clap::Parser;
 use std::io::Error;
@@ -23,6 +25,8 @@ fn main() -> Result<(), Error> {
         1 => day_one::main(args.part)?,
         2 => day_two::main(args.part)?,
         3 => day_three::main(args.part)?,
+        4 => day_four::main(args.part)?,
+        5 => day_five::main(args.part)?,
         _ => println!("{:}, {:}", args.day, args.part)
     };
     Ok(())
