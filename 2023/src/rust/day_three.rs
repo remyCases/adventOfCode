@@ -93,9 +93,8 @@ fn read_file_and_adjacent(file_path: &Path, part: u8) -> Result<(), Error> {
     let mut vec_symbol: Vec<Part> = Vec::new();
 
     for (nline, line) in lines.enumerate() { 
-        let binding_line = line?;
-        if parse_engine(&binding_line, nline, &mut vec_numeral, &mut vec_symbol).is_err() {
-            return Err(Error::new(ErrorKind::InvalidData, "Parsing error"));
+        if let Err(nom::Err::Error(err)) = parse_engine(&line?, nline, &mut vec_numeral, &mut vec_symbol) {
+            return Err(Error::new(ErrorKind::InvalidData, err.to_string()));
         }
     }
 
@@ -136,7 +135,7 @@ fn read_file_and_adjacent(file_path: &Path, part: u8) -> Result<(), Error> {
 
     match part {
         1 => { println!("Sum of part numbers: {:}", sum_numeral_parts); Ok(()) }, 
-        2 => { println!("Sum of part numbers: {:}", product_gears); Ok(()) }, 
+        2 => { println!("Sum of gears: {:}", product_gears); Ok(()) }, 
         _ => Err(Error::new(ErrorKind::InvalidInput, "invalid part"))    
     }
 }

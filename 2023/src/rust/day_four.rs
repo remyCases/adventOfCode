@@ -7,7 +7,6 @@ use std::fs::File;
 use std::io::{BufRead, Lines, BufReader, Error, ErrorKind};
 use std::env;
 use std::collections::HashSet;
-use std::iter::FromIterator;
 
 use nom::*;
 use nom::error::Error as NomError;
@@ -46,8 +45,7 @@ fn read_file_and_compute_winning_numbers (file_path: &Path, part: u8) -> Result<
     let mut index: usize = 0;
 
     for line in lines { 
-        let binding_line = line?;
-        if let Ok((_, (winning_numbers, numbers))) = parse_scratchcards(&binding_line, &mut index) {
+        if let Ok((_, (winning_numbers, numbers))) = parse_scratchcards(&line?, &mut index) {
             // since we need the intersection between vec, convert into a set is a good idea
             // but since the struct doesnt change, comparing sorted vec must be faster
             let hash_winnig_numbers = winning_numbers.into_iter().collect::<HashSet<i32>>();
@@ -64,7 +62,7 @@ fn read_file_and_compute_winning_numbers (file_path: &Path, part: u8) -> Result<
                 n => {
                     points[index] = 1 << (n-1);
                     for i in 1..n+1 {
-                        instances[index + i as usize] += instances[index];
+                        instances[index + i] += instances[index];
                     }
                     
                 },
