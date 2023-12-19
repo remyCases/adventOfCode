@@ -46,7 +46,7 @@ I've currently stopped working on them since the 2023 edition is here.
 | 2 |:heavy_check_mark:|:heavy_check_mark:
 | 3 |:heavy_check_mark:|:heavy_check_mark:
 | 4 |:x:|:heavy_check_mark:
-| 5 |:x:|:x:
+| 5 |:x:|:wavy_dash:
 | 6 |:x:|:x:
 | 7 |:x:|:x:
 | 8 |:x:|:x:
@@ -108,6 +108,8 @@ To execute a specific part (PART) of a challenge (DAY) of a peculiar edition (YE
 ```
 adventLaunch.dat XXX YEAR DAY PART
 ```
+
+> Of course not every combinations exists *(yet)*
 
 As far as I know, there is always two parts during each days, so `PART=1` will run the first part, and `PART=2` the second part.
 

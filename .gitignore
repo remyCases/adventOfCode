@@ -10,7 +10,8 @@ build
 utils/target
 
 # test files
-*/data/test
+2022/data/test
+2023/data/test
 
 # generated cargo.toml
 utils/Cargo.toml

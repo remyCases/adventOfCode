@@ -11,24 +11,24 @@ use nom::*;
 use nom::error::Error as NomError;
 
 #[derive(Debug)]
-struct Range {
+struct Line {
     destination_start: i64,
     source_start: i64,
     len: i64,
 }
 
-enum Map {
-    Unmapped(i64),
-    Mapped(i64),
+enum Map<T> {
+    Unmapped(T),
+    Mapped(T),
 }
 
-impl Range {
+impl Line {
     fn from_array(v: &[i64]) -> Option<Self> {
-        if v.len() >= 3 { Some(Range{ destination_start: v[0], source_start: v[1], len: v[2] }) }
+        if v.len() >= 3 { Some(Line{ destination_start: v[0], source_start: v[1], len: v[2] }) }
         else { None } 
     }
 
-    fn compute_source(&self, input: i64) -> Map {
+    fn compute_source(&self, input: i64) -> Map<i64> {
         if input < self.source_start || input >= self.source_start + self.len {
             Map::Unmapped(input)
         }
@@ -67,16 +67,16 @@ impl State {
 #[derive(Debug)]
 struct Garden {
     seeds: Vec<i64>,
-    soil_map: Vec<Range>,
-    fertilizer_map: Vec<Range>,
-    water_map: Vec<Range>,
-    light_map: Vec<Range>,
-    temperature_map: Vec<Range>,
-    humidity_map: Vec<Range>,
-    location_map: Vec<Range>,
+    soil_map: Vec<Line>,
+    fertilizer_map: Vec<Line>,
+    water_map: Vec<Line>,
+    light_map: Vec<Line>,
+    temperature_map: Vec<Line>,
+    humidity_map: Vec<Line>,
+    location_map: Vec<Line>,
 }
 
-fn compute_map(vr: &[Range], input: i64) -> i64 {
+fn compute_map(vr: &[Line], input: i64) -> i64 {
     for m in vr {
         if let Map::Mapped(ouput) = (*m).compute_source(input) {
             return ouput;
@@ -112,8 +112,8 @@ impl Garden {
     }
 }
 
-fn push_in_ranges<'a>(rs: &'a mut Vec<Range>, vr: &'a[i64]) -> IResult<&'static str, &'static str> {
-    if let Some(r) = Range::from_array(vr) {
+fn push_in_lines<'a>(rs: &'a mut Vec<Line>, vr: &'a[i64]) -> IResult<&'static str, &'static str> {
+    if let Some(r) = Line::from_array(vr) {
         rs.push(r);
         Ok(("", ""))
     } else {
@@ -153,13 +153,13 @@ fn parse_garden<'a>(line: &'a str, garden: &'a mut Garden, parsing_state: &mut S
 
     match *parsing_state {
         State::Seed => { garden.seeds = raw_vec; Ok((line , numerals)) },
-        State::Soil => push_in_ranges(&mut garden.soil_map, &raw_vec).map(|_| (line , numerals)),
-        State::Fertilizer => push_in_ranges(&mut garden.fertilizer_map, &raw_vec).map(|_| (line , numerals)),
-        State::Water => push_in_ranges(&mut garden.water_map, &raw_vec).map(|_| (line , numerals)),
-        State::Light => push_in_ranges(&mut garden.light_map, &raw_vec).map(|_| (line , numerals)),
-        State::Temperature => push_in_ranges(&mut garden.temperature_map, &raw_vec).map(|_| (line , numerals)),
-        State::Humidity => push_in_ranges(&mut garden.humidity_map, &raw_vec).map(|_| (line , numerals)),
-        State::Location => push_in_ranges(&mut garden.location_map, &raw_vec).map(|_| (line , numerals)),
+        State::Soil => push_in_lines(&mut garden.soil_map, &raw_vec).map(|_| (line , numerals)),
+        State::Fertilizer => push_in_lines(&mut garden.fertilizer_map, &raw_vec).map(|_| (line , numerals)),
+        State::Water => push_in_lines(&mut garden.water_map, &raw_vec).map(|_| (line , numerals)),
+        State::Light => push_in_lines(&mut garden.light_map, &raw_vec).map(|_| (line , numerals)),
+        State::Temperature => push_in_lines(&mut garden.temperature_map, &raw_vec).map(|_| (line , numerals)),
+        State::Humidity => push_in_lines(&mut garden.humidity_map, &raw_vec).map(|_| (line , numerals)),
+        State::Location => push_in_lines(&mut garden.location_map, &raw_vec).map(|_| (line , numerals)),
     }
 }
 
