@@ -100,7 +100,7 @@ impl Garden {
     }
 
     fn compute_garden_min(&self) -> Option<i64> {
-        let ouputs = self.seeds.iter()
+        self.seeds.iter()
             .map(|o| compute_map(&self.soil_map, *o))
             .map(|o| compute_map(&self.fertilizer_map, o))
             .map(|o| compute_map(&self.water_map, o))
@@ -108,9 +108,7 @@ impl Garden {
             .map(|o| compute_map(&self.temperature_map, o))
             .map(|o| compute_map(&self.humidity_map, o))
             .map(|o| compute_map(&self.location_map, o))
-            .min();
-
-        ouputs
+            .min()
     }
 }
 
