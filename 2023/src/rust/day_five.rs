@@ -163,7 +163,7 @@ fn parse_garden<'a>(line: &'a str, garden: &'a mut Garden, parsing_state: &mut S
     }
 }
 
-fn read_file_and_compute_garden(file_path: &Path, part: u8) -> Result<(), Error> {
+fn read_file_and_compute_garden(file_path: &Path, _part: u8) -> Result<(), Error> {
     let lines = line_iterator(file_path)?;
     let mut garden = Garden::new();
     let mut parsing_state = State::Seed;

@@ -7,9 +7,13 @@ mod day_two;
 mod day_three;
 mod day_four;
 mod day_five;
+mod day_six_part1;
+mod day_six_part2;
 
 use clap::Parser;
-use std::io::Error;
+use std::io::{Error, ErrorKind};
+
+#[path = "utils_io.rs"] mod utils_io;
 
 #[derive(Parser)]
 struct Args {
@@ -27,6 +31,11 @@ fn main() -> Result<(), Error> {
         3 => day_three::main(args.part)?,
         4 => day_four::main(args.part)?,
         5 => day_five::main(args.part)?,
+        6 => match args.part {
+            1 => day_six_part1::main()?,
+            2 => day_six_part2::main()?,
+            _ => { return Err(Error::new(ErrorKind::InvalidInput, "invalid part")); },
+        },
         _ => println!("{:}, {:}", args.day, args.part)
     };
     Ok(())
