@@ -13,6 +13,8 @@ mod day_seven_part1;
 mod day_seven_part2;
 mod day_eight_part1;
 mod day_eight_part2;
+mod day_nine_part1;
+mod day_nine_part2;
 
 use clap::Parser;
 use std::io::{Error, ErrorKind};
@@ -58,6 +60,10 @@ fn main() -> Result<(), Error> {
         8 => match part {
             Part::PartOne => day_eight_part1::main()?,
             Part::PartTwo => day_eight_part2::main()?,
+        },
+        9 => match part {
+            Part::PartOne => day_nine_part1::main()?,
+            Part::PartTwo => day_nine_part2::main()?,
         },
         _ => println!("{:}, {:}", args.day, args.part)
     };

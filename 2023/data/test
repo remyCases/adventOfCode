@@ -1,10 +1,3 @@
-LR
-
-VVA = (VVB, XXX)
-VVB = (XXX, VVZ)
-VVZ = (VVB, XXX)
-WWA = (WWB, XXX)
-WWB = (WWC, WWC)
-WWC = (WWZ, WWZ)
-WWZ = (WWB, WWB)
-XXX = (XXX, XXX)
+0 3 6 9 12 15
+1 3 6 10 15 21
+10 13 16 21 30 45

@@ -49,7 +49,7 @@ I've currently stopped working on them since the 2023 edition is here.
 | 5 |:x:|:wavy_dash:
 | 6 |:x:|:heavy_check_mark:
 | 7 |:x:|:heavy_check_mark:
-| 8 |:x:|:x:
+| 8 |:x:|:heavy_check_mark:
 | 9 |:x:|:x:
 |10 |:x:|:x:
 |11 |:x:|:x:
