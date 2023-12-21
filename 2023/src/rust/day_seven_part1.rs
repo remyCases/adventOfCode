@@ -134,7 +134,7 @@ fn parse_hand(line: &str) -> IResult<&str, Hand>{
     }))
 }
  
-fn read_file_and_compute_garden(file_path: &Path) -> Result<(), Error> {
+fn read_file_and_compute_camel_poker(file_path: &Path) -> Result<(), Error> {
     let lines = utils_io::line_iterator(file_path)?;
     let mut vec_hands: Vec<Hand> = Vec::new();
 
@@ -159,6 +159,6 @@ fn read_file_and_compute_garden(file_path: &Path) -> Result<(), Error> {
 
 pub fn main() -> Result<(), Error> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_seven");
-    read_file_and_compute_garden(&filename)?;
+    read_file_and_compute_camel_poker(&filename)?;
     Ok(())
 }
