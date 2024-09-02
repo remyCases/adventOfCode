@@ -1,4 +1,3 @@
-- improve lua script by using flag for languages
 - standardize output of all days
 - refactor c code to CR after curly bracket
 - add asm and zig compilation / launch
