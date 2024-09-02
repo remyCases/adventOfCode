@@ -71,7 +71,7 @@ fn main() -> Result<(), Error> {
             Part::PartOne => day_ten_part1::main()?,
             Part::PartTwo => day_ten_part2::main()?,
         },
-        _ => println!("{:}, {:}", args.day, args.part)
+        _ => println!("Incorrect combination of day and part. Day {:} and part {:} does not exist (yet).", args.day, args.part)
     };
     Ok(())
 }

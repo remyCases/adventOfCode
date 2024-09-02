@@ -5,7 +5,7 @@
 #ifndef DAYFOUR_H_   /* Include guard */
 #define DAYFOUR_H_
 
-#include "utilsIO.h"
+#include "../../../utils/utilsIO.h"
 
 int day_four_solution(int part);
 

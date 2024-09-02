@@ -5,7 +5,7 @@
 #ifndef DAYONE_H_   /* Include guard */
 #define DAYONE_H_
 
-#include "utilsIO.h"
+#include "../../../utils/utilsIO.h"
 
 int day_one_solution(int part);
 

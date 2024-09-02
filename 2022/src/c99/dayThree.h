@@ -5,7 +5,7 @@
 #ifndef DAYTHREE_H_   /* Include guard */
 #define DAYTHREE_H_
 
-#include "utilsIO.h"
+#include "../../../utils/utilsIO.h"
 
 int day_three_solution(int part);
 

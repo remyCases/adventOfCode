@@ -60,7 +60,7 @@ int day_one_solution(int part) {
             PARSE_ELEMENT("%10d", &calories_input)
             calories_count += calories_input;
         }
-        io_buffer.iteration ++;
+        io_buffer.iteration++;
     }
 
     if (io_buffer.iteration == MAX_ITERATION_ALLOWED) {
@@ -71,15 +71,15 @@ int day_one_solution(int part) {
     
     switch(part) {
     case 1:
-        printf("calorieTotal: %d", calories_array[SIZE_MAX_ARRAY-1]);
+        printf("calorieTotal: %d\n", calories_array[SIZE_MAX_ARRAY-1]);
         break;
     case 2:
         printf("[");
-        for (int i = 0; i<SIZE_MAX_ARRAY; i++) {
+        for (unsigned int i = 0; i<SIZE_MAX_ARRAY; i++) {
             calories_sum += calories_array[i];
             printf("%d, ", calories_array[i]);
         }
-        printf("]\ncalorieTotal: %d", calories_sum);
+        printf("]\ncalorieTotal: %d\n", calories_sum);
         break;
     default:
         break;

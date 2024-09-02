@@ -1,4 +1,4 @@
-// Copyright (C) 2023 Rémy Cases
+// Copyright (C) 2024 Rémy Cases
 // See LICENSE file for extended copyright information.
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
@@ -8,8 +8,6 @@
 
 #include "dayOne.h"
 #include "dayTwo.h"
-#include "dayThree.h"
-#include "dayFour.h"
 
 int main(int argc, char**argv) {
     
@@ -30,12 +28,6 @@ int main(int argc, char**argv) {
         break;
     case 2:
         day_two_solution(chosen_part);
-        break;
-    case 3:
-        day_three_solution(chosen_part);
-        break;
-    case 4:
-        day_four_solution(chosen_part);
         break;
     default:
         printf("Incorrect day was given.\n");

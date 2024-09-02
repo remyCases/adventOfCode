@@ -21,7 +21,7 @@ Main.
        ACCEPT WS-OPTION FROM COMMAND-LINE
        
        IF WS-DAY EQUAL TO 1 THEN
-           CALL 'build/2022/lib/DAYONE' USING WS-PART
+               CALL 'build/2022/lib/DAYONE' USING WS-PART
        END-IF
 
        IF WS-DAY EQUAL TO 2 THEN

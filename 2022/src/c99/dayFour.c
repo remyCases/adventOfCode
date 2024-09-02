@@ -11,10 +11,11 @@
 
 #define EXPECTED_ARGUMENTS 4
 
-int day_four_solution(int part) {
-
+int day_four_solution(int part) 
+{
     FILE* fp = fopen("2022/data/input_day_four.txt", "r");
-    if (!fp) { /* validate file open for reading */
+    if (!fp) /* validate file open for reading */
+    {
         return EXIT_FAILURE;
     }
 
@@ -28,31 +29,36 @@ int day_four_solution(int part) {
 
     uint32_t count = 0u;
 
-    while(io_buffer.iteration < MAX_ITERATION_ALLOWED) {
-
+    while(io_buffer.iteration < MAX_ITERATION_ALLOWED)
+    {
         io_buffer.out_fgets = fgets(io_buffer.buf, BUFFER_SIZE, fp); /* read each line in file */
-        if (!io_buffer.out_fgets) { /* reach end of file */
+        if (!io_buffer.out_fgets) /* reach end of file */
+	{
             break;
         }
 
-        if (io_buffer.buf[0] == '\n') { /* empty line */
-        } else {
+        if (io_buffer.buf[0] == '\n') { /* empty line */ }
+	else
+	{
             PARSE_ELEMENT("%hu-%hu,%hu-%hu", &fs_range, &fe_range, &ss_range, &se_range)
 
-            if (part==1) {
-                if (fs_range <= ss_range && se_range <= fe_range) { /* A BB A => +1 */
+            if (part==1) 
+	    {
+                if (fs_range <= ss_range && se_range <= fe_range) /* A BB A => +1 */
+		{
                     count += 1u;
                 } 
-                else if (ss_range <= fs_range && fe_range <= se_range) { /* B AA B => +1 */
+                else if (ss_range <= fs_range && fe_range <= se_range) /* B AA B => +1 */
+		{
                     count += 1u;
                 }
             } 
-            else if (part==2) {
-                if (fe_range < ss_range) { /* AA BB => 0 */
-                } 
-                else if (se_range < fs_range) { /* BB AA => 0 */
-                } 
-                else {
+            else if (part==2) 
+	    {
+                if (fe_range < ss_range) { /* AA BB => 0 */ } 
+                else if (se_range < fs_range) { /* BB AA => 0 */ } 
+                else 
+		{
                     count += 1u;
                 }
             }
@@ -60,11 +66,13 @@ int day_four_solution(int part) {
         io_buffer.iteration ++;
     }
 
-    if (io_buffer.iteration == MAX_ITERATION_ALLOWED) {
+    if (io_buffer.iteration == MAX_ITERATION_ALLOWED) 
+    {
         printf("Max iteration allowed (%u), result can be false.\n", MAX_ITERATION_ALLOWED);
     }
     
-    switch(part) {
+    switch(part) 
+    {
     case 1:
         printf("Counts: %d\n", count);
         break;
@@ -75,7 +83,8 @@ int day_four_solution(int part) {
         break;
     }
     
-    if(fclose(fp)) {
+    if(fclose(fp)) 
+    {
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;

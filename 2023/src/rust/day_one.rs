@@ -74,7 +74,7 @@ fn read_file_and_compute_calibration(file_path: &Path, part: u8) -> EResult {
         sum_calibration += first_digit_calibration * 10 + second_digit_calibration;
     }
   
-    println!("Calibration sum: {:}", sum_calibration);
+    println!("CALIBRATION VALUE: {:}", sum_calibration);
     Ok(())
 }
 

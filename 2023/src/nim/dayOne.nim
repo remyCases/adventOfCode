@@ -82,7 +82,7 @@ proc readFileAndCalibration(filename: string, option = '1') =
         parse(line, firstDigit, secondDigit)
         calibrationValue += firstDigit*10 + secondDigit
 
-    echo "Calibration value: ", calibrationValue
+    echo "CALIBRATION VALUE: ", calibrationValue
 
 proc main*(part: char) =
     const file = "2023/data/input_day_one"

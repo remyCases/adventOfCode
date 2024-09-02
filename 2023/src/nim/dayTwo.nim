@@ -68,9 +68,9 @@ proc readComputeResult(filename: string, option = '1') =
         
     case option:
     of '1':
-        echo "Sum of possible game ID: ", result
+        echo "SUM OF POSSIBLE IDS: ", result
     of '2':
-        echo "Power of games: ", result
+        echo "POWER OF GAMES: ", result
     else:
         return
 
