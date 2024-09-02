@@ -5,9 +5,7 @@ require 'utils/argparser'
 -- locals
 local lang = 0
 local i = 1
-local status = 0
 local earlyEnd = false
-local rebuild = false
 local index = 1
 local maxLang = 6
 
@@ -49,12 +47,11 @@ addArgs("d", "day", nil)
 addArgs("p", "part", nil)
 addArgs(1, "lang", "+")
 addArgs("y", "year", nil)
-printname()
 args = {}
 
 -- help function
 function help ()
-	print("i am the help func")
+	helpArgs()
 end
 
 -- parsing arguments
@@ -62,7 +59,6 @@ end
 while arg[i] do
 	key, val = parseArg(arg[i], i)
 	if key then
-		print(string.format("found arg %s of value %s", key, val))
 		if key == "lang" then 
 			addFlag(val)
 		else
@@ -95,7 +91,7 @@ if earlyEnd then
 	goto endParse
 end
 
-if rebuild then
+if args.rebuild then
 	os.execute("make build_all")
 end
 
@@ -110,17 +106,11 @@ while lang > 0 do
 		cmd = res[1]
 		lng = res[2]
 		io.write(lng .. ":\t")
-		print(cmd)
-		print(args.year)
-		print(args.day)
-		print(args.part)
 	    local handle = io.popen(string.format(cmd, args.year, args.day, args.part))
 		local output = handle:read("*a")
 		local rc = {handle:close()}
 		if (rc[1] == true) then -- error handling
 			io.write(output)
-		else
-			io.write("\n")
 		end
 	end
 	index = index + 1

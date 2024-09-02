@@ -18,11 +18,11 @@ endif()
 set(CMAKE_BUILD_TYPE "Debug")
 
 file(GLOB all_SRCS
-        "${YEAR}/src/c99/*.h"
-        "${YEAR}/src/c99/*.c"
+    "${YEAR}/src/c99/*.h"
+    "${YEAR}/src/c99/*.c"
 	"utils/*.h"
 	"utils/*.c"
-        )
+)
 
 message("files are ${all_SRCS}")
 cmake_path(APPEND CMAKE_RUNTIME_OUTPUT_DIRECTORY ${YEAR} "bin")
