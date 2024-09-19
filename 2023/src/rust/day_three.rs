@@ -134,8 +134,8 @@ fn read_file_and_adjacent(file_path: &Path, part: u8) -> Result<(), Error> {
     }
 
     match part {
-        1 => { println!("Sum of part numbers: {:}", sum_numeral_parts); Ok(()) }, 
-        2 => { println!("Sum of gears: {:}", product_gears); Ok(()) }, 
+        1 => { println!("SUM PARTS: {:}", sum_numeral_parts); Ok(()) }, 
+        2 => { println!("SUM PARTS: {:}", product_gears); Ok(()) }, 
         _ => Err(Error::new(ErrorKind::InvalidInput, "invalid part"))    
     }
 }

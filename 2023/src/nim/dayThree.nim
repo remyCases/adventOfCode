@@ -56,7 +56,6 @@ proc readFileComputeAdjacent(filename: string, option = '1') =
     if option == '1':
         for p in parts:
             result += p.value
-            echo result, " ", p.value
     elif option == '2':
         var gear1 = 0
         var gear2 = 0
@@ -77,7 +76,7 @@ proc readFileComputeAdjacent(filename: string, option = '1') =
         return
     
 
-    echo "Sum parts: ", result
+    echo "SUM PARTS: ", result
 
 proc main*(part: char) =
     const file = "2023/data/input_day_three"
