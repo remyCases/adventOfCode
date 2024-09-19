@@ -23,6 +23,7 @@ NIM_TARGETS := $(NIMFOLDER:%/src/nim/mainNim.nim=nim_%)
 
 C99FOLDER := $(wildcard */src/c99/mainC99.c)
 C99_TARGETS := $(C99FOLDER:%/src/c99/mainC99.c=c99_%)
+C99_DEBUG_TARGETS := $(C99FOLDER:%/src/c99/mainC99.c=c99_debug_%)
 
 COBFOLDER := $(wildcard */src/cobol/mainCob.cob)
 COB_TARGETS := $(COBFOLDER:%/src/cobol/mainCob.cob=cob_%)
@@ -75,8 +76,14 @@ rust_target_debug:
 
 build_c99: prerequisite $(C99_TARGETS)
 
+build_c99_debug: prerequisite $(C99_DEBUG_TARGETS)
+
 c99_%:
-	cmake -Bbuild -G "Ninja" -DYEAR=$*
+	cmake -Bbuild -G "Ninja" -DYEAR=$* -DCMAKE_BUILD_TYPE=Release
+	cd build && ninja
+
+c99_debug_%:
+	cmake -Bbuild -G "Ninja" -DYEAR=$* -DCMAKE_BUILD_TYPE=Debug
 	cd build && ninja
 
 build_cob: prerequisite $(COB_TARGETS)

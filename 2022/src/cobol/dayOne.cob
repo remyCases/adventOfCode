@@ -17,7 +17,7 @@ FILE-CONTROL.
 DATA DIVISION.
 FILE SECTION.
 FD DataFile.
-01 CaloriesContained PIC 9(8).
+01 CaloriesContained PIC Z(8).
     
 WORKING-STORAGE SECTION.
 01 WSCaloriesContained PIC 9(8).
@@ -26,7 +26,7 @@ WORKING-STORAGE SECTION.
        02 WSCaloriesFirstMax PIC 9(8).
        02 WSCaloriesSecondMax PIC 9(8).
        02 WSCaloriesThirdMax PIC 9(8).
-01 WSCaloriesSumMax PIC 9(8).
+01 WSCaloriesSumMax PIC Z(8).
 01 WSEOF PIC A(1).
 
 LINKAGE SECTION.
@@ -52,7 +52,7 @@ Main.
            WSCaloriesSecondMax + WSCaloriesThirdMax
        END-IF
 
-       DISPLAY "Max Calories: " WSCaloriesSumMax
+       DISPLAY "MAX CALORIES: " FUNCTION TRIM(WSCaloriesSumMax)
 EXIT PROGRAM.
 
 BranchingCompute.

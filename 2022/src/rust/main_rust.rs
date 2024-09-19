@@ -21,7 +21,7 @@ fn main() -> Result<()> {
     match args.day {
         1 => day_one::main(args.part)?,
         2 => day_two::main(args.part)?,
-        _ => println!("{:}, {:}", args.day, args.part)
+        _ => println!("Day {:} and part {:} does not exist yet", args.day, args.part)
     };
     Ok(())
 }

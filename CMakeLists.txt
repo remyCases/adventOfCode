@@ -15,8 +15,6 @@ else(CMAKE_SYSTEM MATCHES Linux)
 	add_compile_options("-Wall" "-Wextra" "-Werror")
 endif()
 
-set(CMAKE_BUILD_TYPE "Debug")
-
 file(GLOB all_SRCS
     "${YEAR}/src/c99/*.h"
     "${YEAR}/src/c99/*.c"

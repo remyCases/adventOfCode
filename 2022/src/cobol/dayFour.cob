@@ -23,6 +23,7 @@ WORKING-STORAGE SECTION.
 01 WS-EOF PIC A.
 01 WS-Data PIC X(50).
 01 WS-Overlap PIC 9(8).
+01 WS-OverlapDisplay PIC Z(8).
 01 WS-IncrementOverlap PIC 9(8).
 01 WS-FirstStartRange PIC 9(3).
 01 WS-FirstEndRange PIC 9(3).
@@ -43,8 +44,9 @@ Main.
                    
            END-PERFORM
        CLOSE DataFile
-       
-       DISPLAY "Overlap: " WS-Overlap
+
+       MOVE WS-Overlap TO WS-OverlapDisplay
+       DISPLAY "OVERLAP COUNT: " FUNCTION TRIM(WS-OverlapDisplay, LEADING)
 EXIT PROGRAM.
 
 BranchingCompute.

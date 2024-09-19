@@ -31,6 +31,7 @@ WORKING-STORAGE SECTION.
 01 WS-CNT PIC 9(4) VALUE ZEROES.
 01 WS-LineCnt PIC 9 VALUE ZEROES.
 01 WS-Priority PIC 9(8) VALUE ZEROS.
+01 WS-PriorityDisplay PIC Z(9).
 01 WS-Appearance.
        05 WS-CharAppearance OCCURS 52 TIMES INDEXED BY I PIC 9.
 01 WS-IntersectAppearance.
@@ -51,8 +52,9 @@ Main.
                    
            END-PERFORM
        CLOSE DataFile
-       
-       DISPLAY "Priority: " WS-Priority
+
+       MOVE WS-Priority TO WS-PriorityDisplay
+       DISPLAY "PRIORITIES: " FUNCTION TRIM(WS-PriorityDisplay, LEADING)
 EXIT PROGRAM.
 
 BranchingCompute.

@@ -45,7 +45,7 @@ proc readFileAndComputePriority(filename: string, option = '1') =
         parse(line, startFirstRange, endFirstRange, startSecondRange, endSecondRange)
         let overlap = procCompute(startFirstRange, endFirstRange, startSecondRange, endSecondRange)
         overlapCount += overlap
-    echo "overlapCount: ", overlapCount
+    echo "OVERLAP COUNT: ", overlapCount
 
 proc main*(part: char) =
     const file = "2022/data/input_day_four.txt"

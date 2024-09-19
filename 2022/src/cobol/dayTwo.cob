@@ -32,6 +32,7 @@ WORKING-STORAGE SECTION.
 01 WSIndex PIC 9 VALUE 1.
 01 WSEOF PIC A.
 01 WSScore PIC 9(8) VALUE ZEROS.
+01 WSScoreDisplay PIC Z(8).
 
 LINKAGE SECTION.
 01 LPart PIC 9 VALUE 1.
@@ -53,8 +54,9 @@ Main.
                   END-READ
               END-PERFORM
        CLOSE DataFile
-       
-       DISPLAY "Score: " WSScore
+
+       MOVE WSScore TO WSScoreDisplay
+       DISPLAY "SCORE: " FUNCTION TRIM(WSScoreDisplay, LEADING)
 EXIT PROGRAM.
 
 BranchingCompute.

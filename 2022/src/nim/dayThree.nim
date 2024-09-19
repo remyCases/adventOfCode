@@ -74,7 +74,7 @@ proc readFileAndComputePriority(filename: string, option = '1') =
     for line in filename.lines:
         parse(line, intersect)
         priority += procCompute(intersect)
-    echo "priority: ", priority
+    echo "PRIORITIES: ", priority
 
 proc main*(part: char) =
     const file = "2022/data/input_day_three.txt"

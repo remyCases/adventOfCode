@@ -46,7 +46,7 @@ fn read_file_and_compute_calories(file_path: &Path, part: u8) -> Result<()> {
         };
     }
 
-    println!("Score: {:?}", point);
+    println!("SCORE: {:?}", point);
     Ok(())
 }
 

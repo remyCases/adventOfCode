@@ -32,13 +32,11 @@ proc readFileAndComputeCalories(filename: string, option = '1') =
     case option:
     of '1':
         calorieTotal = bufferInt[bufferLen - 1]
-        echo "calorieTotal: ", calorieTotal
+        echo "MAX CALORIES: ", calorieTotal
     of '2':
-        echo bufferInt
-    
         for i in bufferInt:
             calorieTotal += i
-        echo "calorieTotal: ", calorieTotal
+        echo "MAX CALORIES: ", calorieTotal
     else:
         return
 
