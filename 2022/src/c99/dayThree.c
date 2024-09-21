@@ -48,13 +48,9 @@ int day_three_solution(int part) {
     uint8_t flag = 0u;
     uint16_t priorities = 0u;
 
-    while(io_buffer.iteration < MAX_ITERATION_ALLOWED) {
-
-        io_buffer.out_fgets = fgets(io_buffer.buf, BUFFER_SIZE, fp); /* read each line in file */
-        if (!io_buffer.out_fgets) { /* reach end of file */
-            break;
-        }
-
+    while(io_buffer.iteration < MAX_ITERATION_ALLOWED) 
+	{
+		FGETS(fp);
         if (io_buffer.buf[0] == '\n') { /* empty line */
         } else {
             len = strlen(io_buffer.buf);
@@ -125,8 +121,6 @@ int day_three_solution(int part) {
                 }
             }
         }
-
-        io_buffer.iteration ++;
     }
 
     if (io_buffer.iteration == MAX_ITERATION_ALLOWED) {
@@ -135,10 +129,10 @@ int day_three_solution(int part) {
     
     switch(part) {
     case 1:
-        printf("Priorities: %d\n", priorities);
+        printf("PRIORITIES: %d\n", priorities);
         break;
     case 2:
-        printf("Priorities: %d\n", priorities);
+        printf("PRIORITIES: %d\n", priorities);
         break;
     default:
         break;

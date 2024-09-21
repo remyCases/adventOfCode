@@ -11,10 +11,11 @@
 #include "dayThree.h"
 #include "dayFour.h"
 
-int main(int argc, char**argv) {
-    
+int main(int argc, char**argv) 
+{    
     // expected argument DAY PART
-    if (argc != 3) {
+	if (argc != 3) 
+	{
         return EXIT_FAILURE;
     }
 
@@ -24,7 +25,8 @@ int main(int argc, char**argv) {
     (void)sscanf(argv[1], "%i", &chosen_day);
     (void)sscanf(argv[2], "%i", &chosen_part);
 
-    switch (chosen_day) {
+    switch (chosen_day) 
+	{
     case 1:
         day_one_solution(chosen_part);
         break;

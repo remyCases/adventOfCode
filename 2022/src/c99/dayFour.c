@@ -31,15 +31,10 @@ int day_four_solution(int part)
 
     while(io_buffer.iteration < MAX_ITERATION_ALLOWED)
     {
-        io_buffer.out_fgets = fgets(io_buffer.buf, BUFFER_SIZE, fp); /* read each line in file */
-        if (!io_buffer.out_fgets) /* reach end of file */
-	{
-            break;
-        }
-
+		FGETS(fp); // read new line
         if (io_buffer.buf[0] == '\n') { /* empty line */ }
-	else
-	{
+		else
+		{
             PARSE_ELEMENT("%hu-%hu,%hu-%hu", &fs_range, &fe_range, &ss_range, &se_range)
 
             if (part==1) 
@@ -63,7 +58,6 @@ int day_four_solution(int part)
                 }
             }
         }
-        io_buffer.iteration ++;
     }
 
     if (io_buffer.iteration == MAX_ITERATION_ALLOWED) 
@@ -74,10 +68,10 @@ int day_four_solution(int part)
     switch(part) 
     {
     case 1:
-        printf("Counts: %d\n", count);
+        printf("OVERLAP COUNT: %d\n", count);
         break;
     case 2:
-        printf("Counts: %d\n", count);
+        printf("OVERLAP COUNT: %d\n", count);
         break;
     default:
         break;

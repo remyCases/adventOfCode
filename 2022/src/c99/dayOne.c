@@ -34,8 +34,9 @@ static void add_to_sorted_array(uint32_t p_array[SIZE_MAX_ARRAY], int size, uint
 int day_one_solution(int part) {
 
     FILE* fp = fopen("2022/data/input_day_one.txt", "r");
-    if (!fp) { /* validate file open for reading */
-        return EXIT_FAILURE;
+    if (!fp) /* validate file open for reading */
+    { 
+		return EXIT_FAILURE;
     }
 
     io_buffer_t io_buffer = { 0 };
@@ -46,24 +47,23 @@ int day_one_solution(int part) {
     uint32_t calories_input = 0u;
     uint32_t calories_sum = 0u;
 
-    while(io_buffer.iteration < MAX_ITERATION_ALLOWED) {
-
-        io_buffer.out_fgets = fgets(io_buffer.buf, BUFFER_SIZE, fp); /* read each line in file */
-        if (!io_buffer.out_fgets) { /* reach end of file */
-            break;
-        }
-
-        if (io_buffer.buf[0] == '\n') { /* empty line */
-            add_to_sorted_array(calories_array, SIZE_MAX_ARRAY, calories_count);
+    while(io_buffer.iteration < MAX_ITERATION_ALLOWED) 
+	{
+		FGETS(fp); // read new line
+        if (io_buffer.buf[0] == '\n') /* empty line */
+		{
+			add_to_sorted_array(calories_array, SIZE_MAX_ARRAY, calories_count);
             calories_count = 0;
-        } else {
-            PARSE_ELEMENT("%10d", &calories_input)
+        } 
+		else 
+		{
+            PARSE_ELEMENT("%d", &calories_input)
             calories_count += calories_input;
         }
-        io_buffer.iteration++;
     }
 
-    if (io_buffer.iteration == MAX_ITERATION_ALLOWED) {
+    if (io_buffer.iteration == MAX_ITERATION_ALLOWED) 
+	{
         printf("Max iteration allowed (%u), result can be false.\n", MAX_ITERATION_ALLOWED);
     }
 
@@ -71,15 +71,14 @@ int day_one_solution(int part) {
     
     switch(part) {
     case 1:
-        printf("calorieTotal: %d\n", calories_array[SIZE_MAX_ARRAY-1]);
+        printf("MAX CALORIES: %d\n", calories_array[SIZE_MAX_ARRAY-1]);
         break;
     case 2:
-        printf("[");
-        for (unsigned int i = 0; i<SIZE_MAX_ARRAY; i++) {
+        for (unsigned int i = 0; i<SIZE_MAX_ARRAY; i++) 
+		{
             calories_sum += calories_array[i];
-            printf("%d, ", calories_array[i]);
         }
-        printf("]\ncalorieTotal: %d\n", calories_sum);
+        printf("MAX CALORIES: %d\n", calories_sum);
         break;
     default:
         break;
