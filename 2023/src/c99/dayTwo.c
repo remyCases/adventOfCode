@@ -31,7 +31,7 @@ int day_two_solution(int part)
 
     while(io_buffer.iteration < MAX_ITERATION_ALLOWED) 
 	{
-        FGETS;
+        FGETS(fp); // read new line
 		char* b = io_buffer.ptr;
 		int m_green = 0;
 		int m_red = 0;

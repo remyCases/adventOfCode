@@ -42,7 +42,7 @@ int parseTwoDigits(char* input)
 {
 	int res = 0;
 	char first_digit = 1;
-	char stored_char;
+	char stored_char = 0;
 	while(*input)
 	{
 		if(*input <= '9' && *input >= '0')
@@ -149,17 +149,7 @@ int day_one_solution(int part)
         printf("Max iteration allowed (%u), result can be false.\n", MAX_ITERATION_ALLOWED);
     }
 
-    switch(part) 
-	{
-    case 1:
-        printf("CALIBRATION VALUE: %d\n", calib);
-        break;
-    case 2:
-        printf("CALIBRATION VALUE: %d\n", calib);
-        break;
-    default:
-        break;
-    }
+    printf("CALIBRATION VALUE: %d\n", calib);
     
     if(fclose(fp)) 
 	{
