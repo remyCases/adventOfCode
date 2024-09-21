@@ -62,7 +62,6 @@ proc readFileAndComputeTopCrate(filename: string, roots: var seq[LinkedNode[char
     var count, src, des: int
     let indexSeperate = parseFileFromCargoAndCommand(filename)
     parseHeader(filename, roots, indexSeperate)
-    echo $roots
     var n = 0
     
     let applyCommand = case option:
@@ -81,7 +80,7 @@ proc readFileAndComputeTopCrate(filename: string, roots: var seq[LinkedNode[char
 
         if src == 0 or des == 0: continue # src or des can't be 0, it should be a false line
         applyCommand(roots, count, src-1, des-1)
-    echo "Top crate: ", computeTopCrate(roots)
+    echo "TOP CRATE: ", computeTopCrate(roots)
 
 proc main*(part: char) =
     const file = "2022/data/input_day_five.txt"

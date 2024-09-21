@@ -96,7 +96,6 @@ Main.
            PERFORM DisplayLinkedStack
            SET ANCHOR-TABLE UP BY NBYTES-NODE
        END-PERFORM
-       DISPLAY " "
        
        *> Operations on linkedstacks
        OPEN INPUT DATAFILE.
@@ -128,8 +127,7 @@ Main.
            PERFORM DisplayLinkedStack
            SET ANCHOR-TABLE UP BY NBYTES-NODE
        END-PERFORM
-       DISPLAY " "
-       DISPLAY "Top crate: " WS-RESULT
+       DISPLAY "TOP CRATE: " WS-RESULT
 
        *> Freeing all linkedstacks
        SET ANCHOR-TABLE TO ANCHOR-TABLE-REF
@@ -160,10 +158,8 @@ DisplayLinkedStack.
        SET ANCHOR-TMP TO ANCHOR
        PERFORM WITH TEST BEFORE UNTIL (ANCHOR-TMP = NULL)
            SET ADDRESS OF NODE TO ANCHOR-TMP
-           DISPLAY NODE-DATA "->" WITH NO ADVANCING
            SET ANCHOR-TMP TO NEXT-ITEM
-       END-PERFORM
-       DISPLAY " ".
+       END-PERFORM.
 
 PopLinkedStack.
        IF ANCHOR NOT EQUALS TO NULL
