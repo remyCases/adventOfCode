@@ -7,6 +7,8 @@ CARGOFACTORY_FILE = ./utils/CargoFactory.toml
 CARGO_FILE = ./utils/Cargo.toml
 
 BINS := $(wildcard build/*/bin/main*)
+BINS += $(wildcard build/rust/release/main_rust*)
+$(info $(BINS))
 
 ifeq ($(UNAME), Linux)
 	RM = rm -f
@@ -31,8 +33,8 @@ COB_TARGETS := $(COBFOLDER:%/src/cobol/mainCob.cob=cob_%)
 RUSTFOLDER := $(wildcard */src/rust/main_rust.rs)
 CARGO_TARGETS := $(RUSTFOLDER:%/src/rust/main_rust.rs=cargo_%)
 
-ZIGFOLDER := $(wildcard */src/zig/mainZig.zig)
-ZIG_TARGETS := $(ZIGFOLDER:%/src/zig/mainZig.zig=zig_%)
+ZIGFOLDER := $(wildcard */src/zig/build.zig)
+ZIG_TARGETS := $(ZIGFOLDER:%/src/zig/build.zig=zig_%)
 
 ASMFOLDER := $(wildcard */src/asm/mainAsm.s)
 ASM_TARGETS := $(ASMFOLDER:%/src/asm/mainAsm.s=asm_%)
@@ -69,10 +71,10 @@ cargo_%:
 	@printf "\n[[bin]]\nname=\"main_rust$*\"\npath=\"../$*/src/rust/main_rust.rs\"" >> $(CARGO_FILE)
 
 rust_target:
-	cargo build --release --manifest-path $(CARGO_FILE) --target-dir ./build/rust/bin
+	cargo build --release --manifest-path $(CARGO_FILE) --target-dir ./build/rust
 
 rust_target_debug:
-	cargo build --manifest-path $(CARGO_FILE) --target-dir ./build/rust/bin
+	cargo build --manifest-path $(CARGO_FILE) --target-dir ./build/rust
 
 build_c99: prerequisite $(C99_TARGETS)
 
@@ -92,7 +94,7 @@ cob_%:
 
 build_zig: prerequisite $(ZIG_TARGETS)
 zig_%:
-	zig build-exe -O ReleaseSmall -femit-bin=./build/$*/bin/mainZig ./$*/src/zig/mainZig.zig
+	zig build -Doptimize=ReleaseSmall -p ./build/$* --build-file ./$*/src/zig/build.zig --cache-dir ./build/$*/zig-cache
 
 build_asm: prerequisite $(ASM_TARGETS)
 asm_%:

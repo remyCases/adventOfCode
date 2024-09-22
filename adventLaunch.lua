@@ -26,7 +26,7 @@ local cmdFlag = {
 	[1] = {"./build/%d/bin/mainCob %d%d", "[[cobol]]"},
 	[2] = {"./build/%d/bin/mainC99 %d %d", "[[c99]]"},
 	[3] = {"./build/%d/bin/mainNim --day %d --part %d", "[[nim]]"},
-	[4] = {"./build/rust/bin/release/main_rust%d --day %d --part %d", "[[rust]]"},
+	[4] = {"./build/rust/release/main_rust%d --day %d --part %d", "[[rust]]"},
 	[5] = {"./build/%d/bin/mainZig --day %d --part %d", "[[zig]]"},
 	[6] = {"./build/%d/bin/mainAsm %d%d", "[[asm]]"},
 }
