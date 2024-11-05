@@ -2,34 +2,55 @@
 # See LICENSE file for extended copyright information.
 # This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-UNAME := $(shell uname)
-CARGOFACTORY_FILE = ./utils/CargoFactory.toml
-CARGO_FILE = ./utils/Cargo.toml
-
 BINS := $(wildcard build/*/bin/main*)
 BINS += $(wildcard build/rust/release/main_rust*)
+BINS += $(wildcard build/CMakeCache.txt)
 $(info $(BINS))
 
-ifeq ($(UNAME), Linux)
+# Detect OS
+ifeq ($(OS), Windows_NT)
+    DETECTED_OS := Windows
+else
+    DETECTED_OS := $(shell uname -s)
+endif
+
+# Default values
+BUILD_TYPE ?= Release
+
+# C99 specific default values
+COMPILER ?= gcc
+VERBOSE ?= OFF
+CMAKE_GENERATOR ?= "Ninja"
+
+# Cross compatibilty Linux-Windows
+ifeq ($(DETECTED_OS), Linux)
 	RM = rm -f
 	RMBINS = $(BINS)
+	MD = mkdir -p
+	CAT = cat
 	CONFIG_FILE = /usr/local/share/gnucobol/config/default.conf 
 else
 	RM = powershell Remove-Item -Path
 	RMBINS = $(subst $(space),$(comma),$(BINS))
+	MD = powershell New-Item -Type Directory -Force
+	CAT = powershell Get-Content -encoding UTF8
 	CONFIG_FILE = ./utils/default.conf
+	SANITIZE ?= OFF
 endif
 
+# Files and folders
 NIMFOLDER := $(wildcard */src/nim/mainNim.nim)
 NIM_TARGETS := $(NIMFOLDER:%/src/nim/mainNim.nim=nim_%)
 
 C99FOLDER := $(wildcard */src/c99/mainC99.c)
 C99_TARGETS := $(C99FOLDER:%/src/c99/mainC99.c=c99_%)
-C99_DEBUG_TARGETS := $(C99FOLDER:%/src/c99/mainC99.c=c99_debug_%)
 
 COBFOLDER := $(wildcard */src/cobol/mainCob.cob)
 COB_TARGETS := $(COBFOLDER:%/src/cobol/mainCob.cob=cob_%)
 
+CARGOFACTORY_FILE := ./utils/CargoFactory.toml
+CARGO_FILE := ./utils/Cargo.toml
+CARGO_BIN_STRING := "\n[[bin]]\nname=\"main_rust$*\"\npath=\"../$*/src/rust/main_rust.rs\""
 RUSTFOLDER := $(wildcard */src/rust/main_rust.rs)
 CARGO_TARGETS := $(RUSTFOLDER:%/src/rust/main_rust.rs=cargo_%)
 
@@ -42,6 +63,7 @@ ASM_TARGETS := $(ASMFOLDER:%/src/asm/mainAsm.s=asm_%)
 FOLDERS := $(wildcard 20*)
 YEARFOLDERS := $(FOLDERS:%=folder_%)
 
+# Convenient values
 empty:=
 space:= $(empty) $(empty)
 comma:= ,
@@ -51,12 +73,13 @@ build_all: prerequisite build_nim build_rust build_c99 build_cob build_zig
 
 prerequisite: $(YEARFOLDERS)
 folder_%:
-	mkdir -p build/$*/bin
+	$(MD) build/$*/bin
 
 build_nim: prerequisite $(NIM_TARGETS)
 nim_%: 
 	nim c -o=build/$*/bin/mainNim -d=release --nimcache=build/$*/nimcache --hints=on ./$*/src/nim/mainNim.nim
 
+### Rust ###
 clippy: build_cargo
 	cargo clippy --manifest-path $(CARGO_FILE)
 
@@ -65,10 +88,14 @@ build_rust_debug: prerequisite build_cargo rust_target_debug
 build_cargo: header_cargo $(CARGO_TARGETS)
 
 header_cargo:
-	cat $(CARGOFACTORY_FILE) > $(CARGO_FILE)
+	$(CAT) $(CARGOFACTORY_FILE) > $(CARGO_FILE)
 
 cargo_%:
-	@printf "\n[[bin]]\nname=\"main_rust$*\"\npath=\"../$*/src/rust/main_rust.rs\"" >> $(CARGO_FILE)
+ifeq ($(DETECTED_OS), Windows)
+	powershell Add-Content -Path $(CARGO_FILE) -Value $(subst \","",$(subst \n,`n,$(CARGO_BIN_STRING)))
+else
+	@printf "%s\n" "$(CARGO_BIN_STRING)" >> $(CARGO_FILE)
+endif
 
 rust_target:
 	cargo build --release --manifest-path $(CARGO_FILE) --target-dir ./build/rust
@@ -76,17 +103,47 @@ rust_target:
 rust_target_debug:
 	cargo build --manifest-path $(CARGO_FILE) --target-dir ./build/rust
 
+### C99 ###
 build_c99: prerequisite $(C99_TARGETS)
 
-build_c99_debug: prerequisite $(C99_DEBUG_TARGETS)
+# Base build command
+CMAKE_BASE_CMD = cmake -Bbuild -G $(CMAKE_GENERATOR) \
+    -DYEAR=$* \
+    -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) \
+    -DCMAKE_C_COMPILER=$(COMPILER) \
+    -DCMAKE_VERBOSE_MAKEFILE=$(VERBOSE)
+
+# OS-specific build commands
+ifeq ($(DETECTED_OS),Windows)
+    CMAKE_CMD = $(CMAKE_BASE_CMD)
+else
+    CMAKE_CMD = $(CMAKE_BASE_CMD) -DENABLE_SANITIZER=$(SANITIZE)
+endif
 
 c99_%:
-	cmake -Bbuild -G "Ninja" -DYEAR=$* -DCMAKE_BUILD_TYPE=Release
+	$(CMAKE_CMD)
 	cd build && ninja
 
-c99_debug_%:
-	cmake -Bbuild -G "Ninja" -DYEAR=$* -DCMAKE_BUILD_TYPE=Debug
-	cd build && ninja
+# Common targets for both OS
+.PHONY: build_c99_debug build_c99_release build_c99_verbose
+build_c99_debug:
+	$(MAKE) build_c99 BUILD_TYPE=Debug
+
+build_c99_release:
+	$(MAKE) build_c99 BUILD_TYPE=Release
+
+build_c99_verbose:
+	$(MAKE) build_c99 VERBOSE=ON
+
+# Unix-only targets
+ifneq ($(DETECTED_OS),Windows)
+.PHONY: build_c99_asan build_c99_msan
+build_c99_asan:
+	$(MAKE) build_c99 BUILD_TYPE=Debug SANITIZE=address
+
+build_c99_msan:
+	$(MAKE) build_c99 BUILD_TYPE=Debug SANITIZE=memory
+endif
 
 build_cob: prerequisite $(COB_TARGETS)
 cob_%:

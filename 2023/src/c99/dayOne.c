@@ -33,7 +33,7 @@ int is_valid_string(char* input, int low, int high)
 		// return the equivalent int value
 		return VALID_INT[i];
 
-		next_str:
+		next_str:;
 	}
 	return -1; // cant parse
 }

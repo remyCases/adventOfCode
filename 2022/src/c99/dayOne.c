@@ -57,7 +57,7 @@ int day_one_solution(int part) {
         } 
 		else 
 		{
-            PARSE_ELEMENT("%d", &calories_input)
+            PARSE_ELEMENT("%u", &calories_input)
             calories_count += calories_input;
         }
     }
