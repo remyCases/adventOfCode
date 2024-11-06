@@ -28,13 +28,12 @@ local function printname()
 end
 
 function ParseArg(ar, i)
-	local tmp, i_saved
 	if i == 1 then
 		nextPosArg = 0
 	end
 
 	if prevNamed then
-		tmp = prevNamed
+		local tmp = prevNamed
 		prevNamed = nil
 		return tmp, ar
 
@@ -49,20 +48,20 @@ function ParseArg(ar, i)
 	elseif position[i] then
 		if position[i][2] and string.find(position[i][2], '+') then
 			nextPosArg = i + 1
-			i_saved = i
+			I_saved = i
 		end
 		return position[i][1], ar
 
 	elseif i == nextPosArg then
 		nextPosArg = nextPosArg + 1
-		return position[i_saved][1], ar
+		return position[I_saved][1], ar
 	else
 		print(string.format("does not undertand arg %s in position %i", ar, i))
 	end
 end
 
 function HelpArgs()
-	for k,v in ipairs(position) do
+	for _,v in ipairs(position) do
 		if string.find(v[2], '+') then
 			io.write(string.format("%s_1 ... %s_n ", v[1], v[1]))
 		else
