@@ -28,13 +28,13 @@ ifeq ($(DETECTED_OS), Linux)
 	RMBINS = $(BINS)
 	MD = mkdir -p
 	CAT = cat
-	COBOL_CONFIG_FILE = /usr/local/share/gnucobol/config/default.conf 
+	COBOL_CONFIG_FILE = 
 else
 	RM = powershell Remove-Item -Path
 	RMBINS = $(subst $(space),$(comma),$(BINS))
 	MD = powershell New-Item -Type Directory -Force
 	CAT = powershell Get-Content -encoding UTF8
-	COBOL_CONFIG_FILE = ./utils/default.conf
+	COBOL_CONFIG_FILE = -conf ./utils/default.conf
 	SANITIZE ?= OFF
 endif
 
@@ -96,7 +96,7 @@ build_cargo:
 ifeq ($(DETECTED_OS), Windows)
 	lua54 .\utils\CargoFactory.lua $(CARGO_TARGETS)
 else
-	lua .\utils\CargoFactory.lua $(CARGO_TARGETS)
+	lua ./utils/CargoFactory.lua $(CARGO_TARGETS)
 endif
 
 rust_target:
@@ -147,7 +147,7 @@ endif
 ### COBOL ###
 build_cob: prerequisite $(COB_TARGETS)
 cob_%:
-	cobc -x -free -o build/$*/bin/mainCob $*/src/cobol/mainCob.cob $(wildcard $*/src/cobol/day*.cob) -conf $(COBOL_CONFIG_FILE)
+	cobc -x -free -o build/$*/bin/mainCob $*/src/cobol/mainCob.cob $(wildcard $*/src/cobol/day*.cob) $(COBOL_CONFIG_FILE)
 
 ### ZIG ###
 build_zig: prerequisite $(ZIG_TARGETS)
