@@ -7,6 +7,7 @@
 require 'utils/argparser'
 
 -- locals
+local os_name = package.config:sub(1,1) == "\\" and "win" or "unix"
 local lang = 0
 local i = 1
 local earlyEnd = false
@@ -108,15 +109,19 @@ while lang > 0 do
 	if (lang&1) == 1 then
 		local res = cmdFlag[index]
 		local cmd = res[1]
+		if os_name == "win" then cmd = cmd:gsub("/", "\\") end
 		local lng = res[2]
 		io.write(lng .. ":\t")
-	    local handle = io.popen(string.format(cmd, args.year, args.day, args.part))
+		local parsed_cmd = string.format(cmd, args.year, args.day, args.part)
+	    local handle = io.popen(parsed_cmd)
+		if not handle then goto nextParse end
 		local output = handle:read("*a")
 		local rc = {handle:close()}
 		if (rc[1] == true) then -- error handling
 			io.write(output)
 		end
 	end
+	::nextParse::
 	index = index + 1
 	lang = lang >> 1
 end
