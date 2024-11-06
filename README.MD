@@ -51,7 +51,7 @@ I've currently stopped working on them since the 2023 edition is here.
 | 7 |:x:|:heavy_check_mark:
 | 8 |:x:|:heavy_check_mark:
 | 9 |:x:|:heavy_check_mark:
-|10 |:x:|:x:
+|10 |:x:|:wavy_dash:
 |11 |:x:|:x:
 |12 |:x:|:x:
 |13 |:x:|:x:

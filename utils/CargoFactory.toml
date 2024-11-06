@@ -16,3 +16,9 @@ clap = { version = "4", features = ["derive"] }
 anyhow = "1"
 nom = { version = "7" }
 gcd = { version = "2" }
+
+[profile.Release]
+inherits = "release"
+
+[profile.Dev]
+inherits = "dev"

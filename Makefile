@@ -74,16 +74,24 @@ prerequisite: $(YEARFOLDERS)
 folder_%:
 	$(MD) build/$*/bin
 
+### NIM ###
 build_nim: prerequisite $(NIM_TARGETS)
 nim_%: 
 	nim c -o=build/$*/bin/mainNim -d=release --nimcache=build/$*/nimcache --hints=on ./$*/src/nim/mainNim.nim
 
-### Rust ###
+### RUST ###
 clippy: build_cargo
 	cargo clippy --manifest-path $(CARGO_FILE)
 
 build_rust: prerequisite build_cargo rust_target
-build_rust_debug: prerequisite build_cargo rust_target_debug
+
+.PHONY: build_rust_debug build_rust_release
+build_rust_debug:
+	$(MAKE) build_rust BUILD_TYPE=Dev
+
+build_rust_release:
+	$(MAKE) build_rust BUILD_TYPE=Release
+
 build_cargo:
 ifeq ($(DETECTED_OS), Windows)
 	lua54 .\utils\CargoFactory.lua $(CARGO_TARGETS)
@@ -92,10 +100,7 @@ else
 endif
 
 rust_target:
-	cargo build --release --manifest-path $(CARGO_FILE) --target-dir ./build/rust
-
-rust_target_debug:
-	cargo build --manifest-path $(CARGO_FILE) --target-dir ./build/rust
+	cargo build --profile $(BUILD_TYPE) --manifest-path $(CARGO_FILE) --target-dir ./build/rust
 
 ### C99 ###
 build_c99: prerequisite $(C99_TARGETS)
@@ -139,6 +144,7 @@ build_c99_msan:
 	$(MAKE) build_c99 BUILD_TYPE=Debug SANITIZE=memory
 endif
 
+### COBOL ###
 build_cob: prerequisite $(COB_TARGETS)
 cob_%:
 	cobc -x -free -o build/$*/bin/mainCob $*/src/cobol/mainCob.cob $(wildcard $*/src/cobol/day*.cob)
