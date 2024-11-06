@@ -28,14 +28,14 @@ ifeq ($(DETECTED_OS), Linux)
 	RMBINS = $(BINS)
 	MD = mkdir -p
 	CAT = cat
-	COBOL_CONFIG_FILE = 
+	COBOL_CONFIG_FLAG =
+	SANITIZE ?= OFF
 else
 	RM = powershell Remove-Item -Path
 	RMBINS = $(subst $(space),$(comma),$(BINS))
 	MD = powershell New-Item -Type Directory -Force
 	CAT = powershell Get-Content -encoding UTF8
-	COBOL_CONFIG_FILE = -conf ./utils/default.conf
-	SANITIZE ?= OFF
+	COBOL_CONFIG_FLAG = -conf ./utils/default.conf
 endif
 
 # Files and folders
@@ -147,7 +147,7 @@ endif
 ### COBOL ###
 build_cob: prerequisite $(COB_TARGETS)
 cob_%:
-	cobc -x -free -o build/$*/bin/mainCob $*/src/cobol/mainCob.cob $(wildcard $*/src/cobol/day*.cob) $(COBOL_CONFIG_FILE)
+	cobc -x -free -o build/$*/bin/mainCob $*/src/cobol/mainCob.cob $(wildcard $*/src/cobol/day*.cob) $(COBOL_CONFIG_FLAG)
 
 ### ZIG ###
 build_zig: prerequisite $(ZIG_TARGETS)
