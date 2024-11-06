@@ -4,35 +4,39 @@
 
 require 'utils/argparser'
 
-function generate_exe(year)
-    file:write("[[bin]]", "\n")
-    file:write(string.format("name=\"main_rust%d\"", year), "\n")
-    file:write(string.format("path=\"../%d/src/rust/main_rust.rs\"", year), "\n")
+local function generate_exe(f, year)
+    f:write("[[bin]]", "\n")
+    f:write(string.format("name=\"main_rust%d\"", year), "\n")
+    f:write(string.format("path=\"../%d/src/rust/main_rust.rs\"", year), "\n")
 end
 
-function generateCargo(year_table)
+local function generateCargo(f, year_table)
     local template = io.open("utils/CargoFactory.toml","r")
     if not template then return nil end
     local content = template:read("*a")
     template:close()
 
-    file:write(content, "\n")
+    f:write(content, "\n")
     for key, val in pairs(year_table) do
-        generate_exe(val)
+        generate_exe(f, val)
     end
 end
 
-addArgs(1, "years", "+")
+AddArgs(1, "years", "+")
 local args = {}
 local i = 1
 
 while arg[i] do
-	_, val = parseArg(arg[i], i)
+	local _, val = ParseArg(arg[i], i)
 	args[i] = val
 
 	i = i + 1
 end
 
-file = io.open("utils/Cargo.toml","w")
-generateCargo(args)
+local file = io.open("utils/Cargo.toml","w")
+if not file then
+    print("Error, can't open utils/Cargo.toml.")
+    return nil
+end
+generateCargo(file, args)
 file:close()

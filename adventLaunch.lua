@@ -1,4 +1,4 @@
-#!/usr/bin/lua
+#!/usr/bin/env lua
 
 -- Copyright (C) 2024 Rémy Cases
 -- See LICENSE file for extended copyright information.
@@ -35,7 +35,7 @@ local cmdFlag = {
 	[6] = {"./build/%d/bin/mainAsm %d%d", "[[asm]]"},
 }
 
-function addFlag (x)
+local function addFlag (x)
 	if not langFlag[x] then
 		print(string.format("Given language [[%s]] is not supported (yet?).", x))
 	else
@@ -45,23 +45,23 @@ end
 
 -- arguments for parser
 
-addArgs("h", "help", "b")
-addArgs("r", "rebuild", "b")
-addArgs("d", "day", nil)
-addArgs("p", "part", nil)
-addArgs(1, "lang", "+")
-addArgs("y", "year", nil)
-args = {}
+AddArgs("h", "help", "b")
+AddArgs("r", "rebuild", "b")
+AddArgs("d", "day", nil)
+AddArgs("p", "part", nil)
+AddArgs(1, "lang", "+")
+AddArgs("y", "year", nil)
+local args = {}
 
 -- help function
-function help ()
-	helpArgs()
+local function help ()
+	HelpArgs()
 end
 
 -- parsing arguments
 
 while arg[i] do
-	key, val = parseArg(arg[i], i)
+	local key, val = ParseArg(arg[i], i)
 	if key then
 		if key == "lang" then 
 			addFlag(val)
@@ -106,9 +106,9 @@ end
 -- apply arguments
 while lang > 0 do
 	if (lang&1) == 1 then
-		res = cmdFlag[index]
-		cmd = res[1]
-		lng = res[2]
+		local res = cmdFlag[index]
+		local cmd = res[1]
+		local lng = res[2]
 		io.write(lng .. ":\t")
 	    local handle = io.popen(string.format(cmd, args.year, args.day, args.part))
 		local output = handle:read("*a")

@@ -9,7 +9,7 @@ local name = {}
 local prevNamed = nil
 local nextPosArg = 0
 
-function addArgs(x, y, flag)
+function AddArgs(x, y, flag)
 	if type(x) == "number" then
 		position[x] = { y, flag }
 	else
@@ -18,7 +18,7 @@ function addArgs(x, y, flag)
 	end
 end
 
-function printname()
+local function printname()
 	for key, val in pairs(name) do
 		io.write(string.format("%s :", key))
 		for k, v in pairs(val) do
@@ -27,7 +27,8 @@ function printname()
 	end
 end
 
-function parseArg(ar, i)
+function ParseArg(ar, i)
+	local tmp, i_saved
 	if i == 1 then
 		nextPosArg = 0
 	end
@@ -60,7 +61,7 @@ function parseArg(ar, i)
 	end
 end
 
-function helpArgs()
+function HelpArgs()
 	for k,v in ipairs(position) do
 		if string.find(v[2], '+') then
 			io.write(string.format("%s_1 ... %s_n ", v[1], v[1]))
