@@ -11,7 +11,7 @@ function generate_exe(year)
 end
 
 function generateCargo(year_table)
-    template = io.open("utils/CargoFactory.toml","r")
+    local template = io.open("utils/CargoFactory.toml","r")
     if not template then return nil end
     local content = template:read("*a")
     template:close()
