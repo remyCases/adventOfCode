@@ -50,9 +50,8 @@ COB_TARGETS := $(COBFOLDER:%/src/cobol/mainCob.cob=cob_%)
 
 CARGOFACTORY_FILE := ./utils/CargoFactory.toml
 CARGO_FILE := ./utils/Cargo.toml
-CARGO_BIN_STRING := "\n[[bin]]\nname=\"main_rust$*\"\npath=\"../$*/src/rust/main_rust.rs\""
 RUSTFOLDER := $(wildcard */src/rust/main_rust.rs)
-CARGO_TARGETS := $(RUSTFOLDER:%/src/rust/main_rust.rs=cargo_%)
+CARGO_TARGETS := $(RUSTFOLDER:%/src/rust/main_rust.rs=%)
 
 ZIGFOLDER := $(wildcard */src/zig/build.zig)
 ZIG_TARGETS := $(ZIGFOLDER:%/src/zig/build.zig=zig_%)
@@ -85,16 +84,11 @@ clippy: build_cargo
 
 build_rust: prerequisite build_cargo rust_target
 build_rust_debug: prerequisite build_cargo rust_target_debug
-build_cargo: header_cargo $(CARGO_TARGETS)
-
-header_cargo:
-	$(CAT) $(CARGOFACTORY_FILE) > $(CARGO_FILE)
-
-cargo_%:
+build_cargo:
 ifeq ($(DETECTED_OS), Windows)
-	powershell Add-Content -Path $(CARGO_FILE) -Value $(subst \","",$(subst \n,`n,$(CARGO_BIN_STRING)))
+	lua54 .\utils\CargoFactory.lua $(CARGO_TARGETS)
 else
-	@printf "%s\n" "$(CARGO_BIN_STRING)" >> $(CARGO_FILE)
+	lua .\utils\CargoFactory.lua $(CARGO_TARGETS)
 endif
 
 rust_target:
