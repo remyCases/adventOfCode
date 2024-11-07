@@ -52,6 +52,7 @@ CARGOFACTORY_FILE := ./utils/CargoFactory.toml
 CARGO_FILE := ./utils/Cargo.toml
 RUSTFOLDER := $(wildcard */src/rust/main_rust.rs)
 CARGO_TARGETS := $(RUSTFOLDER:%/src/rust/main_rust.rs=%)
+COPY_RUST_TARGETS := $(CARGO_TARGETS:%=copy_rust_%)
 
 ZIGFOLDER := $(wildcard */src/zig/build.zig)
 ZIG_TARGETS := $(ZIGFOLDER:%/src/zig/build.zig=zig_%)
@@ -83,7 +84,7 @@ nim_%:
 clippy: build_cargo
 	cargo clippy --manifest-path $(CARGO_FILE)
 
-build_rust: prerequisite build_cargo rust_target
+build_rust: prerequisite build_cargo rust_target $(COPY_RUST_TARGETS)
 
 .PHONY: build_rust_debug build_rust_release
 build_rust_debug:
@@ -101,6 +102,13 @@ endif
 
 rust_target:
 	cargo build --profile $(BUILD_TYPE) --manifest-path $(CARGO_FILE) --target-dir ./build/rust
+
+copy_rust_%:
+ifeq ($(DETECTED_OS), Windows)
+	powershell Copy-Item ./build/rust/$(BUILD_TYPE)/main_rust$*.exe -Destination build/$*/bin/mainRust.exe
+else
+	cp ./build/rust/$(BUILD_TYPE)/main_rust$* -Destination build/$*/bin/mainRust
+endif
 
 ### C99 ###
 build_c99: prerequisite $(C99_TARGETS)
@@ -163,3 +171,7 @@ asm_%:
 ### CLEAN ###
 clean:
 	$(RM) $(RMBINS)
+
+### RESET ###
+reset:
+	$(RM) ./build
