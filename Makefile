@@ -3,7 +3,7 @@
 # This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
 BINS := $(wildcard build/*/bin/main*)
-BINS += $(wildcard build/rust/release/main_rust*)
+BINS += $(wildcard build/rust/*)
 BINS += $(wildcard build/CMakeCache.txt)
 $(info $(BINS))
 
@@ -24,14 +24,14 @@ CMAKE_GENERATOR ?= "Ninja"
 
 # Cross compatibilty Linux-Windows
 ifeq ($(DETECTED_OS), Linux)
-	RM = rm -f
+	RM = rm -rf
 	RMBINS = $(BINS)
 	MD = mkdir -p
 	CAT = cat
 	COBOL_CONFIG_FLAG =
 	SANITIZE ?= OFF
 else
-	RM = powershell Remove-Item -Path
+	RM = powershell Remove-Item -Recurse -Path
 	RMBINS = $(subst $(space),$(comma),$(BINS))
 	MD = powershell New-Item -Type Directory -Force
 	CAT = powershell Get-Content -encoding UTF8
