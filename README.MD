@@ -4,7 +4,7 @@
 
 This project is an attempt to solve the [advent of code](https://adventofcode.com/) challenge in various programming languages I'm learning.
 
-Currently only a [Nim](https://nim-lang.org/), [Cobol](https://gnucobol.sourceforge.io/), [Rust](https://www.rust-lang.org/), [Zig](https://ziglang.org/) and C versions are available. Maybe other version will emerged (eg: Asm, Haskell, ...), depending of my spare time and my willingness to test myself.
+Currently only a [Nim](https://nim-lang.org/), [Cobol](https://gnucobol.sourceforge.io/), [Rust](https://www.rust-lang.org/), [Zig](https://ziglang.org/) and C versions are available. Maybe other versions will emerged (eg: Asm, Haskell, ...), depending of my spare time and my willingness to test myself.
 
 It should work for both Windows and Linux architectures.
 
@@ -130,7 +130,7 @@ lua54 .\adventLaunch.lua XXX ... -y YEAR -d DAY -p PART
 
 > Of course not every combinations exists *(yet)*
 
-As far as I know, there is always two parts during each days, so `PART=1` will run the first part, and `PART=2` the second part.
+As far as I know, there are always two parts during each days, so `PART=1` will run the first part, and `PART=2` the second part.
 
 
 If no language is given, the solution will run all available languages.
