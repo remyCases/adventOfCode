@@ -66,13 +66,7 @@ proc readComputeResult(filename: string, option = '1') =
         parse(line, gameId, tmp, token, maxRed, maxBlue, maxGreen)
         compute(maxRed, maxBlue, maxGreen, gameId, result)
         
-    case option:
-    of '1':
-        echo "SUM OF POSSIBLE IDS: ", result
-    of '2':
-        echo "POWER OF GAMES: ", result
-    else:
-        return
+    echo "POWER OF GAMES: ", result
 
 proc main*(part: char) =
     const file = "2023/data/input_day_two"

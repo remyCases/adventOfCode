@@ -101,17 +101,7 @@ int day_two_solution(int part)
         printf("Max iteration allowed (%u), result can be false.\n", MAX_ITERATION_ALLOWED);
     }
     
-    switch(part) 
-	{
-    case 1:
-        printf("SUM OF POSSIBLE IDS: %u\n", sum_id);
-        break;
-    case 2:
-        printf("POWER OF GAMES: %u\n", sum_id);
-        break;
-    default:
-        break;
-    }
+    printf("POWER OF GAMES: %u\n", sum_id);
     
     if(fclose(fp)) 
 	{

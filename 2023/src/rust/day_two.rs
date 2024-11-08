@@ -91,11 +91,7 @@ fn read_file_and_compute_game_id(file_path: &Path, part: u8) -> Result<(), Error
         }
     }
 
-    match part {
-        1 => println!("SUM OF POSSIBLE IDS: {:}", result),
-        2 => println!("POWER OF GAMES: {:}", result),
-        _ => (),
-    }
+    println!("POWER OF GAMES: {:}", result);
     Ok(())
 }
 
