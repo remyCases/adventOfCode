@@ -160,7 +160,7 @@ cob_%:
 ### ZIG ###
 build_zig: prerequisite $(ZIG_TARGETS)
 zig_%:
-	zig build -Doptimize=ReleaseSmall -p ./build/$* --build-file ./$*/src/zig/build.zig --cache-dir ./build/$*/zig-cache
+	zig build -Doptimize=ReleaseSmall -p ./build/$* --build-file ./$*/src/zig/build.zig --cache-dir $(CWD)/build/$*/.zig-cache --summary all
 
 ### ASM ###
 build_asm: prerequisite $(ASM_TARGETS)
