@@ -1,6 +1,7 @@
 const std = @import("std");
 const clap = @import("clap");
 const dayOne = @import("dayOne.zig");
+const dayTwo = @import("dayTwo.zig");
 
 pub fn main() !void {
     // get general allocator
@@ -29,6 +30,7 @@ pub fn main() !void {
         if (res.args.part) |p| {
             switch (d) {
                 1 => try dayOne.main(p),
+                2 => try dayTwo.main(p),
                 else => return error.InvalidInput,
             }
         } else {
