@@ -29,6 +29,7 @@ ifeq ($(DETECTED_OS), Linux)
 	MD = mkdir -p
 	CAT = cat
 	SANITIZE ?= OFF
+	ZIGBUILDDIR = .
 else
 	RM = powershell Remove-Item -Recurse -Path
 	RMBINS = $(subst $(space),$(comma),$(BINS))
@@ -36,6 +37,7 @@ else
 	CAT = powershell Get-Content -encoding UTF8
 	COBOL_CONFIG_FLAG ?= -conf ./utils/default.conf
 	EXTRA_LIB ?= -LC:/msys64/mingw32/lib -lkernel32
+	ZIGBUILDDIR = $(CWD)
 endif
 
 # Files and folders
@@ -107,7 +109,7 @@ copy_rust_%:
 ifeq ($(DETECTED_OS), Windows)
 	powershell Copy-Item ./build/rust/$(BUILD_TYPE)/main_rust$*.exe -Destination build/$*/bin/mainRust.exe
 else
-	cp ./build/rust/$(BUILD_TYPE)/main_rust$* -Destination build/$*/bin/mainRust
+	cp ./build/rust/$(BUILD_TYPE)/main_rust$* build/$*/bin/mainRust
 endif
 
 ### C99 ###
@@ -160,7 +162,7 @@ cob_%:
 ### ZIG ###
 build_zig: prerequisite $(ZIG_TARGETS)
 zig_%:
-	zig build -Doptimize=ReleaseSmall -p ./build/$* --build-file ./$*/src/zig/build.zig --cache-dir $(CWD)/build/$*/.zig-cache --summary all
+	zig build -Doptimize=ReleaseSmall -p ./build/$* --build-file ./$*/src/zig/build.zig --cache-dir $(ZIGBUILDDIR)/build/$*/.zig-cache --summary all
 
 ### ASM ###
 build_asm: prerequisite $(ASM_TARGETS)
