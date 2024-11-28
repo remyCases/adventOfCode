@@ -21,7 +21,7 @@ mod day_ten_part2;
 use clap::Parser;
 use std::io::{Error, ErrorKind};
 
-#[path = "utils_io.rs"] mod utils_io;
+#[path = "../../../utils/utils_io.rs"] mod utils_io;
 
 enum Part {
     PartOne,

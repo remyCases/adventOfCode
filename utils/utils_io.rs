@@ -10,4 +10,3 @@ pub fn line_iterator(file_path: &Path) -> Result<Lines<BufReader<File>>, Error> 
     let file = File::open(file_path)?;
     Ok(BufReader::new(file).lines())
 }
-

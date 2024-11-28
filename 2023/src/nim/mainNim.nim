@@ -3,6 +3,7 @@
 # This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
 import argparse
+import std/strformat
 import std/parseutils
 import dayOne
 import dayTwo
@@ -13,18 +14,22 @@ when isMainModule:
         option("-d", "--day", choices = @["1", "2", "3"], required = true)
         option("-p", "--part", choices = @["1", "2"], required = true)
 
-    var opts = parser.parse()
     var day: int
-    discard opts.day.parseInt(day, 0)
     var part: char
-    discard opts.part.parseChar(part, 0)
-    
-    case day:
-    of 1:
-        dayOne.main(part)
-    of 2:
-        dayTwo.main(part)
-    of 3:
-        dayThree.main(part)
-    else:
-        echo "Incorrect day selected."
+
+    try:
+        var opts = parser.parse()
+        discard opts.day.parseInt(day, 0)
+        discard opts.part.parseChar(part, 0)
+
+        case day:
+        of 1:
+            dayOne.main(part)
+        of 2:
+            dayTwo.main(part)
+        of 3:
+            dayThree.main(part)
+        else:
+            discard
+    except UsageError:
+        echo &"Incorrect combination of day and part. Given day and part does not exist (yet)."

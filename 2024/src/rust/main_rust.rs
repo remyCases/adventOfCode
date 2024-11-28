@@ -2,11 +2,15 @@
 // See LICENSE file for extended copyright information.
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-mod day_one;
-mod day_two;
-
 use clap::Parser;
-use anyhow::Result;
+use std::io::{Error, ErrorKind};
+
+#[path = "../../../utils/utils_io.rs"] mod utils_io;
+
+enum Part {
+    PartOne,
+    PartTwo,
+}
 
 #[derive(Parser)]
 struct Args {
@@ -16,11 +20,16 @@ struct Args {
     part: u8,
 }
 
-fn main() -> Result<()> {
+fn main() -> Result<(), Error> {
     let args = Args::parse();
+
+    let part = match args.part {
+        1 => Part::PartOne,
+        2 => Part::PartTwo,
+        _ => { return Err(Error::new(ErrorKind::InvalidInput, "invalid part")); },
+    };
+
     match args.day {
-        1 => day_one::main(args.part)?,
-        2 => day_two::main(args.part)?,
         _ => println!("Incorrect combination of day and part. Day {:} and part {:} does not exist (yet).", args.day, args.part)
     };
     Ok(())

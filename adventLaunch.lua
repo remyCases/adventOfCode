@@ -28,7 +28,7 @@ local langFlag = {
 }
 
 local cmdFlag = {
-	[1] = {"./build/%d/bin/mainCob %d%d", "[[cobol]]"},
+	[1] = {"./build/%d/bin/mainCob %02d%d", "[[cobol]]"},
 	[2] = {"./build/%d/bin/mainC99 %d %d", "[[c99]]"},
 	[3] = {"./build/%d/bin/mainNim --day %d --part %d", "[[nim]]"},
 	[4] = {"./build/%d/bin/mainRust --day %d --part %d", "[[rust]]"},

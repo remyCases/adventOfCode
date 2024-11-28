@@ -40,7 +40,7 @@ int main(int argc, char**argv)
         day_four_solution(chosen_part);
         break;
     default:
-        printf("Incorrect day was given.\n");
+        printf("Incorrect combination of day and part. Day %d and part %d does not exist (yet).\n", chosen_day, chosen_part);
         break;
     }
 }

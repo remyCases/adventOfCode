@@ -6,9 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "dayOne.h"
-#include "dayTwo.h"
-
 int main(int argc, char**argv) {
     
     // expected argument DAY PART
@@ -23,12 +20,6 @@ int main(int argc, char**argv) {
     (void)sscanf(argv[2], "%i", &chosen_part);
 
     switch (chosen_day) {
-    case 1:
-        day_one_solution(chosen_part);
-        break;
-    case 2:
-        day_two_solution(chosen_part);
-        break;
     default:
         printf("Incorrect combination of day and part. Day %d and part %d does not exist (yet).\n", chosen_day, chosen_part);
         break;
