@@ -28,14 +28,14 @@ ifeq ($(DETECTED_OS), Linux)
 	RMBINS = $(BINS)
 	MD = mkdir -p
 	CAT = cat
-	COBOL_CONFIG_FLAG =
 	SANITIZE ?= OFF
 else
 	RM = powershell Remove-Item -Recurse -Path
 	RMBINS = $(subst $(space),$(comma),$(BINS))
 	MD = powershell New-Item -Type Directory -Force
 	CAT = powershell Get-Content -encoding UTF8
-	COBOL_CONFIG_FLAG = -conf ./utils/default.conf
+	COBOL_CONFIG_FLAG ?= -conf ./utils/default.conf
+	EXTRA_LIB ?= -LC:/msys64/mingw32/lib -lkernel32
 endif
 
 # Files and folders
@@ -165,8 +165,14 @@ zig_%:
 ### ASM ###
 build_asm: prerequisite $(ASM_TARGETS)
 asm_%:
-	as ./$*/src/asm/mainAsm.s --32 -g -o ./build/$*/bin/mainAsm.o
-	gcc -o ./build/$*/bin/mainAsm -m32 ./build/$*/bin/mainAsm.o -nostdlib -no-pie
+	as ./$*/src/asm/mainAsm.s --32 -gstabs -Wa --defsym $(DETECTED_OS)=1 -o ./build/$*/bin/mainAsm.o
+	as ./utils/print.s --32 -gstabs -Wa --defsym $(DETECTED_OS)=1 -o ./build/$*/bin/print.o
+	as ./$*/src/asm/dayOne.s --32 -gstabs -Wa -o ./build/$*/bin/dayOne.o
+	gcc -o ./build/$*/bin/mainAsm -ggdb -m32 ./build/$*/bin/mainAsm.o ./build/$*/bin/print.o -nostdlib -no-pie $(EXTRA_LIB)
+
+### EMULATION = elf_i386 for linux
+### EMULATION = i386pe for windows
+### ld -o ./build/$*/bin/mainAsm -m $(EMULATION) -LC:/msys64/mingw32/lib -lkernel32 ./build/$*/bin/mainAsm.o
 
 ### CLEAN ###
 clean:
