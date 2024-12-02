@@ -3,12 +3,15 @@
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
 use std::path::Path;
-use std::fs::File;
-use std::io::{BufRead, Lines, BufReader, Error, ErrorKind};
+use std::io::{Error, ErrorKind};
 use std::env;
 
 use nom::*;
 use nom::error::Error as NomError;
+
+use crate::utils_io::EResult;
+use crate::utils_io::line_iterator;
+use crate::utils_io::ArgPart;
 
 #[derive(Debug)]
 enum PartValue {
@@ -58,11 +61,6 @@ impl Part {
 }
 
 
-fn line_iterator(file_path: &Path) -> Result<Lines<BufReader<File>>, Error> {
-    let file = File::open(file_path)?;
-    Ok(BufReader::new(file).lines())
-}
-
 fn parse_engine<'a>(line: &'a str, nline: usize, vec_numeral: &mut Vec<Part>, vec_symbol: &mut Vec<Part>) -> IResult<&'a str, &'a str> {
 
     let parser_dot = bytes::complete::take_while::<_, &str, NomError<_>>(|c: char| c == '.');
@@ -84,7 +82,7 @@ fn parse_engine<'a>(line: &'a str, nline: usize, vec_numeral: &mut Vec<Part>, ve
     Ok((line, end))
 }
 
-fn read_file_and_adjacent(file_path: &Path, part: u8) -> Result<(), Error> {
+fn read_file_and_adjacent(file_path: &Path, part: ArgPart) -> EResult {
     let lines = line_iterator(file_path)?;
     let mut sum_numeral_parts = 0;
     let mut product_gears = 0;
@@ -134,13 +132,12 @@ fn read_file_and_adjacent(file_path: &Path, part: u8) -> Result<(), Error> {
     }
 
     match part {
-        1 => { println!("SUM PARTS: {:}", sum_numeral_parts); Ok(()) }, 
-        2 => { println!("SUM PARTS: {:}", product_gears); Ok(()) }, 
-        _ => Err(Error::new(ErrorKind::InvalidInput, "invalid part"))    
+        ArgPart::PartOne => { println!("SUM PARTS: {:}", sum_numeral_parts); Ok(()) }, 
+        ArgPart::PartTwo => { println!("SUM PARTS: {:}", product_gears); Ok(()) }, 
     }
 }
 
-pub fn main(part: u8) -> Result<(), Error> {
+pub fn main(part: ArgPart) -> EResult {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_three");
     read_file_and_adjacent(&filename, part)?;
     Ok(())

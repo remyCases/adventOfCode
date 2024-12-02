@@ -19,31 +19,14 @@ mod day_ten_part1;
 mod day_ten_part2;
 
 use clap::Parser;
-use std::io::{Error, ErrorKind};
 
 #[path = "../../../utils/utils_io.rs"] mod utils_io;
+use utils_io::EResult;
+use utils_io::Args;
+use utils_io::ArgPart;
 
-enum Part {
-    PartOne,
-    PartTwo,
-}
-
-#[derive(Parser)]
-struct Args {
-    #[arg(short, long, required = true)]
-    day: i32,
-    #[arg(short, long, default_value_t = 1, required = true)]
-    part: u8,
-}
-
-fn main() -> Result<(), Error> {
+fn main() -> EResult {
     let args = Args::parse();
-
-    let part = match args.part {
-        1 => Part::PartOne,
-        2 => Part::PartTwo,
-        _ => { return Err(Error::new(ErrorKind::InvalidInput, "invalid part")); },
-    };
 
     match args.day {
         1 => day_one::main(args.part)?,
@@ -51,25 +34,25 @@ fn main() -> Result<(), Error> {
         3 => day_three::main(args.part)?,
         4 => day_four::main(args.part)?,
         5 => day_five::main(args.part)?,
-        6 => match part {
-            Part::PartOne => day_six_part1::main()?,
-            Part::PartTwo => day_six_part2::main()?,
+        6 => match args.part {
+            ArgPart::PartOne => day_six_part1::main()?,
+            ArgPart::PartTwo => day_six_part2::main()?,
         },
-        7 => match part {
-            Part::PartOne => day_seven_part1::main()?,
-            Part::PartTwo => day_seven_part2::main()?,
+        7 => match args.part {
+            ArgPart::PartOne => day_seven_part1::main()?,
+            ArgPart::PartTwo => day_seven_part2::main()?,
         },
-        8 => match part {
-            Part::PartOne => day_eight_part1::main()?,
-            Part::PartTwo => day_eight_part2::main()?,
+        8 => match args.part {
+            ArgPart::PartOne => day_eight_part1::main()?,
+            ArgPart::PartTwo => day_eight_part2::main()?,
         },
-        9 => match part {
-            Part::PartOne => day_nine_part1::main()?,
-            Part::PartTwo => day_nine_part2::main()?,
+        9 => match args.part {
+            ArgPart::PartOne => day_nine_part1::main()?,
+            ArgPart::PartTwo => day_nine_part2::main()?,
         },
-        10 => match part {
-            Part::PartOne => day_ten_part1::main()?,
-            Part::PartTwo => day_ten_part2::main()?,
+        10 => match args.part {
+            ArgPart::PartOne => day_ten_part1::main()?,
+            ArgPart::PartTwo => day_ten_part2::main()?,
         },
         _ => println!("Incorrect combination of day and part. Day {:} and part {:} does not exist (yet).", args.day, args.part)
     };

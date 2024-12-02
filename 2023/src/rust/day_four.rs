@@ -3,18 +3,16 @@
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
 use std::path::Path;
-use std::fs::File;
-use std::io::{BufRead, Lines, BufReader, Error, ErrorKind};
+use std::io::{Error, ErrorKind};
 use std::env;
 use std::collections::HashSet;
 
 use nom::*;
 use nom::error::Error as NomError;
 
-fn line_iterator(file_path: &Path) -> Result<Lines<BufReader<File>>, Error> {
-    let file = File::open(file_path)?;
-    Ok(BufReader::new(file).lines())
-}
+use crate::utils_io::EResult;
+use crate::utils_io::line_iterator;
+use crate::utils_io::ArgPart;
 
 fn parse_scratchcards<'a>(line: &'a str, index: &'a mut usize) -> IResult<&'a str, (Vec<i32>, Vec<i32>)> {
     
@@ -37,7 +35,7 @@ fn parse_scratchcards<'a>(line: &'a str, index: &'a mut usize) -> IResult<&'a st
     Ok((line, (winning_numbers, numbers)))
 }
 
-fn read_file_and_compute_winning_numbers (file_path: &Path, part: u8) -> Result<(), Error> {
+fn read_file_and_compute_winning_numbers (file_path: &Path, part: ArgPart) -> EResult {
     let lines = line_iterator(file_path)?;
     let lines_count = line_iterator(file_path)?.count();
     let mut instances: Vec<i32> = vec![0; lines_count];
@@ -74,13 +72,12 @@ fn read_file_and_compute_winning_numbers (file_path: &Path, part: u8) -> Result<
     }
 
     match part {
-        1 => { println!("Pile of scratchcards worth: {:}", points.iter().sum::<i32>()); Ok(()) }, 
-        2 => { println!("Pile of scratchcards : {:}", instances.iter().sum::<i32>()); Ok(()) }, 
-        _ => Err(Error::new(ErrorKind::InvalidInput, "invalid part"))    
+        ArgPart::PartOne => { println!("Pile of scratchcards worth: {:}", points.iter().sum::<i32>()); Ok(()) }, 
+        ArgPart::PartTwo => { println!("Pile of scratchcards : {:}", instances.iter().sum::<i32>()); Ok(()) }, 
     }
 }
 
-pub fn main(part: u8) -> Result<(), Error> {
+pub fn main(part: ArgPart) -> EResult {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_four");
     read_file_and_compute_winning_numbers(&filename, part)?;
     Ok(())

@@ -3,12 +3,15 @@
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
 use std::path::Path;
-use std::fs::File;
-use std::io::{BufRead, Lines, BufReader, Error, ErrorKind};
+use std::io::{Error, ErrorKind};
 use std::env;
 
 use nom::*;
 use nom::error::Error as NomError;
+
+use crate::utils_io::EResult;
+use crate::utils_io::line_iterator;
+use crate::utils_io::ArgPart;
 
 #[derive(Debug)]
 struct Line {
@@ -121,11 +124,6 @@ fn push_in_lines<'a>(rs: &'a mut Vec<Line>, vr: &'a[i64]) -> IResult<&'static st
     }
 }
 
-fn line_iterator(file_path: &Path) -> Result<Lines<BufReader<File>>, Error> {
-    let file = File::open(file_path)?;
-    Ok(BufReader::new(file).lines())
-}
-
 fn parse_garden<'a>(line: &'a str, garden: &'a mut Garden, parsing_state: &mut State) -> IResult<&'a str, &'a str> {
 
     let mut vec_numeral = multi::separated_list0(character::complete::multispace1, character::complete::i64);
@@ -163,7 +161,7 @@ fn parse_garden<'a>(line: &'a str, garden: &'a mut Garden, parsing_state: &mut S
     }
 }
 
-fn read_file_and_compute_garden(file_path: &Path, _part: u8) -> Result<(), Error> {
+fn read_file_and_compute_garden(file_path: &Path, _part: ArgPart) -> EResult {
     let lines = line_iterator(file_path)?;
     let mut garden = Garden::new();
     let mut parsing_state = State::Seed;
@@ -179,7 +177,7 @@ fn read_file_and_compute_garden(file_path: &Path, _part: u8) -> Result<(), Error
     Ok(())
 }
 
-pub fn main(part: u8) -> Result<(), Error> {
+pub fn main(part: ArgPart) -> EResult {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_five");
     read_file_and_compute_garden(&filename, part)?;
     Ok(())

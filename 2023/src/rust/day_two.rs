@@ -3,8 +3,7 @@
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
 use std::path::Path;
-use std::fs::File;
-use std::io::{BufRead, Lines, BufReader, Error, ErrorKind};
+use std::io::{Error, ErrorKind};
 use std::env;
 use nom::{
     IResult, 
@@ -16,6 +15,10 @@ use nom::{
     multi::many1
 };
 
+use crate::utils_io::EResult;
+use crate::utils_io::line_iterator;
+use crate::utils_io::ArgPart;
+
 const MAX_RED: i32 = 12;
 const MAX_GREEN: i32 = 13;
 const MAX_BLUE: i32 = 14;
@@ -26,11 +29,6 @@ struct Game {
     red: i32,
     green: i32,
     blue: i32,
-}
-
-fn line_iterator(file_path: &Path) -> Result<Lines<BufReader<File>>, Error> {
-    let file = File::open(file_path)?;
-    Ok(BufReader::new(file).lines())
 }
 
 fn parse_games(line: &str) -> IResult<&str, Game> {
@@ -68,14 +66,13 @@ fn compute_power(game: Game, result: &mut i32) {
     *result += game.red * game.green * game.blue;
 }
 
-fn read_file_and_compute_game_id(file_path: &Path, part: u8) -> Result<(), Error> {
+fn read_file_and_compute_game_id(file_path: &Path, part: ArgPart) -> EResult {
     let lines = line_iterator(file_path)?;
     let mut result = 0;
     
     let trycompute: Result<fn(Game, &mut i32) -> (), Error> = match part {
-        1 => Ok(compute_id),
-        2 => Ok(compute_power),
-        _ => Err(Error::new(ErrorKind::InvalidInput, "invalid part")),
+        ArgPart::PartOne => Ok(compute_id),
+        ArgPart::PartTwo => Ok(compute_power),
     };
 
     let compute = trycompute?;
@@ -95,7 +92,7 @@ fn read_file_and_compute_game_id(file_path: &Path, part: u8) -> Result<(), Error
     Ok(())
 }
 
-pub fn main(part: u8) -> Result<(), Error> {
+pub fn main(part: ArgPart) -> EResult {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_two");
     read_file_and_compute_game_id(&filename, part)?;
     Ok(())

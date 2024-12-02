@@ -3,20 +3,17 @@
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
 use std::path::Path;
-use std::fs::File;
-use std::io::{BufRead, Lines, BufReader, Error, ErrorKind};
+use std::io::{Error, ErrorKind};
 use std::env;
+
+use crate::utils_io::EResult;
+use crate::utils_io::SResult;
+use crate::utils_io::line_iterator;
+use crate::utils_io::ArgPart;
 
 const VALID_STRING: [&str; 18] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 
-type EResult = Result<(), Error>;
-type SResult = Result<String, Error>;
 type FnParse = fn(SResult, &mut i32, &mut i32) -> EResult;
-
-fn line_iterator(file_path: &Path) -> Result<Lines<BufReader<File>>, Error> {
-    let file = File::open(file_path)?;
-    Ok(BufReader::new(file).lines())
-}
 
 fn convert_text_int(text: &str, digit: &mut i32) -> EResult {
     if text == "1" || text == "one" { *digit = 1; Ok(()) }
@@ -56,16 +53,15 @@ fn parse_digits_and_name(line: SResult, first_digit: &mut i32, second_digit: &mu
     Ok(())
 }
 
-fn read_file_and_compute_calibration(file_path: &Path, part: u8) -> EResult {
+fn read_file_and_compute_calibration(file_path: &Path, part: ArgPart) -> EResult {
     let lines = line_iterator(file_path)?;
     let mut first_digit_calibration = 0;
     let mut second_digit_calibration = 0;
     let mut sum_calibration = 0;
 
     let tryparse: Result<FnParse, Error> = match part {
-        1 => Ok(parse_digits),
-        2 => Ok(parse_digits_and_name),
-        _ => Err(Error::new(ErrorKind::InvalidInput, "invalid part")),
+        ArgPart::PartOne => Ok(parse_digits),
+        ArgPart::PartTwo => Ok(parse_digits_and_name),
     };
 
     let parse = tryparse?;
@@ -78,7 +74,7 @@ fn read_file_and_compute_calibration(file_path: &Path, part: u8) -> EResult {
     Ok(())
 }
 
-pub fn main(part: u8) -> EResult {
+pub fn main(part: ArgPart) -> EResult {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_one");
     read_file_and_compute_calibration(&filename, part)?;
     Ok(())
