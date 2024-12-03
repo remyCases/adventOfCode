@@ -10,9 +10,8 @@ build
 utils/target
 
 # test files
-2022/data/test
-2023/data/test
+*/data/test
 
 # generated cargo.toml
-Cargo.toml
-Cargo.lock
+/Cargo.toml
+/Cargo.lock

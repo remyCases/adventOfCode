@@ -1,0 +1,16 @@
+# Copyright (C) 2024 Remy Cases
+# See LICENSE file for extended copyright information.
+# This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
+
+[package]
+name = "aoc_utils"
+version = "1.0.0"
+authors = ["RémyCases"]
+edition = "2021"
+autobins = false
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+
+[lib]
+
