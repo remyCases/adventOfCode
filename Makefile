@@ -51,7 +51,7 @@ COBFOLDER := $(wildcard */src/cobol/mainCob.cob)
 COB_TARGETS := $(COBFOLDER:%/src/cobol/mainCob.cob=cob_%)
 
 CARGOFACTORY_FILE := ./buildtools/CargoFactory.toml
-CARGO_FILE := ./buildtools/Cargo.toml
+CARGO_FILE := ./Cargo.toml
 RUSTFOLDER := $(wildcard */src/rust/main_rust.rs)
 CARGO_TARGETS := $(RUSTFOLDER:%/src/rust/main_rust.rs=%)
 COPY_RUST_TARGETS := $(CARGO_TARGETS:%=copy_rust_%)
