@@ -30,3 +30,7 @@ pub struct Args {
     #[arg(short, long, required = true)]
     pub part: ArgPart,
 }
+
+pub fn parse() -> Args {
+    Args::parse()
+}

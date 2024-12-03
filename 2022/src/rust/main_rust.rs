@@ -8,7 +8,7 @@ mod day_two;
 use aoc_utils::*;
 
 fn main() -> io::Result<()> {
-    let args = argparse::Args::parse();
+    let args = argparse::parse();
 
     match args.day {
         1 => day_one::main(args.part)?,

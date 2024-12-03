@@ -6,6 +6,7 @@ use std::fs;
 use std::path::Path;
 use std::io::{Error, ErrorKind};
 use std::env;
+use aoc_utils::*;
 
 const MAX_ITERATION: usize = 10_000_000;
 
@@ -49,7 +50,7 @@ fn found_next_pipe_from_start(data: &[u8], start_index: usize, len_line: usize, 
 }
 
 // wont check bounds, maybe I'll regret it later
-fn compute_next_index_from_char(data: &[u8], current_index: usize, previous_index: usize, len_line: usize) -> Result<usize, Error> {
+fn compute_next_index_from_char(data: &[u8], current_index: usize, previous_index: usize, len_line: usize) -> io::Result<usize> {
     match data[current_index] {
         // west or east
         b'-' => Ok(
@@ -134,7 +135,7 @@ fn find_neighboor(index: usize, direction: usize, len_line: usize) -> Result<[(u
     }
 }
 
-fn read_file_and_compute_extrapolated_values(file_path: &Path) -> Result<(), Error> {
+fn read_file_and_compute_extrapolated_values(file_path: &Path) -> io::Result<()> {
     let lines = fs::read(file_path)?;
   
     // 5 because, middle + 4 directions
@@ -232,7 +233,7 @@ fn read_file_and_compute_extrapolated_values(file_path: &Path) -> Result<(), Err
     Ok(())
 }
 
-pub fn main() -> Result<(), Error> {
+pub fn main() -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_ten");
     read_file_and_compute_extrapolated_values(&filename)?;
     Ok(())

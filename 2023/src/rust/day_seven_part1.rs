@@ -2,11 +2,10 @@
 // See LICENSE file for extended copyright information.
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-use crate::utils_io;
 use std::path::Path;
 use std::io::{Error, ErrorKind};
 use std::env;
-
+use aoc_utils::*;
 use nom::*;
 use nom::error::{Error as NomError, ParseError};
 use std::cmp::Ordering;
@@ -16,7 +15,7 @@ fn is_authorized_char(c: char) -> bool {
     matches!(c, 'A' | 'K' | 'Q' | 'J' | 'T' | '9' | '8' | '7' | '6' | '5' | '4' | '3' | '2')
 }
 
-fn convert_card_into_rank(c: char) -> Result<i32, Error>  {
+fn convert_card_into_rank(c: char) -> io::Result<i32>  {
     match c {
         'A' => Ok(12),
         'K' => Ok(11),
@@ -68,7 +67,7 @@ impl Hand {
         } 
     }
 
-    fn compute_place(&mut self) -> Result<(), Error> {
+    fn compute_place(&mut self) -> io::Result<()> {
         let (smax, max) = self.freq.iter()
             .fold((0, 0), |acc, &x| 
                 if x > acc.1 { (acc.1, x) }
@@ -134,8 +133,8 @@ fn parse_hand(line: &str) -> IResult<&str, Hand>{
     }))
 }
  
-fn read_file_and_compute_camel_poker(file_path: &Path) -> Result<(), Error> {
-    let lines = utils_io::line_iterator(file_path)?;
+fn read_file_and_compute_camel_poker(file_path: &Path) -> io::Result<()> {
+    let lines = io::line_iterator(file_path)?;
     let mut vec_hands: Vec<Hand> = Vec::new();
 
     for (nline, line) in lines.enumerate() {
@@ -157,7 +156,7 @@ fn read_file_and_compute_camel_poker(file_path: &Path) -> Result<(), Error> {
     Ok(())
 }
 
-pub fn main() -> Result<(), Error> {
+pub fn main() -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_seven");
     read_file_and_compute_camel_poker(&filename)?;
     Ok(())

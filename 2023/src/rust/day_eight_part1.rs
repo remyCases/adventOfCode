@@ -98,8 +98,8 @@ fn parse_maps<'a>(line: &'a str, map: &'a mut Map) -> IResult<&'a str, &'a str>{
     Ok((line, line))
 }
  
-fn read_file_and_compute_steps(file_path: &Path) -> Result<(), Error> {
-    let lines = utils_io::line_iterator(file_path)?;
+fn read_file_and_compute_steps(file_path: &Path) -> io::Result<()> {
+    let lines = io::line_iterator(file_path)?;
     let mut map = Map { direction: Vec::new(), nodes: Vec::new() };
 
     let mut flag_direction = true;
@@ -152,7 +152,7 @@ fn read_file_and_compute_steps(file_path: &Path) -> Result<(), Error> {
     Ok(())
 }
 
-pub fn main() -> Result<(), Error> {
+pub fn main() -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_eight");
     read_file_and_compute_steps(&filename)?;
     Ok(())

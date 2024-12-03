@@ -5,13 +5,9 @@
 use std::path::Path;
 use std::io::{Error, ErrorKind};
 use std::env;
-
 use nom::*;
 use nom::error::Error as NomError;
-
-use crate::utils_io::io::Result<()>;
-use crate::utils_io::line_iterator;
-use crate::utils_io::ArgPart;
+use aoc_utils::*;
 
 #[derive(Debug)]
 enum PartValue {
@@ -39,13 +35,13 @@ impl Part {
         (other.x == 0 && self.x <= 1) ||
         (self.x <= other.x + 1 && other.x <= self.x + self.size)
     }
-    fn numeral(&self) -> Result<i32, Error> {
+    fn numeral(&self) -> io::Result<i32> {
         match self.value {
             PartValue::Numeral(n) => Ok(n),
             PartValue::Symbol(_) => Err(Error::new(ErrorKind::InvalidData, "Cannot extract a numeral in a symbol value")),
         }
     }
-    fn set_gear(&mut self, v: i32) -> Result<i32, Error> {
+    fn set_gear(&mut self, v: i32) -> io::Result<i32> {
         if self.gear1.is_none() {
             self.gear1 = Some(v);
             Ok(1)
@@ -82,8 +78,8 @@ fn parse_engine<'a>(line: &'a str, nline: usize, vec_numeral: &mut Vec<Part>, ve
     Ok((line, end))
 }
 
-fn read_file_and_adjacent(file_path: &Path, part: ArgPart) -> io::Result<()> {
-    let lines = line_iterator(file_path)?;
+fn read_file_and_adjacent(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
+    let lines = io::line_iterator(file_path)?;
     let mut sum_numeral_parts = 0;
     let mut product_gears = 0;
     // vec to collect data from the txt
@@ -132,12 +128,12 @@ fn read_file_and_adjacent(file_path: &Path, part: ArgPart) -> io::Result<()> {
     }
 
     match part {
-        ArgPart::PartOne => { println!("SUM PARTS: {:}", sum_numeral_parts); Ok(()) }, 
-        ArgPart::PartTwo => { println!("SUM PARTS: {:}", product_gears); Ok(()) }, 
+        argparse::ArgPart::PartOne => { println!("SUM PARTS: {:}", sum_numeral_parts); Ok(()) }, 
+        argparse::ArgPart::PartTwo => { println!("SUM PARTS: {:}", product_gears); Ok(()) }, 
     }
 }
 
-pub fn main(part: ArgPart) -> io::Result<()> {
+pub fn main(part: argparse::ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_three");
     read_file_and_adjacent(&filename, part)?;
     Ok(())

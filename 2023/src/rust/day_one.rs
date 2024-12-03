@@ -5,12 +5,11 @@
 use std::path::Path;
 use std::io::{Error, ErrorKind};
 use std::env;
-
 use aoc_utils::*;
 
 const VALID_STRING: [&str; 18] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 
-type FnParse = fn(SResult, &mut i32, &mut i32) -> io::Result<()>;
+type FnParse = fn(io::Result<String>, &mut i32, &mut i32) -> io::Result<()>;
 
 fn convert_text_int(text: &str, digit: &mut i32) -> io::Result<()> {
     if text == "1" || text == "one" { *digit = 1; Ok(()) }
@@ -25,7 +24,7 @@ fn convert_text_int(text: &str, digit: &mut i32) -> io::Result<()> {
     else { Err(Error::new(ErrorKind::InvalidInput, "Invalid string")) }
 }
 
-fn parse_digits(line: SResult, first_digit: &mut i32, second_digit: &mut i32) -> io::Result<()> {
+fn parse_digits(line: io::Result<String>, first_digit: &mut i32, second_digit: &mut i32) -> io::Result<()> {
     let binding_line = line?;
     let mut parsed_line = binding_line.chars().filter_map(|l| l.to_digit(10));
     let mut parsed_reversed_line = binding_line.chars().rev().filter_map(|l| l.to_digit(10));
@@ -36,7 +35,7 @@ fn parse_digits(line: SResult, first_digit: &mut i32, second_digit: &mut i32) ->
     Ok(())
 }
 
-fn parse_digits_and_name(line: SResult, first_digit: &mut i32, second_digit: &mut i32) -> io::Result<()> {
+fn parse_digits_and_name(line: io::Result<String>, first_digit: &mut i32, second_digit: &mut i32) -> io::Result<()> {
     let binding_line = line?;
     let it_line_for_min = VALID_STRING.iter().filter_map(|s| binding_line.find(s).map(|r| (r, s.len())));
     let it_line_for_max = VALID_STRING.iter().filter_map(|s| binding_line.rfind(s).map(|r| (r, s.len())));
@@ -50,15 +49,15 @@ fn parse_digits_and_name(line: SResult, first_digit: &mut i32, second_digit: &mu
     Ok(())
 }
 
-fn read_file_and_compute_calibration(file_path: &Path, part: ArgPart) -> io::Result<()> {
-    let lines = line_iterator(file_path)?;
+fn read_file_and_compute_calibration(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
+    let lines = io::line_iterator(file_path)?;
     let mut first_digit_calibration = 0;
     let mut second_digit_calibration = 0;
     let mut sum_calibration = 0;
 
-    let tryparse: Result<FnParse, Error> = match part {
-        ArgPart::PartOne => Ok(parse_digits),
-        ArgPart::PartTwo => Ok(parse_digits_and_name),
+    let tryparse: io::Result<FnParse> = match part {
+        argparse::ArgPart::PartOne => Ok(parse_digits),
+        argparse::ArgPart::PartTwo => Ok(parse_digits_and_name),
     };
 
     let parse = tryparse?;
@@ -71,7 +70,7 @@ fn read_file_and_compute_calibration(file_path: &Path, part: ArgPart) -> io::Res
     Ok(())
 }
 
-pub fn main(part: ArgPart) -> io::Result<()> {
+pub fn main(part: argparse::ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_one");
     read_file_and_compute_calibration(&filename, part)?;
     Ok(())

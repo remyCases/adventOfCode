@@ -2,11 +2,10 @@
 // See LICENSE file for extended copyright information.
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-use crate::utils_io;
 use std::path::Path;
 use std::io::{Error, ErrorKind};
 use std::env;
-
+use aoc_utils::*;
 use nom::*;
 
 fn parse_history(line: &str) -> IResult<&str, Vec<i32>>{
@@ -39,8 +38,8 @@ fn compute_histories_rev(history: &[i32]) -> Vec<i32> {
     previous
 }
 
-fn read_file_and_compute_extrapolated_values(file_path: &Path) -> Result<(), Error> {
-    let lines = utils_io::line_iterator(file_path)?;
+fn read_file_and_compute_extrapolated_values(file_path: &Path) -> io::Result<()> {
+    let lines = io::line_iterator(file_path)?;
     let mut result = 0;
 
     for (nline, line) in lines.enumerate() {
@@ -60,7 +59,7 @@ fn read_file_and_compute_extrapolated_values(file_path: &Path) -> Result<(), Err
     Ok(())
 }
 
-pub fn main() -> Result<(), Error> {
+pub fn main() -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_nine");
     read_file_and_compute_extrapolated_values(&filename)?;
     Ok(())

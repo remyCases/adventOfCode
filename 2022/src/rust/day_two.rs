@@ -32,8 +32,8 @@ fn read_file_and_compute_calories(file_path: &Path, part: argparse::ArgPart) -> 
             let index = 3 * (opponent_index_str.parse::<char>()? as usize - A_AS_INT) + your_index;
 
             match part {
-                1 => point += POINTS_FROM_MOVE[index] + your_index + 1,
-                2 => point += POINTS_FROM_RESULT[index] + your_index * 3,
+                argparse::ArgPart::PartOne => point += POINTS_FROM_MOVE[index] + your_index + 1,
+                argparse::ArgPart::PartTwo => point += POINTS_FROM_RESULT[index] + your_index * 3,
             };
         };
     }

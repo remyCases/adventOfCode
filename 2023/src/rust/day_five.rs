@@ -5,13 +5,9 @@
 use std::path::Path;
 use std::io::{Error, ErrorKind};
 use std::env;
-
+use aoc_utils::*;
 use nom::*;
 use nom::error::Error as NomError;
-
-use crate::utils_io::io::Result<()>;
-use crate::utils_io::line_iterator;
-use crate::utils_io::ArgPart;
 
 #[derive(Debug)]
 struct Line {
@@ -161,8 +157,8 @@ fn parse_garden<'a>(line: &'a str, garden: &'a mut Garden, parsing_state: &mut S
     }
 }
 
-fn read_file_and_compute_garden(file_path: &Path, _part: ArgPart) -> io::Result<()> {
-    let lines = line_iterator(file_path)?;
+fn read_file_and_compute_garden(file_path: &Path, _part: argparse::ArgPart) -> io::Result<()> {
+    let lines = io::line_iterator(file_path)?;
     let mut garden = Garden::new();
     let mut parsing_state = State::Seed;
 
@@ -177,7 +173,7 @@ fn read_file_and_compute_garden(file_path: &Path, _part: ArgPart) -> io::Result<
     Ok(())
 }
 
-pub fn main(part: ArgPart) -> io::Result<()> {
+pub fn main(part: argparse::ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_five");
     read_file_and_compute_garden(&filename, part)?;
     Ok(())

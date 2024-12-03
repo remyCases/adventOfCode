@@ -63,13 +63,13 @@ fn compute_power(game: Game, result: &mut i32) {
     *result += game.red * game.green * game.blue;
 }
 
-fn read_file_and_compute_game_id(file_path: &Path, part: ArgPart) -> io::Result<()> {
-    let lines = line_iterator(file_path)?;
+fn read_file_and_compute_game_id(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
+    let lines = io::line_iterator(file_path)?;
     let mut result = 0;
     
     let trycompute: Result<fn(Game, &mut i32) -> (), Error> = match part {
-        ArgPart::PartOne => Ok(compute_id),
-        ArgPart::PartTwo => Ok(compute_power),
+        argparse::ArgPart::PartOne => Ok(compute_id),
+        argparse::ArgPart::PartTwo => Ok(compute_power),
     };
 
     let compute = trycompute?;
@@ -89,7 +89,7 @@ fn read_file_and_compute_game_id(file_path: &Path, part: ArgPart) -> io::Result<
     Ok(())
 }
 
-pub fn main(part: ArgPart) -> io::Result<()> {
+pub fn main(part: argparse::ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_two");
     read_file_and_compute_game_id(&filename, part)?;
     Ok(())

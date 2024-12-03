@@ -18,18 +18,12 @@ macro_rules! placeholder {
         for (nline, line) in $l.enumerate() {
             let binding = line?;
             let (_, r) = $p(&binding).map_err(|err|
+                Error::new(
+                    ErrorKind::InvalidData,
+                    err.to_string() + &format!(" in line: {:}", nline)
+                )
             )?;
+            $c(r);
         }
     };
 }
-
-    for (nline, line) in lines.enumerate() {
-        let binding_line = line?;
-        let (_, (n1, n2)) = parse_line(&binding_line).map_err(|err| Error::new(
-            ErrorKind::InvalidData,
-            err.to_string() + &format!(" in line: {:}", nline)
-        ))?;
-        vec1.push(n1);
-        vec2.push(n2);
-    }
-

@@ -6,13 +6,9 @@ use std::path::Path;
 use std::io::{Error, ErrorKind};
 use std::env;
 use std::collections::HashSet;
-
+use aoc_utils::*;
 use nom::*;
 use nom::error::Error as NomError;
-
-use crate::utils_io::io::Result<()>;
-use crate::utils_io::line_iterator;
-use crate::utils_io::ArgPart;
 
 fn parse_scratchcards<'a>(line: &'a str, index: &'a mut usize) -> IResult<&'a str, (Vec<i32>, Vec<i32>)> {
     
@@ -35,9 +31,9 @@ fn parse_scratchcards<'a>(line: &'a str, index: &'a mut usize) -> IResult<&'a st
     Ok((line, (winning_numbers, numbers)))
 }
 
-fn read_file_and_compute_winning_numbers (file_path: &Path, part: ArgPart) -> io::Result<()> {
-    let lines = line_iterator(file_path)?;
-    let lines_count = line_iterator(file_path)?.count();
+fn read_file_and_compute_winning_numbers (file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
+    let lines = io::line_iterator(file_path)?;
+    let lines_count = io::line_iterator(file_path)?.count();
     let mut instances: Vec<i32> = vec![0; lines_count];
     let mut points: Vec<i32> = vec![0; lines_count];
     let mut index: usize = 0;
@@ -72,12 +68,12 @@ fn read_file_and_compute_winning_numbers (file_path: &Path, part: ArgPart) -> io
     }
 
     match part {
-        ArgPart::PartOne => { println!("Pile of scratchcards worth: {:}", points.iter().sum::<i32>()); Ok(()) }, 
-        ArgPart::PartTwo => { println!("Pile of scratchcards : {:}", instances.iter().sum::<i32>()); Ok(()) }, 
+        argparse::ArgPart::PartOne => { println!("Pile of scratchcards worth: {:}", points.iter().sum::<i32>()); Ok(()) }, 
+        argparse::ArgPart::PartTwo => { println!("Pile of scratchcards : {:}", instances.iter().sum::<i32>()); Ok(()) }, 
     }
 }
 
-pub fn main(part: ArgPart) -> io::Result<()> {
+pub fn main(part: argparse::ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_four");
     read_file_and_compute_winning_numbers(&filename, part)?;
     Ok(())

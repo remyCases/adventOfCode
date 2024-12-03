@@ -2,11 +2,10 @@
 // See LICENSE file for extended copyright information.
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-use crate::utils_io;
 use std::path::Path;
 use std::io::{Error, ErrorKind};
 use std::env;
-
+use aoc_utils::*;
 use nom::*;
 use nom::error::{Error as NomError, ParseError};
 use std::cmp::Ordering;
@@ -105,7 +104,7 @@ fn parse_maps<'a>(line: &'a str, map: &'a mut Map) -> IResult<&'a str, &'a str>{
     Ok((line, line))
 }
 
-fn compute_steps(nodes: &[Node], directions: &[Direction], start: &Node) -> Result<u64, Error> {
+fn compute_steps(nodes: &[Node], directions: &[Direction], start: &Node) -> io::Result<u64> {
 
     let mut curr_id: u32 = 0;
     let mut curr_index: usize = 0;
@@ -136,8 +135,8 @@ fn compute_steps(nodes: &[Node], directions: &[Direction], start: &Node) -> Resu
     
 }
 
-fn read_file_and_compute_steps(file_path: &Path) -> Result<(), Error> {
-    let lines = utils_io::line_iterator(file_path)?;
+fn read_file_and_compute_steps(file_path: &Path) -> io::Result<()> {
+    let lines = io::line_iterator(file_path)?;
     let mut map = Map { direction: Vec::new(), nodes: Vec::new(), starts: Vec::new() };
 
     let mut flag_direction = true;
@@ -177,7 +176,7 @@ fn read_file_and_compute_steps(file_path: &Path) -> Result<(), Error> {
     Ok(())
 }
 
-pub fn main() -> Result<(), Error> {
+pub fn main() -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_eight");
     read_file_and_compute_steps(&filename)?;
     Ok(())
