@@ -10,15 +10,13 @@ use aoc_utils::*;
 
 const BUFFER_LEN: usize = 3;
 
-fn parse_line<'a>(line: &'a str, sum: &'a i32) -> IResult<&'a str, &'a str>{
+fn parse_line<'a>(line: &'a str) -> IResult<&'a str, &'a str>{
     let (_, n) = combinator::map_res(
         character::complete::digit0,
         str::parse
     )(line)?;
 
-    &sum += n;
-
-    Ok((line, line))
+    Ok((line, n))
 }
 
 fn read_file_and_compute_calories(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {

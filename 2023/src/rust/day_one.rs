@@ -6,16 +6,13 @@ use std::path::Path;
 use std::io::{Error, ErrorKind};
 use std::env;
 
-use crate::utils_io::EResult;
-use crate::utils_io::SResult;
-use crate::utils_io::line_iterator;
-use crate::utils_io::ArgPart;
+use aoc_utils::*;
 
 const VALID_STRING: [&str; 18] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 
-type FnParse = fn(SResult, &mut i32, &mut i32) -> EResult;
+type FnParse = fn(SResult, &mut i32, &mut i32) -> io::Result<()>;
 
-fn convert_text_int(text: &str, digit: &mut i32) -> EResult {
+fn convert_text_int(text: &str, digit: &mut i32) -> io::Result<()> {
     if text == "1" || text == "one" { *digit = 1; Ok(()) }
     else if text == "2" || text == "two" { *digit = 2; Ok(()) }
     else if text == "3" || text == "three" { *digit = 3; Ok(()) }
@@ -28,7 +25,7 @@ fn convert_text_int(text: &str, digit: &mut i32) -> EResult {
     else { Err(Error::new(ErrorKind::InvalidInput, "Invalid string")) }
 }
 
-fn parse_digits(line: SResult, first_digit: &mut i32, second_digit: &mut i32) -> EResult {
+fn parse_digits(line: SResult, first_digit: &mut i32, second_digit: &mut i32) -> io::Result<()> {
     let binding_line = line?;
     let mut parsed_line = binding_line.chars().filter_map(|l| l.to_digit(10));
     let mut parsed_reversed_line = binding_line.chars().rev().filter_map(|l| l.to_digit(10));
@@ -39,7 +36,7 @@ fn parse_digits(line: SResult, first_digit: &mut i32, second_digit: &mut i32) ->
     Ok(())
 }
 
-fn parse_digits_and_name(line: SResult, first_digit: &mut i32, second_digit: &mut i32) -> EResult {
+fn parse_digits_and_name(line: SResult, first_digit: &mut i32, second_digit: &mut i32) -> io::Result<()> {
     let binding_line = line?;
     let it_line_for_min = VALID_STRING.iter().filter_map(|s| binding_line.find(s).map(|r| (r, s.len())));
     let it_line_for_max = VALID_STRING.iter().filter_map(|s| binding_line.rfind(s).map(|r| (r, s.len())));
@@ -53,7 +50,7 @@ fn parse_digits_and_name(line: SResult, first_digit: &mut i32, second_digit: &mu
     Ok(())
 }
 
-fn read_file_and_compute_calibration(file_path: &Path, part: ArgPart) -> EResult {
+fn read_file_and_compute_calibration(file_path: &Path, part: ArgPart) -> io::Result<()> {
     let lines = line_iterator(file_path)?;
     let mut first_digit_calibration = 0;
     let mut second_digit_calibration = 0;
@@ -74,7 +71,7 @@ fn read_file_and_compute_calibration(file_path: &Path, part: ArgPart) -> EResult
     Ok(())
 }
 
-pub fn main(part: ArgPart) -> EResult {
+pub fn main(part: ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_one");
     read_file_and_compute_calibration(&filename, part)?;
     Ok(())

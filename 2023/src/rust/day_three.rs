@@ -9,7 +9,7 @@ use std::env;
 use nom::*;
 use nom::error::Error as NomError;
 
-use crate::utils_io::EResult;
+use crate::utils_io::io::Result<()>;
 use crate::utils_io::line_iterator;
 use crate::utils_io::ArgPart;
 
@@ -82,7 +82,7 @@ fn parse_engine<'a>(line: &'a str, nline: usize, vec_numeral: &mut Vec<Part>, ve
     Ok((line, end))
 }
 
-fn read_file_and_adjacent(file_path: &Path, part: ArgPart) -> EResult {
+fn read_file_and_adjacent(file_path: &Path, part: ArgPart) -> io::Result<()> {
     let lines = line_iterator(file_path)?;
     let mut sum_numeral_parts = 0;
     let mut product_gears = 0;
@@ -137,7 +137,7 @@ fn read_file_and_adjacent(file_path: &Path, part: ArgPart) -> EResult {
     }
 }
 
-pub fn main(part: ArgPart) -> EResult {
+pub fn main(part: ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_three");
     read_file_and_adjacent(&filename, part)?;
     Ok(())

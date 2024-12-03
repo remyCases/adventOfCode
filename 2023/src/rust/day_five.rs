@@ -9,7 +9,7 @@ use std::env;
 use nom::*;
 use nom::error::Error as NomError;
 
-use crate::utils_io::EResult;
+use crate::utils_io::io::Result<()>;
 use crate::utils_io::line_iterator;
 use crate::utils_io::ArgPart;
 
@@ -161,7 +161,7 @@ fn parse_garden<'a>(line: &'a str, garden: &'a mut Garden, parsing_state: &mut S
     }
 }
 
-fn read_file_and_compute_garden(file_path: &Path, _part: ArgPart) -> EResult {
+fn read_file_and_compute_garden(file_path: &Path, _part: ArgPart) -> io::Result<()> {
     let lines = line_iterator(file_path)?;
     let mut garden = Garden::new();
     let mut parsing_state = State::Seed;
@@ -177,7 +177,7 @@ fn read_file_and_compute_garden(file_path: &Path, _part: ArgPart) -> EResult {
     Ok(())
 }
 
-pub fn main(part: ArgPart) -> EResult {
+pub fn main(part: ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_five");
     read_file_and_compute_garden(&filename, part)?;
     Ok(())

@@ -20,12 +20,9 @@ mod day_ten_part2;
 
 use clap::Parser;
 
-#[path = "../../../utils/utils_io.rs"] mod utils_io;
-use utils_io::EResult;
-use utils_io::Args;
-use utils_io::ArgPart;
+use aoc_utils::*;
 
-fn main() -> EResult {
+fn main() -> io::Result<()> {
     let args = Args::parse();
 
     match args.day {

@@ -14,10 +14,7 @@ use nom::{
     branch::alt,
     multi::many1
 };
-
-use crate::utils_io::EResult;
-use crate::utils_io::line_iterator;
-use crate::utils_io::ArgPart;
+use aoc_utils::*;
 
 const MAX_RED: i32 = 12;
 const MAX_GREEN: i32 = 13;
@@ -53,7 +50,7 @@ fn parse_games(line: &str) -> IResult<&str, Game> {
         else if t == "blue" { max_blue = if max_blue <= v { v } else { max_blue } }
     }
 
-    Ok((line, Game{ id, red: max_red, blue: max_blue, green: max_green}))
+    Ok((line, Game{ id, red: max_red, blue: max_blue, green: max_green }))
 }
 
 fn compute_id(game: Game, result: &mut i32) {
@@ -66,7 +63,7 @@ fn compute_power(game: Game, result: &mut i32) {
     *result += game.red * game.green * game.blue;
 }
 
-fn read_file_and_compute_game_id(file_path: &Path, part: ArgPart) -> EResult {
+fn read_file_and_compute_game_id(file_path: &Path, part: ArgPart) -> io::Result<()> {
     let lines = line_iterator(file_path)?;
     let mut result = 0;
     
@@ -92,7 +89,7 @@ fn read_file_and_compute_game_id(file_path: &Path, part: ArgPart) -> EResult {
     Ok(())
 }
 
-pub fn main(part: ArgPart) -> EResult {
+pub fn main(part: ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_two");
     read_file_and_compute_game_id(&filename, part)?;
     Ok(())

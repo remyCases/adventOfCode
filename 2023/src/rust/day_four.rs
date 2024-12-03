@@ -10,7 +10,7 @@ use std::collections::HashSet;
 use nom::*;
 use nom::error::Error as NomError;
 
-use crate::utils_io::EResult;
+use crate::utils_io::io::Result<()>;
 use crate::utils_io::line_iterator;
 use crate::utils_io::ArgPart;
 
@@ -35,7 +35,7 @@ fn parse_scratchcards<'a>(line: &'a str, index: &'a mut usize) -> IResult<&'a st
     Ok((line, (winning_numbers, numbers)))
 }
 
-fn read_file_and_compute_winning_numbers (file_path: &Path, part: ArgPart) -> EResult {
+fn read_file_and_compute_winning_numbers (file_path: &Path, part: ArgPart) -> io::Result<()> {
     let lines = line_iterator(file_path)?;
     let lines_count = line_iterator(file_path)?.count();
     let mut instances: Vec<i32> = vec![0; lines_count];
@@ -77,7 +77,7 @@ fn read_file_and_compute_winning_numbers (file_path: &Path, part: ArgPart) -> ER
     }
 }
 
-pub fn main(part: ArgPart) -> EResult {
+pub fn main(part: ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2023").join("data").join("input_day_four");
     read_file_and_compute_winning_numbers(&filename, part)?;
     Ok(())

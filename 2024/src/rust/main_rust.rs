@@ -4,14 +4,10 @@
 
 mod day_one;
 
-use clap::Parser;
+use aoc_utils::*;
 
-#[path = "../../../utils/utils_io.rs"] mod utils_io;
-use utils_io::EResult;
-use utils_io::Args;
-
-fn main() -> EResult {
-    let args = Args::parse();
+fn main() -> Result<()> {
+    let args = AocArgs::parse();
 
     match args.day {
         1 => day_one::main(args.part)?,
