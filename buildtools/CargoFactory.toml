@@ -2,6 +2,11 @@
 # See LICENSE file for extended copyright information.
 # This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
+[workspace]
+members = [
+	"utils"
+]
+
 [package]
 name = "AdventOfCodeRust"
 version = "0.2.0"
@@ -16,9 +21,11 @@ clap = { version = "4", features = ["derive"] }
 anyhow = "1"
 nom = { version = "7" }
 gcd = { version = "2" }
+utils = { path = "../rust" }
 
 [profile.Release]
 inherits = "release"
 
 [profile.Dev]
 inherits = "dev"
+

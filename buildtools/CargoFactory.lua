@@ -11,7 +11,7 @@ local function generate_exe(f, year)
 end
 
 local function generateCargo(f, year_table)
-    local template = io.open("utils/CargoFactory.toml","r")
+    local template = io.open("buildtools/CargoFactory.toml","r")
     if not template then return nil end
     local content = template:read("*a")
     template:close()
@@ -33,7 +33,7 @@ while arg[i] do
 	i = i + 1
 end
 
-local file = io.open("utils/Cargo.toml","w")
+local file = io.open("buildtools/Cargo.toml","w")
 if not file then
     print("Error, can't open utils/Cargo.toml.")
     return nil

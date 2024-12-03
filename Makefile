@@ -50,8 +50,8 @@ C99_TARGETS := $(C99FOLDER:%/src/c99/mainC99.c=c99_%)
 COBFOLDER := $(wildcard */src/cobol/mainCob.cob)
 COB_TARGETS := $(COBFOLDER:%/src/cobol/mainCob.cob=cob_%)
 
-CARGOFACTORY_FILE := ./utils/CargoFactory.toml
-CARGO_FILE := ./utils/Cargo.toml
+CARGOFACTORY_FILE := ./buildtools/CargoFactory.toml
+CARGO_FILE := ./buildtools/Cargo.toml
 RUSTFOLDER := $(wildcard */src/rust/main_rust.rs)
 CARGO_TARGETS := $(RUSTFOLDER:%/src/rust/main_rust.rs=%)
 COPY_RUST_TARGETS := $(CARGO_TARGETS:%=copy_rust_%)
@@ -97,9 +97,9 @@ build_rust_release:
 
 build_cargo:
 ifeq ($(DETECTED_OS), Windows)
-	lua54 .\utils\CargoFactory.lua $(CARGO_TARGETS)
+	lua54 .\buildtools\CargoFactory.lua $(CARGO_TARGETS)
 else
-	lua ./utils/CargoFactory.lua $(CARGO_TARGETS)
+	lua ./buildtools/CargoFactory.lua $(CARGO_TARGETS)
 endif
 
 rust_target:
