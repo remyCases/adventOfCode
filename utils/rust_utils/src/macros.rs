@@ -13,6 +13,16 @@ macro_rules! zip {
 }
 
 #[macro_export]
+macro_rules! zip_iter {
+    ($x: expr) => ($x);
+    ($x: expr, $($y: expr), +) => (
+        $x.zip(
+            zip_iter!($($y), +)
+        )
+    )
+}
+
+#[macro_export]
 macro_rules! parse_compute {
     ($f: ident, $p: expr, $c: expr) => {
         let lines = io::line_iterator($f)?;

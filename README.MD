@@ -13,7 +13,7 @@ It should work for both Windows and Linux architectures.
 |Days | Rust | C99 |
 |-----|:-:|:-:|
 | 1 |:heavy_check_mark:|:x:
-| 2 |:x:|:x:
+| 2 |:wavy_dash:|:x:
 | 3 |:x:|:x:
 | 4 |:x:|:x:
 | 5 |:x:|:x:

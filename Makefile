@@ -86,6 +86,9 @@ nim_%:
 clippy: build_cargo
 	cargo clippy --profile $(BUILD_TYPE) --manifest-path $(CARGO_FILE) --target-dir ./build/rust
 
+rust_test: build_rust
+	cargo test --profile $(BUILD_TYPE) --manifest-path $(CARGO_FILE) --target-dir ./build/rust
+
 build_rust: prerequisite build_cargo rust_target $(COPY_RUST_TARGETS)
 
 .PHONY: build_rust_debug build_rust_release

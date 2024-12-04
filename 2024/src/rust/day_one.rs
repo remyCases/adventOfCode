@@ -7,7 +7,7 @@ use std::env;
 use std::io::{Error, ErrorKind};
 use std::collections::HashMap;
 use nom::*;
-use nom::error::{Error as NomError};
+use nom::error::Error as NomError;
 use aoc_utils::*;
 
 fn read_file_and_compute_distance(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
@@ -38,6 +38,7 @@ fn read_file_and_compute_distance(file_path: &Path, part: argparse::ArgPart) -> 
             map2.entry(y).and_modify(|c| {*c += 1}).or_insert(1);
         }
     );
+
 
     println!("DISTANCE: {:}", match part {
         argparse::ArgPart::PartOne => {

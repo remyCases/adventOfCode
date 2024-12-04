@@ -21,6 +21,7 @@ autobins = false
 [dependencies]
 nom = { version = "7" }
 gcd = { version = "2" }
+itertools = { version = "0.13" }
 aoc_utils = { path = "utils/rust_utils" }
 
 [profile.Release]

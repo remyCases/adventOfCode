@@ -9,6 +9,9 @@ build
 # test files
 */data/test
 
+# rust analyser
+target
+
 # generated cargo.toml
 /Cargo.toml
 /Cargo.lock
