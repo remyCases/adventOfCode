@@ -57,7 +57,7 @@ fn explore_with_dampener(v: Vec<i32>) -> bool {
     s != Status::Unsafe
 }
 
-fn read_file_and_compute_distance(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
+fn read_file_and_compute_reports(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
     let mut reports: Vec<bool> = Vec::new();
 
     parse_compute!(
@@ -95,7 +95,7 @@ fn read_file_and_compute_distance(file_path: &Path, part: argparse::ArgPart) -> 
 
 pub fn main(part: argparse::ArgPart) -> io::Result<()> {
     let filename = env::current_dir()?.join("2024").join("data").join("input_day_two");
-    read_file_and_compute_distance(&filename, part)?;
+    read_file_and_compute_reports(&filename, part)?;
     Ok(())
 }
 
