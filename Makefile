@@ -84,7 +84,7 @@ nim_%:
 
 ### RUST ###
 clippy: build_cargo
-	cargo clippy --manifest-path $(CARGO_FILE)
+	cargo clippy --profile $(BUILD_TYPE) --manifest-path $(CARGO_FILE) --target-dir ./build/rust
 
 build_rust: prerequisite build_cargo rust_target $(COPY_RUST_TARGETS)
 

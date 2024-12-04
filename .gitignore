@@ -6,9 +6,6 @@
 build
 .vscode
 
-# for rust-analyzer
-utils/target
-
 # test files
 */data/test
 
