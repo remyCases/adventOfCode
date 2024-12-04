@@ -71,7 +71,7 @@ proc readFileAndComputeScores(filename: string, option = '1') =
     echo "SCORE: ", score
 
 proc main*(part: char) =
-    const file = "2022/data/input_day_two.txt"
+    const file = "2022/data/input_day_two"
     let filename = getCurrentDir() / file
     readFileAndComputeScores(filename, part)
 

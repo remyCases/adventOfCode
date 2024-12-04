@@ -10,7 +10,7 @@ AUTHOR. RémyCases
 ENVIRONMENT DIVISION.
 INPUT-OUTPUT SECTION.
 FILE-CONTROL.
-       SELECT DataFile ASSIGN TO "2022/data/input_day_three.txt" 
+       SELECT DataFile ASSIGN TO "2022/data/input_day_three" 
            ORGANIZATION IS LINE SEQUENTIAL 
            ACCESS IS SEQUENTIAL.
 

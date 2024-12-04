@@ -45,7 +45,7 @@ static uint32_t compute_points(char ch1, char ch2, int part) {
 
 int day_two_solution(int part) {
 
-    FILE* fp = fopen("2022/data/input_day_two.txt", "r");
+    FILE* fp = fopen("2022/data/input_day_two", "r");
     if (!fp) { /* validate file open for reading */
         return EXIT_FAILURE;
     }

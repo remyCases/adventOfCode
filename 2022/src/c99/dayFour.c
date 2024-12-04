@@ -13,7 +13,7 @@
 
 int day_four_solution(int part) 
 {
-    FILE* fp = fopen("2022/data/input_day_four.txt", "r");
+    FILE* fp = fopen("2022/data/input_day_four", "r");
     if (!fp) /* validate file open for reading */
     {
         return EXIT_FAILURE;

@@ -77,7 +77,7 @@ proc readFileAndComputePriority(filename: string, option = '1') =
     echo "PRIORITIES: ", priority
 
 proc main*(part: char) =
-    const file = "2022/data/input_day_three.txt"
+    const file = "2022/data/input_day_three"
     let filename = getCurrentDir() / file
     readFileAndComputePriority(filename, part)
 

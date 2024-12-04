@@ -83,7 +83,7 @@ proc readFileAndComputeTopCrate(filename: string, roots: var seq[LinkedNode[char
     echo "TOP CRATE: ", computeTopCrate(roots)
 
 proc main*(part: char) =
-    const file = "2022/data/input_day_five.txt"
+    const file = "2022/data/input_day_five"
     let filename = getCurrentDir() / file
     var roots: seq[LinkedNode[char]]
     readFileAndComputeTopCrate(filename, roots, part)

@@ -30,7 +30,7 @@ proc readFileAndComputeMarker(filename: string, option = '1') =
             break
 
 proc main*(part: char) =
-    const file = "2022/data/input_day_six.txt"
+    const file = "2022/data/input_day_six"
     let filename = getCurrentDir() / file
     readFileAndComputeMarker(filename, part)
 

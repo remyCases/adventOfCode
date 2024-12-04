@@ -41,7 +41,7 @@ proc readFileAndComputeCalories(filename: string, option = '1') =
         return
 
 proc main*(part: char) =
-    const file = "2022/data/input_day_one.txt"
+    const file = "2022/data/input_day_one"
     let filename = getCurrentDir() / file
     readFileAndComputeCalories(filename, part)
 

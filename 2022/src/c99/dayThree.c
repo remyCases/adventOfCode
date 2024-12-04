@@ -31,7 +31,7 @@ static uint8_t char_to_index_in_bitfield(char ch) {
 
 int day_three_solution(int part) {
 
-    FILE* fp = fopen("2022/data/input_day_three.txt", "r");
+    FILE* fp = fopen("2022/data/input_day_three", "r");
     if (!fp) { /* validate file open for reading */
         return EXIT_FAILURE;
     }

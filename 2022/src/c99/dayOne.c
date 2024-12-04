@@ -33,7 +33,7 @@ static void add_to_sorted_array(uint32_t p_array[SIZE_MAX_ARRAY], int size, uint
 
 int day_one_solution(int part) {
 
-    FILE* fp = fopen("2022/data/input_day_one.txt", "r");
+    FILE* fp = fopen("2022/data/input_day_one", "r");
     if (!fp) /* validate file open for reading */
     { 
 		return EXIT_FAILURE;

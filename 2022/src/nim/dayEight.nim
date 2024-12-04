@@ -39,7 +39,7 @@ proc readFileAndComputeVisibleTrees(filename: string, option = '1') =
 
 
 proc main*(part: char) =
-    const file = "2022/data/input_day_eight.txt"
+    const file = "2022/data/input_day_eight"
     let filename = getCurrentDir() / file
     readFileAndComputeVisibleTrees(filename, part)
 

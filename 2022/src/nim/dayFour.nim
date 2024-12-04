@@ -48,7 +48,7 @@ proc readFileAndComputePriority(filename: string, option = '1') =
     echo "OVERLAP COUNT: ", overlapCount
 
 proc main*(part: char) =
-    const file = "2022/data/input_day_four.txt"
+    const file = "2022/data/input_day_four"
     let filename = getCurrentDir() / file
     readFileAndComputePriority(filename, part)
 

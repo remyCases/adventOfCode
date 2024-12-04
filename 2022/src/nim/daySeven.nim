@@ -84,7 +84,7 @@ proc readFileAndComputeFolderSize(filename: string, option = '1') =
     echo sum_size
 
 proc main*(part: char) =
-    const file = "2022/data/input_day_seven.txt"
+    const file = "2022/data/input_day_seven"
     let filename = getCurrentDir() / file
     readFileAndComputeFolderSize(filename, part)
 
