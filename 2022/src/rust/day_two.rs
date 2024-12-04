@@ -10,7 +10,7 @@ use aoc_utils::*;
 
 fn read_file_and_compute_calories(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
 
-    let mut point = 0;
+    let mut point: usize = 0;
     const POINTS_FROM_MOVE: [usize; 9] = [
         3, 6, 0,
         0, 3, 6,
@@ -26,13 +26,8 @@ fn read_file_and_compute_calories(file_path: &Path, part: argparse::ArgPart) -> 
     const A_AS_INT: usize = 'A' as usize;
     const X_AS_INT: usize = 'X' as usize;
 
-    let compute: fn(&mut usize, usize, usize) = match part {
-        argparse::ArgPart::PartOne => |p, x, y| *p += POINTS_FROM_MOVE[3 * x + y] + y + 1,
-        argparse::ArgPart::PartTwo => |p, x, y| *p += POINTS_FROM_RESULT[3 * x + y] + y + 1,
-    };
-
     parse_compute!(
-        file_path,
+        file_path, part,
         sequence::separated_pair(
             combinator::map_res(
                 character::complete::one_of::<&str, &str, (&str, _)>("ABC"),
@@ -44,7 +39,8 @@ fn read_file_and_compute_calories(file_path: &Path, part: argparse::ArgPart) -> 
                 |c: char| Ok::<usize, ErrorKind>(c as usize - X_AS_INT)
             ),
         ),
-        |(x, y)| compute(&mut point, x, y)
+        |(x, y)| point += POINTS_FROM_MOVE[3 * x + y] + y + 1,
+        |(x, y)| point += POINTS_FROM_RESULT[3 * x + y] + 3 * y
     );
 
     println!("SCORE: {:?}", point);

@@ -42,8 +42,7 @@ proc computePointWhenSecondIsStrat*(opponentStrat, yourStrat: char): int =
     let opponentIndex = int(opponentStrat) - Aint
     let yourIndex = int(yourStrat) - Xint
 
-    let index = 3 * opponentIndex + yourIndex
-    result = resultArray[index] + yourIndex + 1
+    result = resultArray[3 * opponentIndex + yourIndex] + yourIndex + 1
 
 proc computePointWhenSecondIsResult*(opponentStrat, yourResult: char): int =
     let opponentIndex = int(opponentStrat) - Aint

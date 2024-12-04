@@ -27,4 +27,21 @@ macro_rules! parse_compute {
             $c(r);
         }
     };
+
+    ($f: ident, $pa: expr, $p: expr, $c1: expr, $c2: expr) => {
+        let lines = io::line_iterator($f)?;
+        for (nline, line) in lines.enumerate() {
+            let binding = line?;
+            let (_, r) = $p(&binding).map_err(|err|
+                Error::new(
+                    ErrorKind::InvalidData,
+                    err.to_string() + &format!(" in line: {:}", nline)
+                )
+            )?;
+            match $pa {
+                argparse::ArgPart::PartOne => $c1(r),
+                argparse::ArgPart::PartTwo => $c2(r),
+            };
+        }
+    };
 }
