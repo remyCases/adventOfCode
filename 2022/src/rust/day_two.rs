@@ -4,10 +4,12 @@
 
 use std::path::Path;
 use std::env;
+use std::io::{Error, ErrorKind};
+use nom::*;
 use aoc_utils::*;
 
 fn read_file_and_compute_calories(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
-    let lines = io::line_iterator(file_path)?;
+
     let mut point = 0;
     const POINTS_FROM_MOVE: [usize; 9] = [
         3, 6, 0,
@@ -24,19 +26,26 @@ fn read_file_and_compute_calories(file_path: &Path, part: argparse::ArgPart) -> 
     const A_AS_INT: usize = 'A' as usize;
     const X_AS_INT: usize = 'X' as usize;
 
-    for line in lines {
-        let ok_line = line?;
-        let mut split_line = ok_line.split_whitespace().take(2);
-        if let (Some(opponent_index_str), Some(your_index_str)) = (split_line.next(), split_line.next()) {
-            let your_index = your_index_str.parse::<char>()? as usize - X_AS_INT;
-            let index = 3 * (opponent_index_str.parse::<char>()? as usize - A_AS_INT) + your_index;
+    let compute: fn(&mut usize, usize, usize) = match part {
+        argparse::ArgPart::PartOne => |p, x, y| *p += POINTS_FROM_MOVE[3 * x + y] + y + 1,
+        argparse::ArgPart::PartTwo => |p, x, y| *p += POINTS_FROM_RESULT[3 * x + y] + y + 1,
+    };
 
-            match part {
-                argparse::ArgPart::PartOne => point += POINTS_FROM_MOVE[index] + your_index + 1,
-                argparse::ArgPart::PartTwo => point += POINTS_FROM_RESULT[index] + your_index * 3,
-            };
-        };
-    }
+    parse_compute!(
+        file_path,
+        sequence::separated_pair(
+            combinator::map_res(
+                character::complete::one_of::<&str, &str, (&str, _)>("ABC"),
+                |c: char| Ok::<usize, ErrorKind>(c as usize - A_AS_INT)
+            ),
+            character::complete::multispace0,
+            combinator::map_res(
+                character::complete::one_of::<&str, &str, (&str, _)>("XYZ"),
+                |c: char| Ok::<usize, ErrorKind>(c as usize - X_AS_INT)
+            ),
+        ),
+        |(x, y)| compute(&mut point, x, y)
+    );
 
     println!("SCORE: {:?}", point);
     Ok(())

@@ -13,9 +13,10 @@ macro_rules! zip {
 }
 
 #[macro_export]
-macro_rules! placeholder {
-    ($l: ident, $p: expr, $c: expr) => {
-        for (nline, line) in $l.enumerate() {
+macro_rules! parse_compute {
+    ($f: ident, $p: expr, $c: expr) => {
+        let lines = io::line_iterator($f)?;
+        for (nline, line) in lines.enumerate() {
             let binding = line?;
             let (_, r) = $p(&binding).map_err(|err|
                 Error::new(
