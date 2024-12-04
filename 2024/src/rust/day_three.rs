@@ -9,8 +9,16 @@ use nom::*;
 use nom::error::Error as NomError;
 use aoc_utils::*;
 
+enum Mul {
+    Numbers((i32, i32)),
+    Do,
+    Dont,
+    None,
+}
+
 fn read_file_and_compute_multiplications(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
     let mut res = 0;
+    let mut state = Mul::Do;
 
     parse_compute!(
         file_path, part,
@@ -34,17 +42,41 @@ fn read_file_and_compute_multiplications(file_path: &Path, part: argparse::ArgPa
                             bytes::complete::tag(")")
                         )
                     )),
-                    Some
+                    Mul::Numbers
+                ),
+                combinator::map(
+                    bytes::complete::tag("do()"),
+                    |_x| Mul::Do
+                ),
+                combinator::map(
+                    bytes::complete::tag("don't()"),
+                    |_x| Mul::Dont
                 ),
                 combinator::map(
                     character::complete::anychar,
-                    |_x| None
+                    |_x| Mul::None
                 )
             ))
             
         ),
-        |v: Vec<Option<(i32, i32)>>| res += v.iter().flatten().map(|(x, y)| x*y).sum::<i32>(),
-        |v: Vec<Option<(i32, i32)>>| res += v.iter().flatten().map(|(x, y)| x*y).sum::<i32>()
+        |v: Vec<Mul>| res += v.iter()
+            .map(|t| match t { 
+                Mul::Numbers(inner) => Some(inner),
+                _ => None,
+            })
+            .flatten()
+            .map(|(x, y)| x*y)
+            .sum::<i32>(),
+        |v: Vec<Mul>| res += v.iter()
+            .map(|t| match t { 
+                Mul::Numbers(inner) => match state { Mul::Do => Some(inner), _ => None},
+                Mul::Do => {state = Mul::Do; None},
+                Mul::Dont => {state = Mul::Dont; None},
+                _ => None,
+            })
+            .flatten()
+            .map(|(x, y)| x*y)
+            .sum::<i32>()
     );
 
     println!("MULTIPLICATIONS: {:}", res);
