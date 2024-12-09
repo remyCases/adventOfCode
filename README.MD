@@ -15,7 +15,7 @@ It should work for both Windows and Linux architectures.
 | 1 |:heavy_check_mark:|:x:
 | 2 |:wavy_dash:|:x:
 | 3 |:heavy_check_mark:|:x:
-| 4 |:x:|:x:
+| 4 |:heavy_check_mark:|:x:
 | 5 |:x:|:x:
 | 6 |:x:|:x:
 | 7 |:x:|:x:

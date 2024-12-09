@@ -16,7 +16,7 @@ enum Mul {
     None,
 }
 
-fn read_file_and_compute_multiplications(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
+fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
     let mut res = 0;
     let mut state = Mul::Do;
 
@@ -83,8 +83,4 @@ fn read_file_and_compute_multiplications(file_path: &Path, part: argparse::ArgPa
     Ok(())
 }
 
-pub fn main(part: argparse::ArgPart) -> io::Result<()> {
-    let filename = env::current_dir()?.join("2024").join("data").join("input_day_three");
-    read_file_and_compute_multiplications(&filename, part)?;
-    Ok(())
-}
+main!("2024", "input_day_three");

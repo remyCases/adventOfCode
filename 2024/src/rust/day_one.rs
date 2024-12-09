@@ -10,7 +10,7 @@ use nom::*;
 use nom::error::Error as NomError;
 use aoc_utils::*;
 
-fn read_file_and_compute_distance(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
+fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
     let mut vec1: Vec<i32> = Vec::new();
     let mut vec2: Vec<i32> = Vec::new();
     let mut map1: HashMap<i32, i32> = HashMap::new();
@@ -53,8 +53,4 @@ fn read_file_and_compute_distance(file_path: &Path, part: argparse::ArgPart) -> 
     Ok(())
 }
 
-pub fn main(part: argparse::ArgPart) -> io::Result<()> {
-    let filename = env::current_dir()?.join("2024").join("data").join("input_day_one");
-    read_file_and_compute_distance(&filename, part)?;
-    Ok(())
-}
+main!("2024", "input_day_one");

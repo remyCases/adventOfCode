@@ -55,3 +55,31 @@ macro_rules! parse_compute {
         }
     };
 }
+
+#[macro_export]
+macro_rules! parse_lines {
+    ($f: ident, $p: expr, $a: expr) => {
+        let lines = io::line_iterator($f)?;
+        for (nline, line) in lines.enumerate() {
+            let binding = line?;
+            let (_, r) = $p(&binding).map_err(|err|
+                Error::new(
+                    ErrorKind::InvalidData,
+                    err.to_string() + &format!(" in line: {:}", nline)
+                )
+            )?;
+            $a(nline, r)
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! main {
+    ($y: expr, $f: expr) => {
+        pub fn main(part: argparse::ArgPart) -> io::Result<()> {
+            let filename = env::current_dir()?.join($y).join("data").join($f);
+            read_file_and_compute(&filename, part)?;
+            Ok(())
+        }
+    };
+}
