@@ -220,5 +220,4 @@ mod day_two_four {
     fn check_all_x_mas_example() {
         assert_eq!(check_all_x_mas(&DATA), 9);
     }
-
 }
