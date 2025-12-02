@@ -1,0 +1,17 @@
+// Copyright (C) 2025 Rémy Cases
+// See LICENSE file for extended copyright information.
+// This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
+
+mod day_one;
+
+use aoc_utils::*;
+
+fn main() -> io::Result<()> {
+    let args = argparse::parse();
+
+    match args.day {
+        1 => day_one::main(args.part)?,
+        _ => println!("Incorrect combination of day and part. Day {:} and part {:} does not exist (yet).", args.day, args.part)
+    };
+    Ok(())
+}
