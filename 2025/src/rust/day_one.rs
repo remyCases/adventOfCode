@@ -45,7 +45,22 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
             }
             if dial == 0 { dial_at_zero += 1; }
         },
-        |(d, u): (DIRECTION, i32)| {}
+        |(d, u): (DIRECTION, i32)| {
+            dial_at_zero += u / DIAL_MAX;
+            let increment: i32 = u % DIAL_MAX;
+            
+            if increment == 0 { return; }
+            match d {
+                DIRECTION::LEFT => {
+                    if dial <= increment && dial != 0 { dial_at_zero += 1; }
+                    dial = (dial + DIAL_MAX - increment) % DIAL_MAX;
+                },
+                DIRECTION::RIGHT => {
+                    if dial + increment >= DIAL_MAX { dial_at_zero += 1; }
+                    dial = (dial + increment) % DIAL_MAX;
+                },
+            };
+        }
     );
 
     println!("DIAL AT ZERO: {}", dial_at_zero);
