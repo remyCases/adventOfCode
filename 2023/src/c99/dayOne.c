@@ -139,7 +139,6 @@ int day_one_solution(int part)
 		default:
 			printf("Invalid part\n");
 			return EXIT_FAILURE;
-			break;
 		}
 		
         io_buffer.iteration++;
