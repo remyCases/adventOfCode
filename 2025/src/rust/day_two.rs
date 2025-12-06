@@ -17,7 +17,7 @@ fn find_invalid_ids(s: u64, e: u64) -> u64 {
     let us = if s % u == 0 { s / u } else { s / u + 1 };
     let ue = e / u;
     if ue < us { return 0; }
-    return ((us+1)*us / 2 - (ue-1)*ue / 2) * u;
+    return ((ue+1)*ue / 2 - (us-1)*us / 2) * u;
 }
 
 fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Result<()>
@@ -45,7 +45,6 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
                     s = 10u64.pow(ns);
                 }
                 invalid_ids += find_invalid_ids(s, e);
-
             }
         },
         |v: Vec<(u64, u64)>| {
