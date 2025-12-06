@@ -9,15 +9,16 @@
 
 #include "dayOne.h"
 
-char* VALID_STR[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9",
+#define NB_ELEMENTS 18
+char* VALID_STR[NB_ELEMENTS] = {"1", "2", "3", "4", "5", "6", "7", "8", "9",
 	"one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-int VALID_INT[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9,
+int VALID_INT[NB_ELEMENTS] = { 1, 2, 3, 4, 5, 6, 7, 8, 9,
 	1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 int is_valid_string(char* input, int low, int high)
 {
-	for (int i = 0; i < 18; i++)
+	for (int i = 0; i < NB_ELEMENTS; i++)
 	{
 		char* str = VALID_STR[i];
 		int j = low;
