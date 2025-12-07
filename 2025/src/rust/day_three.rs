@@ -11,10 +11,9 @@ use aoc_utils::*;
 
 fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Result<()>
 {
-    let mut first_battery: u32 = 0;
-    let mut first_index: usize = 0;
-    let mut second_battery: u32 = 0;
-    let mut sum_joltage: u32 = 0;
+    let mut batteries: [u32; 12] = [0; 12];
+    let mut indeces: [usize; 12] = [0; 12];
+    let mut sum_joltage: u64 = 0;
 
     parse_compute!(
         file_path, part,
@@ -22,22 +21,39 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
             combinator::map_opt(character::complete::anychar::<&str, NomError<_>>, |c: char| c.to_digit(10))
         ), 
         |v: Vec<u32>| {
-            first_battery = 0;
-            second_battery = 0;
-            for i in 0..(v.len()-1) {
-                if v[i] > first_battery {
-                    first_battery = v[i];
-                    first_index = i;
+            batteries[0] = 0;
+            indeces[0] = 0;
+            batteries[1] = 0;
+            for i in indeces[0]..(v.len()-1) {
+                if v[i] > batteries[0] {
+                    batteries[0] = v[i];
+                    indeces[1] = i+1;
                 }
             }
-            for j in (first_index+1)..v.len() {
-                if v[j] > second_battery {
-                    second_battery = v[j];
+            for j in indeces[1]..v.len() {
+                if v[j] > batteries[1] {
+                    batteries[1] = v[j];
                 }
             }
-            sum_joltage += first_battery * 10 + second_battery;
+            sum_joltage += (batteries[0] * 10 + batteries[1]) as u64;
         },
         |v: Vec<u32>| {
+            let mut joltage: u64 = 0;
+            for i in 0..12 {
+                batteries[i] = 0;
+                indeces[i] = 0;
+            }
+
+            for i in 0..12 {
+                for j in indeces[i]..(v.len()-11+i) {
+                    if v[j] > batteries[i] {
+                        batteries[i] = v[j];
+                        if i != 11 { indeces[i+1] = j+1; }
+                    }
+                }
+                joltage = joltage * 10 + batteries[i] as u64;
+            }
+            sum_joltage += joltage;
             
         }
     );
