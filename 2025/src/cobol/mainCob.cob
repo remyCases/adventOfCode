@@ -11,8 +11,9 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        01 WSOption.
-           02 WSDay PIC Z9.
+           02 WSDay PIC 99.
            02 WSPart PIC A.
+       01 WSDayDisplay PIC Z9.
        01 WSParsedDay PIC X VALUE 'N'.
            88 CorrectDay VALUE 'Y'.
            88 IncorrectDay VALUE 'N'.
@@ -26,7 +27,13 @@
                SET CorrectDay TO TRUE
            END-IF
 
+           IF WSDay EQUAL TO 2 THEN
+               CALL 'DAYTWO' USING WSPart
+               SET CorrectDay TO TRUE
+           END-IF
+
            IF IncorrectDay
-               DISPLAY "Incorrect combination of day and part. Day " WSDay " and part " WSPart " does not exist (yet)." 
+               MOVE WSDay TO WSDayDisplay
+               DISPLAY "Incorrect combination of day and part. Day " FUNCTION TRIM(WSDayDisplay) " and part " WSPart " does not exist (yet)." 
            END-IF 
            STOP RUN.
