@@ -63,27 +63,27 @@ BranchingCompute.
        MOVE FOpponentStrat TO WSOpponentStrat
        MOVE FSelfStrat TO WSSelfStrat
        
-       if WSSelfStrat EQUAL TO 'X'
+       IF WSSelfStrat EQUAL TO 'X'
            MOVE 1 TO WSSelfIndex
        END-IF
 
-       if WSSelfStrat EQUAL TO 'Y'
+       IF WSSelfStrat EQUAL TO 'Y'
            MOVE 2 TO WSSelfIndex
        END-IF
 
-       if WSSelfStrat EQUAL TO 'Z'
+       IF WSSelfStrat EQUAL TO 'Z'
            MOVE 3 TO WSSelfIndex
        END-IF
 
-       if WSOpponentStrat EQUAL TO 'A'
+       IF WSOpponentStrat EQUAL TO 'A'
            MOVE 1 TO WSOpponentIndex
        END-IF
 
-       if WSOpponentStrat EQUAL TO 'B'
+       IF WSOpponentStrat EQUAL TO 'B'
            MOVE 2 TO WSOpponentIndex
        END-IF
 
-       if WSOpponentStrat EQUAL TO 'C'
+       IF WSOpponentStrat EQUAL TO 'C'
            MOVE 3 TO WSOpponentIndex
        END-IF
        
