@@ -34,6 +34,8 @@
 
            IF IncorrectDay
                MOVE WSDay TO WSDayDisplay
-               DISPLAY "Incorrect combination of day and part. Day " FUNCTION TRIM(WSDayDisplay) " and part " WSPart " does not exist (yet)." 
+               DISPLAY "Incorrect combination of day and part. Day " 
+               FUNCTION TRIM(WSDayDisplay) " and part " 
+               WSPart " does not exist (yet)." 
            END-IF 
            STOP RUN.
