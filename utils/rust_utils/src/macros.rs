@@ -6,10 +6,15 @@
 macro_rules! zip {
     ($x: expr) => ($x);
     ($x: expr, $($y: expr), +) => (
+        $x.into_iter().zip(
+            zip!($($y), +)
+        )
+    );
+    ($x: expr, $($y: expr), +) => (
         $x.iter().zip(
             zip!($($y), +)
         )
-    )
+    );
 }
 
 #[macro_export]
