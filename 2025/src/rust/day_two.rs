@@ -2,6 +2,7 @@
 // See LICENSE file for extended copyright information.
 // This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
+use std::collections::HashSet;
 use std::path::Path;
 use std::env;
 use std::io::{Error, ErrorKind};
@@ -21,7 +22,23 @@ fn find_repeated_twice_ids(s: u64, e: u64) -> u64 {
 }
 
 fn find_repeated_ids(s: u64, e: u64) -> u64 {
-    return 0;
+    let n: u32 = s.ilog10() + 1;
+    let mut ids: HashSet<u64> = HashSet::new();
+
+    for div in 2..=n {
+        if n % div != 0 {
+            continue;
+        }
+        let size_repetition = n / div;
+        let u = (0..div)
+            .fold(0, |acc, i| acc + 10u64.pow(size_repetition * i));
+        let us = if s % u == 0 { s / u } else { s / u + 1 };
+        let ue = e / u;
+        for i in us..=ue {
+            ids.insert(i * u);
+        }
+    }
+    return ids.iter().sum();
 }
 
 fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Result<()>
