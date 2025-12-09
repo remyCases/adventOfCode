@@ -43,14 +43,9 @@ int day_one_solution(int part)
 	int cycles = 0;
 	char orientation = 0;
 	int dial_at_zero = 0;
-
-    while(io_buffer.iteration < MAX_ITERATION_ALLOWED) 
+	while(io_buffer.iteration < MAX_ITERATION_ALLOWED)
 	{
-        io_buffer.out_fgets = fgets(io_buffer.buf, BUFFER_SIZE, fp); /* read each line in file */
-        if (!io_buffer.out_fgets) /* reach end of file */
-		{
-			break;
-        }
+		FGETS(fp); // read new line
 		
 		if (parseRotation(io_buffer.buf, &increment, &orientation, &cycles))
 		{
@@ -89,8 +84,6 @@ int day_one_solution(int part)
 			printf("Invalid part\n");
 			return EXIT_FAILURE;
 		}
-		
-        io_buffer.iteration++;
     }
 
     if (io_buffer.iteration == MAX_ITERATION_ALLOWED) 

@@ -8,7 +8,7 @@
 #define BUFFER_SIZE 300u
 #define MAX_ITERATION_ALLOWED 10000u
 
-#define FGETS(FILE_PTR)			io_buffer.out_fgets = fgets(io_buffer.buf, BUFFER_SIZE, FILE_PTR); \
+#define FGETS(FILE_PTR)		io_buffer.out_fgets = fgets(io_buffer.buf, BUFFER_SIZE, FILE_PTR); \
 							io_buffer.ptr = io_buffer.buf; \
         					io_buffer.iteration++; \
 							if (!io_buffer.out_fgets) { \
