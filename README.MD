@@ -8,35 +8,54 @@ Currently only a [Nim](https://nim-lang.org/), [Cobol](https://gnucobol.sourcefo
 
 It should work for both Windows and Linux architectures.
 
+## Solved challenges 2025 edition
+
+|Days | Rust | C99 | Nim | GnuCobol |
+|-----|:-:|:-:|:-:|:-:|
+| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+| 2 |:wavy_dash:|:x:|:x:|:wavy_dash:|
+| 3 |:heavy_check_mark:|:x:|:x:|:x:|
+| 4 |:wavy_dash:|:x:|:x:|:x:|
+| 5 |:x:|:x:|:x:|:x:|
+| 6 |:x:|:x:|:x:|:x:|
+| 7 |:x:|:x:|:x:|:x:|
+| 8 |:x:|:x:|:x:|:x:|
+| 9 |:x:|:x:|:x:|:x:|
+|10 |:x:|:x:|:x:|:x:|
+|11 |:x:|:x:|:x:|:x:|
+|12 |:x:|:x:|:x:|:x:|
+
 ## Solved challenges 2024 edition
+
+I've currently stopped working on them since the 2025 edition is here.
 
 |Days | Rust | C99 |
 |-----|:-:|:-:|
-| 1 |:heavy_check_mark:|:x:
-| 2 |:wavy_dash:|:x:
-| 3 |:heavy_check_mark:|:x:
-| 4 |:heavy_check_mark:|:x:
-| 5 |:wavy_dash:|:x:
-| 6 |:x:|:x:
-| 7 |:x:|:x:
-| 8 |:x:|:x:
-| 9 |:x:|:x:
-|10 |:x:|:x:
-|11 |:x:|:x:
-|12 |:x:|:x:
-|13 |:x:|:x:
-|14 |:x:|:x:
-|15 |:x:|:x:
-|16 |:x:|:x:
-|17 |:x:|:x:
-|18 |:x:|:x:
-|19 |:x:|:x:
-|20 |:x:|:x:
-|21 |:x:|:x:
-|22 |:x:|:x:
-|23 |:x:|:x:
-|24 |:x:|:x:
-|25 |:x:|:x:
+| 1 |:heavy_check_mark:|:x:|
+| 2 |:wavy_dash:|:x:|
+| 3 |:heavy_check_mark:|:x:|
+| 4 |:heavy_check_mark:|:x:|
+| 5 |:wavy_dash:|:x:|
+| 6 |:x:|:x:|
+| 7 |:x:|:x:|
+| 8 |:x:|:x:|
+| 9 |:x:|:x:|
+|10 |:x:|:x:|
+|11 |:x:|:x:|
+|12 |:x:|:x:|
+|13 |:x:|:x:|
+|14 |:x:|:x:|
+|15 |:x:|:x:|
+|16 |:x:|:x:|
+|17 |:x:|:x:|
+|18 |:x:|:x:|
+|19 |:x:|:x:|
+|20 |:x:|:x:|
+|21 |:x:|:x:|
+|22 |:x:|:x:|
+|23 |:x:|:x:|
+|24 |:x:|:x:|
+|25 |:x:|:x:|
 
 ## Solved challenges 2023 edition
 
@@ -44,31 +63,31 @@ I've currently stopped working on them since the 2024 edition is here.
 
 |Days | Nim | Rust | Zig | C99 |
 |-----|:-:|:-:|:-:|:-:|
-| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-| 2 |:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:
-| 3 |:heavy_check_mark:|:heavy_check_mark:|:x:|:x:
-| 4 |:x:|:heavy_check_mark:|:x:|:x:
-| 5 |:x:|:wavy_dash:|:x:|:x:
-| 6 |:x:|:heavy_check_mark:|:x:|:x:
-| 7 |:x:|:heavy_check_mark:|:x:|:x:
-| 8 |:x:|:heavy_check_mark:|:x:|:x:
-| 9 |:x:|:heavy_check_mark:|:x:|:x:
-|10 |:x:|:wavy_dash:|:x:|:x:
-|11 |:x:|:x:|:x:|:x:
-|12 |:x:|:x:|:x:|:x:
-|13 |:x:|:x:|:x:|:x:
-|14 |:x:|:x:|:x:|:x:
-|15 |:x:|:x:|:x:|:x:
-|16 |:x:|:x:|:x:|:x:
-|17 |:x:|:x:|:x:|:x:
-|18 |:x:|:x:|:x:|:x:
-|19 |:x:|:x:|:x:|:x:
-|20 |:x:|:x:|:x:|:x:
-|21 |:x:|:x:|:x:|:x:
-|22 |:x:|:x:|:x:|:x:
-|23 |:x:|:x:|:x:|:x:
-|24 |:x:|:x:|:x:|:x:
-|25 |:x:|:x:|:x:|:x:
+| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+| 2 |:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|
+| 3 |:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|
+| 4 |:x:|:heavy_check_mark:|:x:|:x:|
+| 5 |:x:|:wavy_dash:|:x:|:x:|
+| 6 |:x:|:heavy_check_mark:|:x:|:x:|
+| 7 |:x:|:heavy_check_mark:|:x:|:x:|
+| 8 |:x:|:heavy_check_mark:|:x:|:x:|
+| 9 |:x:|:heavy_check_mark:|:x:|:x:|
+|10 |:x:|:wavy_dash:|:x:|:x:|
+|11 |:x:|:x:|:x:|:x:|
+|12 |:x:|:x:|:x:|:x:|
+|13 |:x:|:x:|:x:|:x:|
+|14 |:x:|:x:|:x:|:x:|
+|15 |:x:|:x:|:x:|:x:|
+|16 |:x:|:x:|:x:|:x:|
+|17 |:x:|:x:|:x:|:x:|
+|18 |:x:|:x:|:x:|:x:|
+|19 |:x:|:x:|:x:|:x:|
+|20 |:x:|:x:|:x:|:x:|
+|21 |:x:|:x:|:x:|:x:|
+|22 |:x:|:x:|:x:|:x:|
+|23 |:x:|:x:|:x:|:x:|
+|24 |:x:|:x:|:x:|:x:|
+|25 |:x:|:x:|:x:|:x:|
 
 ## Solved challenges 2022 edition
 
@@ -76,31 +95,31 @@ I've currently stopped working on them since the 2023 edition is here.
 
 |Days | C99 | GnuCobol | Nim | Rust |
 |-----|:-:|:-----:|:---:|:----:|
-| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-| 2 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-| 3 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:
-| 4 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:
-| 5 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:
-| 6 |:x:|:x:|:heavy_check_mark:|:x:
-| 7 |:x:|:x:|:x:|:x:
-| 8 |:x:|:x:|:x:|:x:
-| 9 |:x:|:x:|:x:|:x:
-|10 |:x:|:x:|:x:|:x:
-|11 |:x:|:x:|:x:|:x:
-|12 |:x:|:x:|:x:|:x:
-|13 |:x:|:x:|:x:|:x:
-|14 |:x:|:x:|:x:|:x:
-|15 |:x:|:x:|:x:|:x:
-|16 |:x:|:x:|:x:|:x:
-|17 |:x:|:x:|:x:|:x:
-|18 |:x:|:x:|:x:|:x:
-|19 |:x:|:x:|:x:|:x:
-|20 |:x:|:x:|:x:|:x:
-|21 |:x:|:x:|:x:|:x:
-|22 |:x:|:x:|:x:|:x:
-|23 |:x:|:x:|:x:|:x:
-|24 |:x:|:x:|:x:|:x:
-|25 |:x:|:x:|:x:|:x:
+| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+| 2 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+| 3 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|
+| 4 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|
+| 5 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:|
+| 6 |:x:|:x:|:heavy_check_mark:|:x:|
+| 7 |:x:|:x:|:x:|:x:|
+| 8 |:x:|:x:|:x:|:x:|
+| 9 |:x:|:x:|:x:|:x:|
+|10 |:x:|:x:|:x:|:x:|
+|11 |:x:|:x:|:x:|:x:|
+|12 |:x:|:x:|:x:|:x:|
+|13 |:x:|:x:|:x:|:x:|
+|14 |:x:|:x:|:x:|:x:|
+|15 |:x:|:x:|:x:|:x:|
+|16 |:x:|:x:|:x:|:x:|
+|17 |:x:|:x:|:x:|:x:|
+|18 |:x:|:x:|:x:|:x:|
+|19 |:x:|:x:|:x:|:x:|
+|20 |:x:|:x:|:x:|:x:|
+|21 |:x:|:x:|:x:|:x:|
+|22 |:x:|:x:|:x:|:x:|
+|23 |:x:|:x:|:x:|:x:|
+|24 |:x:|:x:|:x:|:x:|
+|25 |:x:|:x:|:x:|:x:|
 
 ## Compiler and tools
 
@@ -138,24 +157,30 @@ Some lua scripts are used during compilation and to run the project. Lua is then
 
 ## Building
 
-Once everything is installed, to compile simplely run in the root folder: 
-```
+Once everything is installed, to compile simplely run in the root folder:
+
+```sh
 make build_all
 ```
 
-or 
-```
+or
+
+```sh
 make build_xxx
 ```
+
 where xxx is either `nim`, `rust`, `c99`, `zig` or `cob` if you only want to compile a specific language. More options are available for debugging or to use an other compiler (clang for instance).
 
 ## Running
 
 To execute a specific part (PART) of a challenge (DAY) of a peculiar edition (YEAR) in a list of languages (XXX ...), run:
-```shell
+
+```sh
 ./adventLaunch.lua XXX ... -y YEAR -d DAY -p PART
 ```
+
 or
+
 ```powershell
 lua54 .\adventLaunch.lua XXX ... -y YEAR -d DAY -p PART
 ```
@@ -164,10 +189,9 @@ lua54 .\adventLaunch.lua XXX ... -y YEAR -d DAY -p PART
 
 As far as I know, there are always two parts during each days, so `PART=1` will run the first part, and `PART=2` the second part.
 
-
 If no language is given, the solution will run all available languages.
 For instance `./adventLaunch.lua -y 2022 -d 2 -p 1` will run the first part of the second day of the 2022 edition written every languages (nim, rust, cobol, c99, zig and asm).
 
 ## Wait, that's not the right solutions concidering the data I have...
 
-In the `YEAR/data` folder, there are the data used to solve each challenge. I'm using data I was given during the challenge, and I don't know if everyone was given the same (I expect not).
+In the `YEAR/data` folder, there are the data used to solve each challenge. I'm using data I was given during the challenge, and I don't know if everyone was given the same.
