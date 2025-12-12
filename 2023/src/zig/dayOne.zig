@@ -46,14 +46,14 @@ fn parseStringAsDigit(x: []u8) usize {
 }
 
 fn parseStringAsDigits(line: []u8) usize {
-    var result: usize = 0;
+    var result: u64 = 0;
     var low: usize = 0;
     var high: usize = low;
     const len: usize = line.len;
     var digit: usize = 0;
 
     while (low < len) {
-        digit = parseStringAsDigit(line[low .. high + 1]);
+        digit = parseStringAsDigit(line[low..(high + 1)]);
         if (digit > 0) {
             result += digit * 10;
             break;
@@ -69,13 +69,13 @@ fn parseStringAsDigits(line: []u8) usize {
     low = len;
     high = low;
     while (high >= 0) {
-        digit = parseStringAsDigit(line[low .. high + 1]);
+        digit = parseStringAsDigit(line[low..(high + 1)]);
         if (digit > 0) {
             result += digit;
             break;
         }
 
-        if (low == 0 or high - low > 5) {
+        if (low == 0 or high - low > 6) {
             high = high - 1;
             low = high;
         } else {
@@ -87,28 +87,35 @@ fn parseStringAsDigits(line: []u8) usize {
 }
 
 pub fn main(part: usize) !void {
-    var out = std.io.getStdOut().writer();
+    var stdout_buf: [1024]u8 = undefined;
+    var stdout_writer: std.fs.File.Writer = std.fs.File.stdout().writer(&stdout_buf);
+
     const file = try std.fs.cwd().openFile(
         "2023/data/input_day_one",
-        .{},
+        .{ .mode = .read_only },
     );
     defer file.close();
+    var file_buffer: [1024]u8 = undefined;
+    var file_reader: std.fs.File.Reader = file.reader(&file_buffer);
 
     var calibration_value: usize = 0;
 
-    var buf_reader = std.io.bufferedReader(file.reader());
-    var in_stream = buf_reader.reader();
+    while (file_reader.interface.takeDelimiter('\n')) |line| {
+        if (line == null) {
+            break;
+        }
 
-    var buf: [1024]u8 = undefined;
-    while (try in_stream.readUntilDelimiterOrEof(&buf, '\n')) |line| {
         switch (part) {
-            1 => calibration_value += parseDigits(line),
-            2 => calibration_value += parseStringAsDigits(line),
+            1 => calibration_value += parseDigits(line.?),
+            2 => calibration_value += parseStringAsDigits(line.?),
             else => {
                 return error.InvalidPart;
             },
         }
+    } else |err| {
+        std.debug.print("An error occured: {any}\n", .{err});
     }
 
-    try out.print("CALIBRATION VALUE: {}\n", .{calibration_value});
+    try stdout_writer.interface.print("CALIBRATION VALUE: {}\n", .{calibration_value});
+    try stdout_writer.interface.flush();
 }

@@ -180,8 +180,16 @@ endif
 
 ### ZIG ###
 build_zig: prerequisite $(ZIG_TARGETS)
+build_zig_debug: 
+	$(MAKE) build_zig BUILD_TYPE=Debug
 zig_%:
+ifeq ($(BUILD_TYPE), Release)
 	zig build -Doptimize=ReleaseSmall -p ./build/$* --build-file ./$*/src/zig/build.zig --cache-dir $(ZIGBUILDDIR)/build/$*/.zig-cache --summary all
+else
+ifeq ($(BUILD_TYPE), Debug)
+	zig build -Doptimize=Debug -p ./build/$* --build-file ./$*/src/zig/build.zig --cache-dir $(ZIGBUILDDIR)/build/$*/.zig-cache --summary all
+endif
+endif
 
 ### ASM ###
 build_asm: prerequisite $(ASM_TARGETS)
