@@ -6,10 +6,11 @@ import argparse
 import std/strformat
 import std/parseutils
 import dayOne
+import dayTwo
 
 when isMainModule:
     var parser = newParser:
-        option("-d", "--day", choices = @["1"], required = true)
+        option("-d", "--day", choices = @["1", "2"], required = true)
         option("-p", "--part", choices = @["1", "2"], required = true)
 
     var day: int
@@ -23,6 +24,8 @@ when isMainModule:
         case day:
         of 1:
             dayOne.main(part)
+        of 2:
+            dayTwo.main(part)
         else:
             discard
     except UsageError:
