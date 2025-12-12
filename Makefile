@@ -159,8 +159,16 @@ endif
 
 ### COBOL ###
 build_cob: prerequisite $(COB_TARGETS)
+build_cob_debug: 
+	$(MAKE) build_cob BUILD_TYPE=Debug
 cob_%:
+ifeq ($(BUILD_TYPE), Release)
 	cobc -x -free -o build/$*/bin/mainCob $*/src/cobol/mainCob.cob $(wildcard $*/src/cobol/day*.cob) $(COBOL_CONFIG_FLAG)
+else
+ifeq ($(BUILD_TYPE), Debug)
+	cobc -x -free -g --debug -o build/$*/bin/mainCob $*/src/cobol/mainCob.cob $(wildcard $*/src/cobol/day*.cob) $(COBOL_CONFIG_FLAG)
+endif
+endif
 
 ### ZIG ###
 build_zig: prerequisite $(ZIG_TARGETS)

@@ -28,6 +28,7 @@
        01 WSCurrentData PIC X(50).
        *> variables for the start of a range
        01 WSStart PIC 9(18).
+       01 WSStartStr PIC X(18).
        01 WSStartDiv PIC 9(18).
        01 WSStartZeros PIC 9(3).
        01 WSStartSize PIC 9(3).
@@ -35,6 +36,7 @@
        01 WSEnd PIC 9(18).
        01 WSEndZeros PIC 9(3).
        01 WSRangeEnd PIC 9(18).
+       01 WSRangeEndStr PIC X(18).
        01 WSEndDiv PIC 9(18).
        *> variables for the invalid ids
        01 WSFoundIds.
@@ -103,8 +105,9 @@
            INSPECT WSEnd TALLYING WSEndZeros FOR LEADING '0'
 
            PERFORM UNTIL WSStartZeros EQUAL TO WSEndZeros
-               MOVE 0 TO WSRangeEnd
-               MOVE 1 TO WSRangeEnd(WSStartZeros:)
+               MOVE ZEROS TO WSRangeEndStr
+               MOVE 1 TO WSRangeEndStr(WSStartZeros:1)
+               MOVE WSRangeEndStr TO WSRangeEnd
                SUBTRACT 1 FROM WSRangeEnd
 
                IF LPart EQUAL TO 1 THEN
@@ -115,8 +118,9 @@
                    PERFORM FindRepeatedIds
                END-IF
 
-               MOVE 0 TO WSStart
-               MOVE 1 TO WSStart(WSStartZeros:)
+               MOVE ZEROS TO WSStartStr
+               MOVE 1 TO WSStartStr(WSStartZeros:1)
+               MOVE WSStartStr TO WSStart
                SUBTRACT 1 FROM WSStartZeros
            END-PERFORM
 
@@ -137,9 +141,10 @@
            END-IF
 
            COMPUTE Tmp = 9 + WSStartZeros / 2
-           MOVE 0 TO WSDivisor
-           MOVE 1 TO WSDivisor(Tmp:)
-           ADD 1 TO WSDivisor
+           MOVE ZEROS TO WSDivisorStr
+           MOVE 1 TO WSDivisorStr(Tmp:1)
+           MOVE 1 TO WSDivisorStr(18:1)
+           MOVE WSDivisorStr TO WSDivisor
 
            COMPUTE Tmp = FUNCTION MOD(WSStart, WSDivisor)
            IF Tmp EQUAL TO 0
