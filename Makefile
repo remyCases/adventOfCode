@@ -79,8 +79,16 @@ folder_%:
 
 ### NIM ###
 build_nim: prerequisite $(NIM_TARGETS)
-nim_%: 
+build_nim_debug: 
+	$(MAKE) build_nim BUILD_TYPE=Debug
+nim_%:
+ifeq ($(BUILD_TYPE), Release)
 	nim c -o=build/$*/bin/mainNim -d=release --nimcache=build/$*/nimcache --hints=on ./$*/src/nim/mainNim.nim
+else
+ifeq ($(BUILD_TYPE), Debug)
+	nim c -o=build/$*/bin/mainNim -d=debug --nimcache=build/$*/nimcache --hints=on ./$*/src/nim/mainNim.nim
+endif
+endif
 
 ### RUST ###
 clippy: build_cargo
