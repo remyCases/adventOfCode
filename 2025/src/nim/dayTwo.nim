@@ -6,21 +6,21 @@ import os, parseutils, sets
 
 type
     Range = object
-        s: int
-        e: int
+        s: int64
+        e: int64
 
-proc ilog10(e: int): int =
-    var ilog: int = 0
-    var ee: int = e
+proc ilog10(e: int64): int64 =
+    var ilog: int64 = 0
+    var ee: int64 = e
     while ee >= 10:
         ilog += 1
         ee = ee div 10
 
     return ilog
 
-proc ipow10(e: int): int =
-    var ipow: int = 1
-    var ee: int = e
+proc ipow10(e: int64): int64 =
+    var ipow: int64 = 1
+    var ee: int64 = e
     while ee > 0:
         ipow *= 10
         ee -= 1
@@ -29,31 +29,31 @@ proc ipow10(e: int): int =
 
 proc parseRanges(line: string, ranges: var seq[Range]): bool =
     var i: int = 0
-    var s: int
-    var e: int
+    var s: int64
+    var e: int64
     var sep: char
 
     while i < line.len:
-        i.inc parseInt(line, s, i)
+        i.inc parseBiggestInt(line, s, i)
         i.inc parseChar(line, sep, i)
         if sep != '-': return false
 
-        i.inc parseInt(line, e, i)
+        i.inc parseBiggestInt(line, e, i)
         i.inc
         
         ranges.add(Range(s: s, e: e))
 
     return true
 
-proc find_repeated_twice_ids(s: int, e: int): int = 
+proc find_repeated_twice_ids(s: int64, e: int64): int64 = 
     let n = ilog10(s) + 1
-    var ids: HashSet[int] = initHashSet[int]()
-    var sum: int = 0
+    var ids: HashSet[int64] = initHashSet[int64]()
+    var sum: int64 = 0
 
     if n mod 2 != 0: return 0
 
     let u = ipow10(n div 2) + 1
-    let us: int = if (s mod u) == 0: s div u else: (s div u) + 1
+    let us: int64 = if (s mod u) == 0: s div u else: (s div u) + 1
     let ue = e div u
     for i in us..ue:
         if not ids.containsOrIncl(i * u):
@@ -61,21 +61,21 @@ proc find_repeated_twice_ids(s: int, e: int): int =
 
     return sum
 
-proc find_repeated_ids(s: int, e: int): int = 
+proc find_repeated_ids(s: int64, e: int64): int64 = 
     let n = ilog10(s) + 1
-    var ids: HashSet[int] = initHashSet[int]()
-    var sum: int = 0
+    var ids: HashSet[int64] = initHashSet[int64]()
+    var sum: int64 = 0
 
     for d in 2..n:
         if n mod d != 0: continue
 
-        let size_repetition: int = n div d
-        var u: int = 0
+        let size_repetition: int64 = n div d
+        var u: int64 = 0
 
         for i in 0..<d:
             u += ipow10(size_repetition * i)
 
-        let us: int = if (s mod u) == 0: s div u else: (s div u) + 1
+        let us: int64 = if (s mod u) == 0: s div u else: (s div u) + 1
         let ue = e div u
         for i in us..ue:
             if not ids.containsOrIncl(i * u):
@@ -84,7 +84,7 @@ proc find_repeated_ids(s: int, e: int): int =
     return sum
 
 proc readFileAndCompute(filename: string, option = '1') =
-    var invalid_ids: int = 0
+    var invalid_ids: int64 = 0
     var ranges: seq[Range] = newSeq[Range]()
 
     for line in filename.lines:
@@ -101,9 +101,9 @@ proc readFileAndCompute(filename: string, option = '1') =
         return
 
     for r in ranges:
-        var s: int = r.s
-        var ns: int = ilog10(s)
-        let ne: int = ilog10(r.e)
+        var s: int64 = r.s
+        var ns: int64 = ilog10(s)
+        let ne: int64 = ilog10(r.e)
         while ns < ne:
             invalid_ids += find(s, ipow10(ns+1)-1)
             ns += 1
