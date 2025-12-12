@@ -68,7 +68,8 @@ int day_two_solution(int part)
 					if (m_blue < blue) m_blue = blue;
 					break;
 				default:
-					printf("wtf");
+					printf("Invalid character %c parsing %s\n", *(b-1), io_buffer.ptr);
+					return EXIT_FAILURE;
 				}
 #undef EXPECTED_ARGUMENTS
 				*b = svd;
@@ -91,7 +92,6 @@ int day_two_solution(int part)
 		default:
 			printf("Invalid part\n");
 			return EXIT_FAILURE;
-			break;
 		}
 
     }

@@ -23,7 +23,7 @@ proc parse(line: string, gameId: var int, tmp: var int, token: var string, maxRe
     i += 2
     
     while(incAndRetrun(i, parseInt(line, tmp, i)) != 0):
-        i.inc
+        i.inc parseUntil(line, token, {'r', 'b', 'g'}, i)
         i.inc parseUntil(line, token, {';', ','}, i)
         if token == "red":
             if tmp > maxRed:
@@ -36,7 +36,7 @@ proc parse(line: string, gameId: var int, tmp: var int, token: var string, maxRe
                 maxGreen = tmp
         else:
             echo "Not recognised token: ", token
-        i += 2
+        i.inc parseUntil(line, token, {'0'.. '9'}, i)
 
 proc computeSumId(maxRed: int, maxBlue: int, maxGreen: int, gameId: int, sumId: var int) =
     if maxRed <= MAX_RED and maxBlue <= MAX_BLUE and maxGreen <= MAX_GREEN:

@@ -13,7 +13,7 @@ It should work for both Windows and Linux architectures.
 |Days | Rust | C99 | Nim | GnuCobol |
 |-----|:-:|:-:|:-:|:-:|
 | 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-| 2 |:heavy_check_mark:|:heavy_check_mark:|:x:|:wavy_dash:|
+| 2 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
 | 3 |:heavy_check_mark:|:x:|:x:|:x:|
 | 4 |:wavy_dash:|:x:|:x:|:x:|
 | 5 |:x:|:x:|:x:|:x:|
