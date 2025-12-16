@@ -303,8 +303,9 @@ py_%:
 	@./$*/src/py/$(PIP) install --quiet --upgrade -r ./$*/src/py/requirements.txt
 	@./$*/src/py/$(VENV_MYPY) . --strict
 ifeq ($(DETECTED_OS), Linux)
+	@echo > build/$*/bin/mainPy
 	@echo #!/bin/bash > build/$*/bin/mainPy
-	@echo ./$*/src/py/$(VENV_PYTHON) ./$*/src/py/main_py.py >> build/$*/bin/mainPy
+	@echo ./$*/src/py/$(VENV_PYTHON) ./$*/src/py/main_py.py \$$@ >> build/$*/bin/mainPy
 	@chmod +x build/$*/bin/mainPy
 else
 	@echo @echo off > build/$*/bin/mainPy.bat
