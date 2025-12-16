@@ -14,7 +14,7 @@ else
 endif
 
 # executables needed
-EXECUTABLES = nim cargo $(LUA) cmake ninja gcc cobc zig as
+EXECUTABLES = nim cargo $(LUA) cmake ninja gcc cobc zig as $(PYTHON)
 
 # Default values
 BUILD_TYPE ?= Release
@@ -41,6 +41,12 @@ ifeq ($(DETECTED_OS), Linux)
 	ZIGBUILDDIR = .
 	WHERE = which
 	LUA = lua
+	PYTHON = python3
+	VENV=venv
+	BIN=$(VENV)/bin
+	PIP=$(BIN)/pip
+	VENV_MYPY=$(BIN)/$(MYPY)
+	VENV_PYTHON=$(BIN)/$(PYTHON)
 	SHELL_EXEC = /bin/bash
 	ECHO = echo
 	NULL_DEVICE = /dev/null
@@ -59,6 +65,12 @@ else
 	ZIGBUILDDIR = $(CWD)
 	WHERE = where.exe
 	LUA = lua54
+	PYTHON = python
+	VENV=.venv
+	BIN=$(VENV)\Scripts
+	PIP=$(BIN)\pip
+	VENV_MYPY=$(BIN)\$(MYPY)
+	VENV_PYTHON=$(BIN)\$(PYTHON)
 	SHELL_EXEC = powershell
 	ECHO = powershell -Command "Write-Host"
 	NULL_DEVICE = NUL
@@ -67,6 +79,7 @@ else
 	LINE_COUNT = Measure-Object -Line | Select -Expand Lines
 endif
 REDIRECTION = 2>$(NULL_DEVICE)
+MYPY=mypy
 
 # Files and folders
 NIMFOLDER := $(wildcard */src/nim/mainNim.nim)
@@ -87,6 +100,9 @@ COPY_RUST_TARGETS := $(CARGO_TARGETS:%=copy_rust_%)
 ZIGFOLDER := $(wildcard */src/zig/build.zig)
 ZIG_TARGETS := $(ZIGFOLDER:%/src/zig/build.zig=zig_%)
 
+PYFOLDER := $(wildcard */src/py/main_py.py)
+PY_TARGETS := $(PYFOLDER:%/src/py/main_py.py=py_%)
+
 ASMFOLDER := $(wildcard */src/asm/mainAsm.s)
 ASM_TARGETS := $(ASMFOLDER:%/src/asm/mainAsm.s=asm_%)
 
@@ -99,7 +115,7 @@ space:= $(empty) $(empty)
 comma:= ,
 
 .DELETE_ON_ERROR:
-build_all: prerequisite build_nim build_rust build_c99 build_cob build_zig build_asm build_summary
+build_all: prerequisite build_nim build_rust build_c99 build_cob build_zig build_py build_asm build_summary
 
 clean_logs:
 	@$(RM) $(RMLOGS) $(REDIRECTION) $(CONTINUE_ON_ERROR)
@@ -275,6 +291,24 @@ ifeq ($(BUILD_TYPE), Debug)
 	$(ECHO) "zig_$*" >> $(FAILURE_LOG) \
 	$(REDIRECTION) $(CONTINUE_ON_ERROR)
 endif
+endif
+
+### PYTHON ###
+build_py: prerequisite $(PY_TARGETS)
+py_%:
+	@$(ECHO) "Building python for $*..."
+	@$(PYTHON) -m venv ./$*/src/py/$(VENV)
+	@./$*/src/py/$(VENV_PYTHON) -m pip install --quiet --upgrade pip
+	@$(LUA) ./buildtools/RequirementsFactory.lua ./$*/src/py/requirements.txt
+	@./$*/src/py/$(PIP) install --quiet --upgrade -r ./$*/src/py/requirements.txt
+	@./$*/src/py/$(VENV_MYPY) . --strict
+ifeq ($(DETECTED_OS), Linux)
+	@echo #!/bin/bash > build/$*/bin/mainPy
+	@echo ./$*/src/py/$(VENV_PYTHON) ./$*/src/py/main_py.py >> build/$*/bin/mainPy
+	@chmod +x build/$*/bin/mainPy
+else
+	@echo @echo off > build/$*/bin/mainPy.bat
+	@echo .\$*\src\py\$(VENV_PYTHON) .\$*\src\py\main_py.py %%* >> build/$*/bin/mainPy.bat
 endif
 
 ### ASM ###

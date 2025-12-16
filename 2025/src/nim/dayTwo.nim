@@ -98,6 +98,7 @@ proc readFileAndCompute(filename: string, option = '1') =
     of '2':
         find_repeated_ids
     else:
+        echo "Invalid part"
         return
 
     for r in ranges:

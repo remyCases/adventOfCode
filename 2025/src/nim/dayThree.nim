@@ -50,6 +50,7 @@ proc readFileAndCompute(filename: string, option = '1') =
     of '2':
         computeJoltageFromTwelveBanks
     else:
+        echo "Invalid part"
         return
 
     for line in filename.lines:

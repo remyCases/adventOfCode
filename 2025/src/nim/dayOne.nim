@@ -63,6 +63,7 @@ proc readFileAndCompute(filename: string, option = '1') =
                 if dial + increment >= MAX_DIAL: dial_at_zero.inc
                 dial = (dial + increment) mod MAX_DIAL
         else:
+            echo "Invalid part"
             return
 
     echo "DIAL AT ZERO: ", dial_at_zero

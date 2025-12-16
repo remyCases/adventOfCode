@@ -12,7 +12,7 @@ local lang = 0
 local i = 1
 local earlyEnd = false
 local index = 1
-local maxLang = 6
+local maxLang = 7
 
 -- tables
 local langFlag = {
@@ -25,6 +25,8 @@ local langFlag = {
 	["rust"] = 4,
 	["zig"] = 5,
 	["asm"] = 6,
+	["py"] = 7,
+	["python"] = 7,
 }
 
 local cmdFlag = {
@@ -34,6 +36,7 @@ local cmdFlag = {
 	[4] = {"./build/%d/bin/mainRust --day %d --part %d", "[[rust]]"},
 	[5] = {"./build/%d/bin/mainZig --day %d --part %d", "[[zig]]"},
 	[6] = {"./build/%d/bin/mainAsm %d%d", "[[asm]]"},
+	[7] = {"./build/%d/bin/mainPy --day %d --part %d", "[[python]]"},
 }
 
 local function addFlag (x)
@@ -64,7 +67,7 @@ end
 while arg[i] do
 	local key, val = ParseArg(arg[i], i)
 	if key then
-		if key == "lang" then 
+		if key == "lang" then
 			addFlag(val)
 		else
 			args[key] = val

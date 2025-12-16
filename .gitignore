@@ -15,3 +15,8 @@ target
 # generated cargo.toml
 /Cargo.toml
 /Cargo.lock
+
+# python venv
+**/.venv
+**/venv
+**/__pycache__
