@@ -264,7 +264,7 @@ build_zig_debug:
 zig_%:
 	@$(ECHO) "Building zig for $*..."
 ifeq ($(BUILD_TYPE), Release)
-	@zig build -Doptimize=ReleaseSmall -p ./build/$* --build-file ./$*/src/zig/build.zig --cache-dir $(ZIGBUILDDIR)/build/$*/.zig-cache --summary all 1>$(NULL_DEVICE) 2>&1 && \
+	@zig build -Doptimize=ReleaseSmall -p ./build/$* --build-file ./$*/src/zig/build.zig --cache-dir $(ZIGBUILDDIR)/build/$*/.zig-cache --summary all && \
 	$(ECHO) "zig_$*" >> $(SUCCESS_LOG) || \
 	$(ECHO) "zig_$*" >> $(FAILURE_LOG) \
 	$(REDIRECTION) $(CONTINUE_ON_ERROR)

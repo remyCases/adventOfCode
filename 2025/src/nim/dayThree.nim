@@ -23,7 +23,7 @@ proc computeJoltageFromTwelveBanks(batteries: seq[int64], sum_joltage: var int64
     const nBatteries = 12
     var joltage: array[nBatteries, int64]
     var indeces: array[nBatteries, int64]
-    var val_joltage = 0
+    var val_joltage: int64 = 0
     
     for i in 0..<nBatteries:
         for j in indeces[i]..<(batteries.len()-nBatteries+1+i):
