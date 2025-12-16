@@ -8,6 +8,7 @@
 
 #include "dayOne.h"
 #include "dayTwo.h"
+#include "dayThree.h"
 
 int main(int argc, char**argv) {
     
@@ -28,6 +29,9 @@ int main(int argc, char**argv) {
         break;
     case 2:
         day_two_solution(chosen_part);
+        break;
+    case 3:
+        day_three_solution(chosen_part);
         break;
     default:
         printf("Incorrect combination of day and part. Day %d and part %d does not exist (yet).\n", chosen_day, chosen_part);

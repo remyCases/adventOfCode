@@ -211,7 +211,7 @@ endif
 c99_%:
 	@$(ECHO) "Building C99 for $*..."
 	@$(CMAKE_CMD) 1>$(NULL_DEVICE) 2>&1 && \
-	cd build && ninja 1>$(NULL_DEVICE) 2>&1 && \
+	cd build && ninja && \
 	$(ECHO) "c99_$*" >> ../$(SUCCESS_LOG) || \
 	$(ECHO) "c99_$*" >> ../$(FAILURE_LOG) \
 	$(REDIRECTION) $(CONTINUE_ON_ERROR)

@@ -34,14 +34,14 @@ typedef struct vec_uint64_s {
 	size_t capacity;
 } vec_uint64_t;
 
-void init_vec_range(vec_range_t* p_vec_range)
+static void init_vec_range(vec_range_t* p_vec_range)
 {
 	p_vec_range->buf = (range_t*)calloc(INITIAL_SIZE, sizeof(range_t));
 	p_vec_range->len = 0;
 	p_vec_range->capacity = INITIAL_SIZE;
 }
 
-void push_vec_range(vec_range_t* p_vec_range, range_t* p_r)
+static void push_vec_range(vec_range_t* p_vec_range, range_t* p_r)
 {
 	p_vec_range->buf[p_vec_range->len] = *p_r;
 	p_vec_range->len++;
@@ -52,14 +52,14 @@ void push_vec_range(vec_range_t* p_vec_range, range_t* p_r)
 	}
 }
 
-void init_vec_uint64(vec_uint64_t* p_vec_uint64)
+static void init_vec_uint64(vec_uint64_t* p_vec_uint64)
 {
 	p_vec_uint64->buf = (uint64_t*)calloc(INITIAL_SIZE, sizeof(uint64_t));
 	p_vec_uint64->len = 0;
 	p_vec_uint64->capacity = INITIAL_SIZE;
 }
 
-void push_vec_uint64(vec_uint64_t* p_vec_uint64, uint64_t u)
+static void push_vec_uint64(vec_uint64_t* p_vec_uint64, uint64_t u)
 {
 	p_vec_uint64->buf[p_vec_uint64->len] = u;
 	p_vec_uint64->len++;
@@ -70,7 +70,7 @@ void push_vec_uint64(vec_uint64_t* p_vec_uint64, uint64_t u)
 	}
 }
 
-void insert_vec_uint64(vec_uint64_t* p_vec_uint64, uint64_t u)
+static void insert_vec_uint64(vec_uint64_t* p_vec_uint64, uint64_t u)
 {
 	for (uint64_t i = 0; i < p_vec_uint64->len; i++)
 	{

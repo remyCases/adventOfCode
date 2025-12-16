@@ -34,9 +34,9 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
                     indeces[1] = i+1;
                 }
             }
-            for j in indeces[1]..v.len() {
-                if v[j] > batteries[1] {
-                    batteries[1] = v[j];
+            for i in indeces[1]..v.len() {
+                if v[i] > batteries[1] {
+                    batteries[1] = v[i];
                 }
             }
             sum_joltage += (batteries[0] * 10 + batteries[1]) as u64;
