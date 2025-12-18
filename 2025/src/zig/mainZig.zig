@@ -1,7 +1,5 @@
 const std = @import("std");
 const clap = @import("clap");
-const dayOne = @import("dayOne.zig");
-const dayTwo = @import("dayTwo.zig");
 
 pub fn main() !void {
     var stdout_buf: [1024]u8 = undefined;
@@ -32,8 +30,6 @@ pub fn main() !void {
     if (res.args.day) |d| {
         if (res.args.part) |p| {
             switch (d) {
-                1 => try dayOne.main(p),
-                2 => try dayTwo.main(p),
                 else => try stdout_writer.interface.print("Incorrect combination of day and part. Day {} and part {} does not exist (yet).\n", .{ d, p }),
             }
         } else {
