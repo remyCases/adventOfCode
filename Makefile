@@ -14,7 +14,7 @@ else
 endif
 
 # executables needed
-EXECUTABLES = nim cargo $(LUA) cmake ninja gcc cobc zig as $(PYTHON)
+EXECUTABLES = nim cargo $(LUA) luarocks luacheck cmake ninja gcc cobc zig as $(PYTHON)
 
 # Default values
 BUILD_TYPE ?= Release
@@ -103,6 +103,9 @@ ZIG_TARGETS := $(ZIGFOLDER:%/src/zig/build.zig=zig_%)
 PYFOLDER := $(wildcard */src/py/main_py.py)
 PY_TARGETS := $(PYFOLDER:%/src/py/main_py.py=py_%)
 
+LUAFOLDER := $(wildcard */src/lua/mainLua.lua)
+LUA_TARGETS := $(LUAFOLDER:%/src/lua/mainLua.lua=lua_%)
+
 ASMFOLDER := $(wildcard */src/asm/mainAsm.s)
 ASM_TARGETS := $(ASMFOLDER:%/src/asm/mainAsm.s=asm_%)
 
@@ -115,7 +118,7 @@ space:= $(empty) $(empty)
 comma:= ,
 
 .DELETE_ON_ERROR:
-build_all: prerequisite build_nim build_rust build_c99 build_cob build_zig build_py build_asm build_summary
+build_all: prerequisite build_nim build_rust build_c99 build_cob build_zig build_py build_lua build_summary
 
 clean_logs:
 	@$(RM) $(RMLOGS) $(REDIRECTION) $(CONTINUE_ON_ERROR)
@@ -310,6 +313,21 @@ ifeq ($(DETECTED_OS), Linux)
 else
 	@echo @echo off > build/$*/bin/mainPy.bat
 	@echo .\$*\src\py\$(VENV_PYTHON) .\$*\src\py\main_py.py %%* >> build/$*/bin/mainPy.bat
+endif
+
+### LUA ###
+build_lua: prerequisite $(LUA_TARGETS)
+lua_%:
+	@$(ECHO) "Building lua for $*..."
+	@luacheck ./$*/src/lua
+ifeq ($(DETECTED_OS), Linux)
+	@echo > build/$*/bin/mainLua
+	@echo #!/bin/bash > build/$*/bin/mainLua
+	@echo $(LUA) ./$*/src/lua/mainLua.lua \$$@ >> build/$*/bin/mainLua
+	@chmod +x build/$*/bin/mainLua
+else
+	@echo @echo off > build/$*/bin/mainLua.bat
+	@echo $(LUA) .\$*\src\lua\mainLua.lua %%* >> build/$*/bin/mainLua.bat
 endif
 
 ### ASM ###

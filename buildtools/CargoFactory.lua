@@ -2,7 +2,7 @@
 -- See LICENSE file for extended copyright information.
 -- This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-require 'utils/argparser'
+local utils = require 'utils.argparser'
 
 local function generate_exe(f, year)
     f:write("[[bin]]", "\n")
@@ -22,12 +22,12 @@ local function generateCargo(f, year_table)
     end
 end
 
-AddArgs(1, "years", "+")
+utils.addArgs(1, "years", "+")
 local args = {}
 local i = 1
 
 while arg[i] do
-	local _, val = ParseArg(arg[i], i)
+	local _, val = utils.parseArg(arg[i], i)
 	args[i] = val
 
 	i = i + 1

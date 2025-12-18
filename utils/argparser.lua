@@ -3,13 +3,14 @@
 -- This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
 -- arguments
-
+local M = {}
 local position = {}
 local name = {}
 local prevNamed = nil
 local nextPosArg = 0
+local i_saved = 0
 
-function AddArgs(x, y, flag)
+local function addArgs(x, y, flag)
 	if type(x) == "number" then
 		position[x] = { y, flag }
 	else
@@ -18,7 +19,7 @@ function AddArgs(x, y, flag)
 	end
 end
 
-local function printname()
+local function printName()
 	for key, val in pairs(name) do
 		io.write(string.format("%s :", key))
 		for k, v in pairs(val) do
@@ -27,7 +28,7 @@ local function printname()
 	end
 end
 
-function ParseArg(ar, i)
+local function parseArg(ar, i)
 	if i == 1 then
 		nextPosArg = 0
 	end
@@ -48,19 +49,19 @@ function ParseArg(ar, i)
 	elseif position[i] then
 		if position[i][2] and string.find(position[i][2], '+') then
 			nextPosArg = i + 1
-			I_saved = i
+			i_saved = i
 		end
 		return position[i][1], ar
 
 	elseif i == nextPosArg then
 		nextPosArg = nextPosArg + 1
-		return position[I_saved][1], ar
+		return position[i_saved][1], ar
 	else
 		print(string.format("does not undertand arg %s in position %i", ar, i))
 	end
 end
 
-function HelpArgs()
+local function helpArgs()
 	for _,v in ipairs(position) do
 		if string.find(v[2], '+') then
 			io.write(string.format("%s_1 ... %s_n ", v[1], v[1]))
@@ -81,3 +82,9 @@ function HelpArgs()
 	end
 	io.write("\n")
 end
+
+M.addArgs = addArgs
+M.printName = printName
+M.parseArg = parseArg
+M.helpArgs = helpArgs
+return M

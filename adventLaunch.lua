@@ -4,7 +4,7 @@
 -- See LICENSE file for extended copyright information.
 -- This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-require 'utils/argparser'
+local utils = require 'utils.argparser'
 
 -- locals
 local os_name = package.config:sub(1,1) == "\\" and "win" or "unix"
@@ -24,9 +24,9 @@ local langFlag = {
 	["nimlang"] = 3,
 	["rust"] = 4,
 	["zig"] = 5,
-	["asm"] = 6,
-	["py"] = 7,
-	["python"] = 7,
+	["py"] = 6,
+	["python"] = 6,
+	["lua"] = 7,
 }
 
 local cmdFlag = {
@@ -35,8 +35,8 @@ local cmdFlag = {
 	[3] = {"./build/%d/bin/mainNim --day %d --part %d", "[[nim]]"},
 	[4] = {"./build/%d/bin/mainRust --day %d --part %d", "[[rust]]"},
 	[5] = {"./build/%d/bin/mainZig --day %d --part %d", "[[zig]]"},
-	[6] = {"./build/%d/bin/mainAsm %d%d", "[[asm]]"},
-	[7] = {"./build/%d/bin/mainPy --day %d --part %d", "[[python]]"},
+	[6] = {"./build/%d/bin/mainPy --day %d --part %d", "[[python]]"},
+	[7] = {"./build/%d/bin/mainLua --day %d --part %d", "[[lua]]"},
 }
 
 local function addFlag (x)
@@ -44,28 +44,27 @@ local function addFlag (x)
 		print(string.format("Given language [[%s]] is not supported (yet?).", x))
 	else
 		lang = lang + (1 << (langFlag[x] - 1))
-	end	
+	end
 end
 
 -- arguments for parser
-
-AddArgs("h", "help", "b")
-AddArgs("r", "rebuild", "b")
-AddArgs("d", "day", nil)
-AddArgs("p", "part", nil)
-AddArgs(1, "lang", "+")
-AddArgs("y", "year", nil)
+utils.addArgs("h", "help", "b")
+utils.addArgs("r", "rebuild", "b")
+utils.addArgs("d", "day", nil)
+utils.addArgs("p", "part", nil)
+utils.addArgs(1, "lang", "+")
+utils.addArgs("y", "year", nil)
 local args = {}
 
 -- help function
 local function help ()
-	HelpArgs()
+	utils.helpArgs()
 end
 
 -- parsing arguments
 
 while arg[i] do
-	local key, val = ParseArg(arg[i], i)
+	local key, val = utils.parseArg(arg[i], i)
 	if key then
 		if key == "lang" then
 			addFlag(val)

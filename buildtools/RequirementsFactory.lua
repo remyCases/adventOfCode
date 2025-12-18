@@ -2,7 +2,7 @@
 -- See LICENSE file for extended copyright information.
 -- This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
 
-require 'utils/argparser'
+local utils = require 'utils.argparser'
 
 local function append_mypy(filename)
     local file = io.open(filename,"a")
@@ -14,8 +14,8 @@ local function append_mypy(filename)
     file:close()
 end
 
-AddArgs(1, "filename", nil)
-local _, filename = ParseArg(arg[1], 1)
+utils.addArgs(1, "filename", nil)
+local _, filename = utils.parseArg(arg[1], 1)
 local file = io.open(filename,"rb")
 
 -- file does not exist
