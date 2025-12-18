@@ -5,10 +5,16 @@
 import argparse
 
 import day_one
+import day_two
+import day_three
 
 def main(day: int, part: int) -> None:
     if day == 1:
         day_one.main(part)
+    elif day == 2:
+        day_two.main(part)
+    elif day == 3:
+        day_three.main(part)
     else:
         print(f"Incorrect combination of day and part. Day {day} and part {part} does not exist (yet).")
 

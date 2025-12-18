@@ -10,20 +10,20 @@ It should work for both Windows and Linux architectures.
 
 ## Solved challenges 2025 edition
 
-|Days | Rust | C99 | Nim | GnuCobol |
-|-----|:-:|:-:|:-:|:-:|
-| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-| 2 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-| 3 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|
-| 4 |:wavy_dash:|:x:|:x:|:x:|
-| 5 |:x:|:x:|:x:|:x:|
-| 6 |:x:|:x:|:x:|:x:|
-| 7 |:x:|:x:|:x:|:x:|
-| 8 |:x:|:x:|:x:|:x:|
-| 9 |:wavy_dash:|:x:|:x:|:x:|
-|10 |:x:|:x:|:x:|:x:|
-|11 |:x:|:x:|:x:|:x:|
-|12 |:x:|:x:|:x:|:x:|
+|Days | Rust | C99 | Nim | GnuCobol | Python |
+|-----|:-:|:-:|:-:|:-:|:-:|
+| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+| 2 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+| 3 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|
+| 4 |:wavy_dash:|:x:|:x:|:x:|:x:|
+| 5 |:x:|:x:|:x:|:x:|:x:|
+| 6 |:x:|:x:|:x:|:x:|:x:|
+| 7 |:x:|:x:|:x:|:x:|:x:|
+| 8 |:x:|:x:|:x:|:x:|:x:|
+| 9 |:wavy_dash:|:x:|:x:|:x:|:x:|
+|10 |:x:|:x:|:x:|:x:|:x:|
+|11 |:x:|:x:|:x:|:x:|:x:|
+|12 |:x:|:x:|:x:|:x:|:x:|
 
 ## Solved challenges 2024 edition
 

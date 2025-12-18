@@ -4,7 +4,6 @@
 
 require 'utils/argparser'
 
-
 local function append_mypy(filename)
     local file = io.open(filename,"a")
     if not file then
