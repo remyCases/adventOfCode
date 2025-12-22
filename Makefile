@@ -125,23 +125,7 @@ clean_logs:
 	@$(MD) build $(REDIRECTION) $(CONTINUE_ON_ERROR)
 
 build_summary:
-	@$(ECHO) "========================================"
-	@$(ECHO) "BUILD SUMMARY"
-	@$(ECHO) "========================================"
-ifneq (, $(wildcard $(SUCCESS_LOG)))
-		@$(ECHO) "Successful builds: $$($(GET) $(SUCCESS_LOG) | $(LINE_COUNT))"
-		@$(CAT) $(SUCCESS_LOG)
-else
-		@$(ECHO) "Successful builds: 0"
-endif
-	@$(ECHO) ""
-ifneq (, $(wildcard $(FAILURE_LOG)))
-		@$(ECHO) "Failed builds: $$($(GET) $(FAILURE_LOG) | $(LINE_COUNT))"
-		@$(CAT) $(FAILURE_LOG)
-else
-		@$(ECHO) "Failed builds: 0"
-endif
-	@$(ECHO) "========================================"
+	@$(LUA) ./buildtools/BuildSummary.lua
 
 prerequisite_exe:
 	$(info Checking prerequisites...)
@@ -312,7 +296,7 @@ ifeq ($(DETECTED_OS), Linux)
 	@chmod +x build/$*/bin/mainPy
 else
 	@echo @echo off > build/$*/bin/mainPy.bat
-	@echo .\$*\src\py\$(VENV_PYTHON) .\$*\src\py\main_py.py %%* >> build/$*/bin/mainPy.bat
+	@echo .\$*\src\py\$(VENV_PYTHON) .\$*\src\py\main_py.py %%* >> build\$*\bin\mainPy.bat
 endif
 
 ### LUA ###
@@ -327,7 +311,7 @@ ifeq ($(DETECTED_OS), Linux)
 	@chmod +x build/$*/bin/mainLua
 else
 	@echo @echo off > build/$*/bin/mainLua.bat
-	@echo $(LUA) .\$*\src\lua\mainLua.lua %%* >> build/$*/bin/mainLua.bat
+	@echo $(LUA) .\$*\src\lua\mainLua.lua %%* >> build\$*\bin\mainLua.bat
 endif
 
 ### ASM ###
