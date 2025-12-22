@@ -1,7 +1,7 @@
 const std = @import("std");
 
-fn parseDigits(line: []u8) usize {
-    var result: usize = 0;
+fn parseDigits(line: []u8) u64 {
+    var result: u64 = 0;
     for (line) |l| {
         if (l >= '0' and l <= '9') {
             result += (l - '0') * 10;
@@ -21,7 +21,7 @@ fn parseDigits(line: []u8) usize {
     return result;
 }
 
-fn parseStringAsDigit(x: []u8) usize {
+fn parseStringAsDigit(x: []u8) u64 {
     if (std.mem.eql(u8, x, "1") or std.mem.eql(u8, x, "one")) {
         return 1;
     } else if (std.mem.eql(u8, x, "2") or std.mem.eql(u8, x, "two")) {
@@ -45,12 +45,12 @@ fn parseStringAsDigit(x: []u8) usize {
     return 0;
 }
 
-fn parseStringAsDigits(line: []u8) usize {
+fn parseStringAsDigits(line: []u8) u64 {
     var result: u64 = 0;
     var low: usize = 0;
     var high: usize = low;
     const len: usize = line.len;
-    var digit: usize = 0;
+    var digit: u64 = 0;
 
     while (low < len) {
         digit = parseStringAsDigit(line[low..(high + 1)]);
@@ -86,7 +86,7 @@ fn parseStringAsDigits(line: []u8) usize {
     return result;
 }
 
-pub fn main(part: usize) !void {
+pub fn main(part: u64) !void {
     var stdout_buf: [1024]u8 = undefined;
     var stdout_writer: std.fs.File.Writer = std.fs.File.stdout().writer(&stdout_buf);
 
@@ -98,7 +98,7 @@ pub fn main(part: usize) !void {
     var file_buffer: [1024]u8 = undefined;
     var file_reader: std.fs.File.Reader = file.reader(&file_buffer);
 
-    var calibration_value: usize = 0;
+    var calibration_value: u64 = 0;
 
     while (file_reader.interface.takeDelimiter('\n')) |line| {
         if (line == null) {
