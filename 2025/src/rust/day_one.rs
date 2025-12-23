@@ -10,9 +10,9 @@ use nom::error::Error as NomError;
 use aoc_utils::*;
 
 #[derive(Debug)]
-enum DIRECTION {
-    LEFT,
-    RIGHT,
+enum Direction {
+    Left,
+    Right,
 }
 
 const DIAL_MAX: i32 = 100;
@@ -28,8 +28,8 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
             combinator::map_res(
                 character::complete::one_of::<&str, &str, NomError<_>>("LR"),
                 |c: char| match c { 
-                    'L' => Ok(DIRECTION::LEFT), 
-                    'R' => Ok(DIRECTION::RIGHT),
+                    'L' => Ok(Direction::Left), 
+                    'R' => Ok(Direction::Right),
                     _ => Err("Invalid direction"),
                 }
             ),
@@ -38,24 +38,24 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
                 str::parse,
             ),
         ), 
-        |(d, u): (DIRECTION, i32)| {
+        |(d, u): (Direction, i32)| {
             match d {
-                DIRECTION::LEFT => dial = (dial + DIAL_MAX - u % DIAL_MAX) % DIAL_MAX,
-                DIRECTION::RIGHT => dial = (dial + u % DIAL_MAX) % DIAL_MAX,
+                Direction::Left => dial = (dial + DIAL_MAX - u % DIAL_MAX) % DIAL_MAX,
+                Direction::Right => dial = (dial + u % DIAL_MAX) % DIAL_MAX,
             }
             if dial == 0 { dial_at_zero += 1; }
         },
-        |(d, u): (DIRECTION, i32)| {
+        |(d, u): (Direction, i32)| {
             dial_at_zero += u / DIAL_MAX;
             let increment: i32 = u % DIAL_MAX;
             
             if increment == 0 { return; }
             match d {
-                DIRECTION::LEFT => {
+                Direction::Left => {
                     if dial <= increment && dial != 0 { dial_at_zero += 1; }
                     dial = (dial + DIAL_MAX - increment) % DIAL_MAX;
                 },
-                DIRECTION::RIGHT => {
+                Direction::Right => {
                     if dial + increment >= DIAL_MAX { dial_at_zero += 1; }
                     dial = (dial + increment) % DIAL_MAX;
                 },

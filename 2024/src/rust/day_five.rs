@@ -16,7 +16,7 @@ enum Updates {
     None,
 }
 
-fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Result<()> {
+fn read_file_and_compute(file_path: &Path, _part: argparse::ArgPart) -> io::Result<()> {
 
     let mut rules: HashMap<i32, HashSet<i32>>= HashMap::new();
     let mut pages: Vec<Vec<i32>>= Vec::new();

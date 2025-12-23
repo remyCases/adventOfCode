@@ -28,15 +28,15 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
             batteries[1] = 0;
             indeces[1] = 0;
 
-            for i in indeces[0]..(v.len()-1) {
-                if v[i] > batteries[0] {
-                    batteries[0] = v[i];
+            for (i, &item) in v.iter().enumerate().take(v.len()-1).skip(indeces[0]) {
+                if item > batteries[0] {
+                    batteries[0] = item;
                     indeces[1] = i+1;
                 }
             }
-            for i in indeces[1]..v.len() {
-                if v[i] > batteries[1] {
-                    batteries[1] = v[i];
+            for &item in v.iter().skip(indeces[1]) {
+                if item > batteries[1] {
+                    batteries[1] = item;
                 }
             }
             sum_joltage += (batteries[0] * 10 + batteries[1]) as u64;
@@ -49,9 +49,9 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
             }
 
             for i in 0..NUMBER_BATTERIES {
-                for j in indeces[i]..(v.len()-NUMBER_BATTERIES+1+i) {
-                    if v[j] > batteries[i] {
-                        batteries[i] = v[j];
+                for (j, &item) in v.iter().enumerate().take(v.len()-NUMBER_BATTERIES+1+i).skip(indeces[i]) {
+                    if item > batteries[i] {
+                        batteries[i] = item;
                         if i != NUMBER_BATTERIES-1 { indeces[i+1] = j+1; }
                     }
                 }

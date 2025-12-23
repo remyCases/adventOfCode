@@ -16,7 +16,7 @@ struct Matrix<'a, T> {
 }
 
 impl<'a, T> Matrix<'a, T> {
-    fn get(self: &Self, x: usize, y: usize) -> Option<&T> {
+    fn get(&self, x: usize, y: usize) -> Option<&T> {
         if x >= self.nl || y >= self.nc { None }
         else { Some(&self.data[x + y*self.nl]) }
     }

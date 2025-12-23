@@ -11,43 +11,43 @@ use nom::error::Error as NomError;
 use aoc_utils::*;
 
 #[derive(Debug, Clone, Copy)]
-enum ROLLS {
-    PAPER,
-    NONE,
+enum Rolls {
+    Paper,
+    None,
 }
 
-fn rolls(v: &[ROLLS]) -> i32
+fn rolls(v: &[Rolls]) -> i32
 {
     v.iter().fold(
         0i32,
         |acc, x| acc + match x {
-            ROLLS::PAPER => 1,
-            ROLLS::NONE => 0,
+            Rolls::Paper => 1,
+            Rolls::None => 0,
         })
 }
 
-fn rolls_by_line(prev: &[ROLLS], curr: &[ROLLS], next: &[ROLLS]) -> i32
+fn rolls_by_line(prev: &[Rolls], curr: &[Rolls], next: &[Rolls]) -> i32
 {
     let mut sum_rolls = 0;
     
     for (x,(y, z)) in zip!(prev.windows(3), curr.windows(3), next.windows(3))
     {
         match y[1] {
-            ROLLS::NONE => continue,
-            ROLLS::PAPER => {
+            Rolls::None => continue,
+            Rolls::Paper => {
                 sum_rolls += (rolls(x) + rolls(y) + rolls(z) <= 4) as i32;
             },
         };
     }
 
-    return sum_rolls;
+    sum_rolls
 }
 
 fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Result<()>
 {
     let mut sum_rolls: i32 = 0;
-    let mut prev: Vec<ROLLS> = vec![];
-    let mut curr: Vec<ROLLS> = vec![];
+    let mut prev: Vec<Rolls> = vec![];
+    let mut curr: Vec<Rolls> = vec![];
 
     parse_compute!(
         file_path, part,
@@ -55,33 +55,33 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
             combinator::map_opt(
                 character::complete::one_of::<&str, &str, NomError<_>>(".@"),
                 |c: char| match c {
-                    '.' => Some(ROLLS::NONE),
-                    '@' => Some(ROLLS::PAPER),
+                    '.' => Some(Rolls::None),
+                    '@' => Some(Rolls::Paper),
                     _ => None,
                 }
             )
         ),
-        |v: Vec<ROLLS>| {
+        |v: Vec<Rolls>| {
             let mut next_vq = VecDeque::from(v);
-            next_vq.push_back(ROLLS::NONE);
-            next_vq.push_front(ROLLS::NONE);
+            next_vq.push_back(Rolls::None);
+            next_vq.push_front(Rolls::None);
             let next = next_vq.make_contiguous();
 
             sum_rolls += rolls_by_line(&prev, &curr, next);
 
             if curr.is_empty() {
-                curr = vec![ROLLS::NONE; next.len()];
+                curr = vec![Rolls::None; next.len()];
             }
             prev = curr.clone();
             curr = next.to_vec();
         },
-        |v: Vec<ROLLS>| {
+        |_v: Vec<Rolls>| {
         }
     );
 
-    sum_rolls += rolls_by_line(&prev, &curr, &vec![ROLLS::NONE; curr.len()]);
+    sum_rolls += rolls_by_line(&prev, &curr, &vec![Rolls::None; curr.len()]);
 
-    println!("ROLLS ACCESSED: {}", sum_rolls);
+    println!("Rolls ACCESSED: {}", sum_rolls);
     Ok(())
 }
 

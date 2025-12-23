@@ -6,6 +6,7 @@ mod day_one;
 mod day_two;
 mod day_three;
 mod day_four;
+mod day_five;
 mod day_nine;
 
 use aoc_utils::*;
@@ -18,6 +19,7 @@ fn main() -> io::Result<()> {
         2 => day_two::main(args.part)?,
         3 => day_three::main(args.part)?,
         4 => day_four::main(args.part)?,
+        5 => day_five::main(args.part)?,
         9 => day_nine::main(args.part)?,
         _ => println!("Incorrect combination of day and part. Day {:} and part {:} does not exist (yet).", args.day, args.part)
     };

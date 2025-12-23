@@ -4,7 +4,7 @@
 
 use std::fs;
 use std::path::Path;
-use std::io::{Error, ErrorKind};
+use std::io::Error;
 use std::env;
 use aoc_utils::*;
 
@@ -22,7 +22,7 @@ enum Status {
     Loop,
     Interior,
     Exterior,
-    CRLF,
+    Crlf,
 }
 
 fn found_next_pipe_from_start(data: &[u8], start_index: usize, len_line: usize, len_data: usize) -> Result<(usize, usize), Error> {
@@ -46,7 +46,7 @@ fn found_next_pipe_from_start(data: &[u8], start_index: usize, len_line: usize, 
         (data[start_index - len_line] == b'|' || data[start_index - len_line] == b'7' || data[start_index - len_line] == b'F')
         { Ok((start_index - len_line, NORTH)) }
     else 
-        { Err(Error::new(ErrorKind::Other, "Cannot find the following char after start")) }
+        { Err(Error::other("Cannot find the following char after start")) }
 }
 
 // wont check bounds, maybe I'll regret it later
@@ -82,7 +82,7 @@ fn compute_next_index_from_char(data: &[u8], current_index: usize, previous_inde
             if previous_index == current_index + 1 { current_index - len_line }
             else { current_index + 1 }
         ),
-        _ => Err(Error::new(ErrorKind::Other, "Invalid char")),
+        _ => Err(Error::other("Invalid char")),
     }
 }
 
@@ -120,7 +120,7 @@ fn pattern_status(c: u8) -> Result<[Status; 5], Error> {
             basic_loop[SOUTH] = Status::Loop;
             Ok(basic_loop)
         },
-        _ => Err(Error::new(ErrorKind::Other, "Invalid char")), 
+        _ => Err(Error::other("Invalid char")), 
     }
 }
 
@@ -131,7 +131,7 @@ fn find_neighboor(index: usize, direction: usize, len_line: usize) -> Result<[(u
         SOUTH => Ok([(index-1, SOUTH), (index+1, SOUTH), (index, MIDDLE), (index + len_line, NORTH)]),
         EAST => Ok([(index, MIDDLE), (index+len_line, EAST), (index-len_line, EAST), (index+1, WEST)]),
         WEST => Ok([(index, MIDDLE), (index+len_line, WEST), (index-len_line, WEST), (index-1, EAST)]),
-        _ => Err(Error::new(ErrorKind::Other, "Incorrect direction in find neighboor"))
+        _ => Err(Error::other("Incorrect direction in find neighboor"))
     }
 }
 
@@ -143,8 +143,8 @@ fn read_file_and_compute_extrapolated_values(file_path: &Path) -> io::Result<()>
         .iter()
         .map(|&c| 
             if c == 10 || c == 13 { [
-                Status::CRLF, Status::CRLF, Status::CRLF,
-                Status::CRLF, Status::CRLF] }
+                Status::Crlf, Status::Crlf, Status::Crlf,
+                Status::Crlf, Status::Crlf] }
             else { [
                 Status::Undetermined, Status::Undetermined, Status::Undetermined,
                 Status::Undetermined, Status::Undetermined] })
@@ -153,13 +153,13 @@ fn read_file_and_compute_extrapolated_values(file_path: &Path) -> io::Result<()>
     let len_line = lines
         .iter()
         .position(|&c | c == 10)// 10 = LF, if no LF and only CR, it will raise an error
-        .ok_or(Error::new(ErrorKind::Other, "Cannot find a LF char"))? 
-        + 1; // we dont remove the CRLF chars
+        .ok_or(Error::other("Cannot find a LF char"))? 
+        + 1; // we dont remove the Crlf chars
 
     let start_index = lines
         .iter()
         .position(|&c| c == b'S')
-        .ok_or(Error::new(ErrorKind::Other, "Not found the start character"))?;
+        .ok_or(Error::other("Not found the start character"))?;
 
     let (mut current_index, direction_from_start) = found_next_pipe_from_start(&lines, start_index, len_line, lines.len())?;
     status_lines[start_index][MIDDLE] = Status::Loop;
@@ -221,14 +221,13 @@ fn read_file_and_compute_extrapolated_values(file_path: &Path) -> io::Result<()>
     for (&c, s) in lines.iter().zip(status_lines) {
         if true {
             match s[MIDDLE] {
-                Status::Loop | Status::CRLF => print!("{:}", c as char),
+                Status::Loop | Status::Crlf => print!("{:}", c as char),
                 Status::Interior => print!("I"),
                 Status::Exterior => print!("O"),
                 Status::Undetermined => print!("*"),
             };
         }
     }
-    println!("");
     println!("Sum of interior: {:}", interior_count);
     Ok(())
 }

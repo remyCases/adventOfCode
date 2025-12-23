@@ -17,7 +17,7 @@ fn compute_histories(history: &[i32]) -> Vec<i32> {
     let mut previous: Vec<i32> = Vec::new();
     let mut size = 0;
     
-    for (_, h) in history.iter().enumerate() {
+    for h in history.iter() {
         for (n, _) in previous.iter().enumerate() {
             if n > 0 {
                 current[n] = current[n-1] - previous[n-1];

@@ -4,7 +4,7 @@
 
 use std::fs;
 use std::path::Path;
-use std::io::{Error, ErrorKind};
+use std::io::Error;
 use std::env;
 use aoc_utils::*;
 
@@ -31,7 +31,7 @@ fn found_next_pipe_from_start(data: &[u8], start_index: usize, len_line: usize, 
         (data[start_index - len_line] == b'|' || data[start_index - len_line] == b'7' || data[start_index - len_line] == b'F')
         { Ok(start_index - len_line) }
     else 
-        { Err(Error::new(ErrorKind::Other, "Cannot find the following char after start")) }
+        { Err(Error::other("Cannot find the following char after start")) }
 }
 
 // wont check bounds, maybe I'll regret it later
@@ -67,7 +67,7 @@ fn compute_next_index_from_char(data: &[u8], current_index: usize, previous_inde
             if previous_index == current_index + 1 { current_index - len_line }
             else { current_index + 1 }
         ),
-        _ => Err(Error::new(ErrorKind::Other, "Invalid char")),
+        _ => Err(Error::other("Invalid char")),
     }
 }
 
@@ -76,13 +76,13 @@ fn read_file_and_compute_extrapolated_values(file_path: &Path) -> io::Result<()>
     let len_line = lines
         .iter()
         .position(|&c | c == 10)// 10 = LF, if no LF and only CR, it will raise an error
-        .ok_or(Error::new(ErrorKind::Other, "Cannot find a LF char"))? 
+        .ok_or(Error::other("Cannot find a LF char"))? 
         + 1; // we dont remove the CRLF chars
 
     let start_index = lines
         .iter()
         .position(|&c| c == b'S')
-        .ok_or(Error::new(ErrorKind::Other, "Not found the start character"))?;
+        .ok_or(Error::other("Not found the start character"))?;
 
     let mut current_index = found_next_pipe_from_start(&lines, start_index, len_line, lines.len())?;
     let mut previous_index = start_index;

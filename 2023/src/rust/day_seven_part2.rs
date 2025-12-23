@@ -115,9 +115,7 @@ impl PartialEq for Hand {
 impl Eq for Hand { }
 
 impl PartialOrd for Hand {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        self.place.partial_cmp(&other.place)
-    }
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> { Some(self.cmp(other)) }
 }
 
 impl Ord for Hand {

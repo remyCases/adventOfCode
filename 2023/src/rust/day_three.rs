@@ -51,7 +51,7 @@ impl Part {
             Ok(2)
         }
         else {
-            Err(Error::new(ErrorKind::Other, "No more gear slot available"))
+            Err(Error::other("No more gear slot available"))
         }
     }
 }

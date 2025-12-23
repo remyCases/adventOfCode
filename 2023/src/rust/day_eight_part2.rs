@@ -30,9 +30,7 @@ impl PartialEq for Node {
 impl Eq for Node { }
 
 impl PartialOrd for Node {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        self.id.partial_cmp(&other.id)
-    }
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> { Some(self.cmp(other)) }
 }
 
 impl Ord for Node {
@@ -124,11 +122,11 @@ fn compute_steps(nodes: &[Node], directions: &[Direction], start: &Node) -> io::
             if let Some((n, _)) = nodes.iter().enumerate().find(|(_, i)| i.id == curr_id) {
                 curr_index = n;
             } else {
-                return Err(Error::new(ErrorKind::Other, format!("Cant find the index associated with {:}", curr_id)));
+                return Err(Error::other(format!("Cant find the index associated with {:}", curr_id)));
             }
             step += 1;
         } else {
-            return Err(Error::new(ErrorKind::Other, "Invalid direction found"));
+            return Err(Error::other("Invalid direction found"));
         }
     }
     Ok(step as u64)
@@ -169,7 +167,7 @@ fn read_file_and_compute_steps(file_path: &Path) -> io::Result<()> {
 
     let result = steps_for_each_start.into_iter()
         .reduce(|acc, x| acc / binary_u64(acc, x) * x)
-        .ok_or(Error::new(ErrorKind::Other, "Cant compute the iterative lcm"))?;
+        .ok_or(Error::other("Cant compute the iterative lcm"))?;
 
     println!("Total steps needed: {:#?}", result);
 

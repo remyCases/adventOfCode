@@ -60,21 +60,19 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
             
         ),
         |v: Vec<Mul>| res += v.iter()
-            .map(|t| match t { 
+            .filter_map(|t| match t { 
                 Mul::Numbers(inner) => Some(inner),
                 _ => None,
             })
-            .flatten()
             .map(|(x, y)| x*y)
             .sum::<i32>(),
         |v: Vec<Mul>| res += v.iter()
-            .map(|t| match t { 
+            .filter_map(|t| match t { 
                 Mul::Numbers(inner) => match state { Mul::Do => Some(inner), _ => None},
                 Mul::Do => {state = Mul::Do; None},
                 Mul::Dont => {state = Mul::Dont; None},
                 _ => None,
             })
-            .flatten()
             .map(|(x, y)| x*y)
             .sum::<i32>()
     );

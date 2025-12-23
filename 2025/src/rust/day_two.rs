@@ -12,13 +12,13 @@ use aoc_utils::*;
 
 fn find_repeated_twice_ids(s: u64, e: u64) -> u64 {
     let n: u32 = s.ilog10();
-    if n % 2 == 0 { return 0; }
+    if n.is_multiple_of(2) { return 0; }
 
     let u: u64 = 10u64.pow(n/2 + 1) + 1;
-    let us = if s % u == 0 { s / u } else { s / u + 1 };
+    let us = if s.is_multiple_of(u) { s / u } else { s / u + 1 };
     let ue = e / u;
     if ue < us { return 0; }
-    return ((ue+1)*ue / 2 - (us-1)*us / 2) * u;
+    ((ue+1)*ue / 2 - (us-1)*us / 2) * u
 }
 
 fn find_repeated_ids(s: u64, e: u64) -> u64 {
@@ -26,19 +26,19 @@ fn find_repeated_ids(s: u64, e: u64) -> u64 {
     let mut ids: HashSet<u64> = HashSet::new();
 
     for div in 2..=n {
-        if n % div != 0 {
+        if !n.is_multiple_of(div) {
             continue;
         }
         let size_repetition = n / div;
         let u = (0..div)
             .fold(0, |acc, i| acc + 10u64.pow(size_repetition * i));
-        let us = if s % u == 0 { s / u } else { s / u + 1 };
+        let us = if s.is_multiple_of(u) { s / u } else { s / u + 1 };
         let ue = e / u;
         for i in us..=ue {
             ids.insert(i * u);
         }
     }
-    return ids.iter().sum();
+    ids.iter().sum()
 }
 
 fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Result<()>

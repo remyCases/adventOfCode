@@ -20,7 +20,7 @@ fn area(x1: u64, y1: u64, x2: u64, y2: u64) -> u64 {
     } else {
         y2 - y1 + 1
     };
-    return dx * dy;
+    dx * dy
 }
 
 fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Result<()>
@@ -44,7 +44,7 @@ fn read_file_and_compute(file_path: &Path, part: argparse::ArgPart) -> io::Resul
             }
             stored_coords.push((x, y));
         },
-        |(x, y): (u64, u64)| {
+        |(_x, _y): (u64, u64)| {
         }
     );
 
