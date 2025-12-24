@@ -10,116 +10,116 @@ It should work for both Windows and Linux architectures.
 
 ## Solved challenges 2025 edition
 
-|Days | Rust | C99 | Nim | GnuCobol | Python |
-|-----|:-:|:-:|:-:|:-:|:-:|
-| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-| 2 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-| 3 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|
-| 4 |:wavy_dash:|:x:|:x:|:x:|:x:|
-| 5 |:x:|:x:|:x:|:x:|:x:|
-| 6 |:x:|:x:|:x:|:x:|:x:|
-| 7 |:x:|:x:|:x:|:x:|:x:|
-| 8 |:x:|:x:|:x:|:x:|:x:|
-| 9 |:wavy_dash:|:x:|:x:|:x:|:x:|
-|10 |:x:|:x:|:x:|:x:|:x:|
-|11 |:x:|:x:|:x:|:x:|:x:|
-|12 |:x:|:x:|:x:|:x:|:x:|
+|Days|Rust|C99|Nim|GnuCobol|Python|Lua|
+|-----|:-:|:-:|:-:|:-:|:-:|:-:|
+|1|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|2|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|3|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:|
+|4|:wavy_dash:|:x:|:x:|:x:|:x:|:x:|
+|5|:heavy_check_mark:|:x:|:x:|:x:|:x:|:x:|
+|6|:x:|:x:|:x:|:x:|:x:|:x:|
+|7|:x:|:x:|:x:|:x:|:x:|:x:|
+|8|:x:|:x:|:x:|:x:|:x:|:x:|
+|9|:wavy_dash:|:x:|:x:|:x:|:x:|:x:|
+|10|:x:|:x:|:x:|:x:|:x:|:x:|
+|11|:x:|:x:|:x:|:x:|:x:|:x:|
+|12|:x:|:x:|:x:|:x:|:x:|:x:|
 
 ## Solved challenges 2024 edition
 
 I've currently stopped working on them since the 2025 edition is here.
 
-|Days | Rust | C99 |
+|Days|Rust|C99|
 |-----|:-:|:-:|
-| 1 |:heavy_check_mark:|:x:|
-| 2 |:wavy_dash:|:x:|
-| 3 |:heavy_check_mark:|:x:|
-| 4 |:heavy_check_mark:|:x:|
-| 5 |:wavy_dash:|:x:|
-| 6 |:x:|:x:|
-| 7 |:x:|:x:|
-| 8 |:x:|:x:|
-| 9 |:x:|:x:|
-|10 |:x:|:x:|
-|11 |:x:|:x:|
-|12 |:x:|:x:|
-|13 |:x:|:x:|
-|14 |:x:|:x:|
-|15 |:x:|:x:|
-|16 |:x:|:x:|
-|17 |:x:|:x:|
-|18 |:x:|:x:|
-|19 |:x:|:x:|
-|20 |:x:|:x:|
-|21 |:x:|:x:|
-|22 |:x:|:x:|
-|23 |:x:|:x:|
-|24 |:x:|:x:|
-|25 |:x:|:x:|
+|1|:heavy_check_mark:|:x:|
+|2|:wavy_dash:|:x:|
+|3|:heavy_check_mark:|:x:|
+|4|:heavy_check_mark:|:x:|
+|5|:wavy_dash:|:x:|
+|6|:x:|:x:|
+|7|:x:|:x:|
+|8|:x:|:x:|
+|9|:x:|:x:|
+|10|:x:|:x:|
+|11|:x:|:x:|
+|12|:x:|:x:|
+|13|:x:|:x:|
+|14|:x:|:x:|
+|15|:x:|:x:|
+|16|:x:|:x:|
+|17|:x:|:x:|
+|18|:x:|:x:|
+|19|:x:|:x:|
+|20|:x:|:x:|
+|21|:x:|:x:|
+|22|:x:|:x:|
+|23|:x:|:x:|
+|24|:x:|:x:|
+|25|:x:|:x:|
 
 ## Solved challenges 2023 edition
 
 I've currently stopped working on them since the 2024 edition is here.
 
-|Days | Nim | Rust | Zig | C99 |
+|Days|Nim|Rust|Zig|C99|
 |-----|:-:|:-:|:-:|:-:|
-| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-| 2 |:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|
-| 3 |:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|
-| 4 |:x:|:heavy_check_mark:|:x:|:x:|
-| 5 |:x:|:wavy_dash:|:x:|:x:|
-| 6 |:x:|:heavy_check_mark:|:x:|:x:|
-| 7 |:x:|:heavy_check_mark:|:x:|:x:|
-| 8 |:x:|:heavy_check_mark:|:x:|:x:|
-| 9 |:x:|:heavy_check_mark:|:x:|:x:|
-|10 |:x:|:wavy_dash:|:x:|:x:|
-|11 |:x:|:x:|:x:|:x:|
-|12 |:x:|:x:|:x:|:x:|
-|13 |:x:|:x:|:x:|:x:|
-|14 |:x:|:x:|:x:|:x:|
-|15 |:x:|:x:|:x:|:x:|
-|16 |:x:|:x:|:x:|:x:|
-|17 |:x:|:x:|:x:|:x:|
-|18 |:x:|:x:|:x:|:x:|
-|19 |:x:|:x:|:x:|:x:|
-|20 |:x:|:x:|:x:|:x:|
-|21 |:x:|:x:|:x:|:x:|
-|22 |:x:|:x:|:x:|:x:|
-|23 |:x:|:x:|:x:|:x:|
-|24 |:x:|:x:|:x:|:x:|
-|25 |:x:|:x:|:x:|:x:|
+|1|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|2|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|
+|3|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|
+|4|:x:|:heavy_check_mark:|:x:|:x:|
+|5|:x:|:wavy_dash:|:x:|:x:|
+|6|:x:|:heavy_check_mark:|:x:|:x:|
+|7|:x:|:heavy_check_mark:|:x:|:x:|
+|8|:x:|:heavy_check_mark:|:x:|:x:|
+|9|:x:|:heavy_check_mark:|:x:|:x:|
+|10|:x:|:wavy_dash:|:x:|:x:|
+|11|:x:|:x:|:x:|:x:|
+|12|:x:|:x:|:x:|:x:|
+|13|:x:|:x:|:x:|:x:|
+|14|:x:|:x:|:x:|:x:|
+|15|:x:|:x:|:x:|:x:|
+|16|:x:|:x:|:x:|:x:|
+|17|:x:|:x:|:x:|:x:|
+|18|:x:|:x:|:x:|:x:|
+|19|:x:|:x:|:x:|:x:|
+|20|:x:|:x:|:x:|:x:|
+|21|:x:|:x:|:x:|:x:|
+|22|:x:|:x:|:x:|:x:|
+|23|:x:|:x:|:x:|:x:|
+|24|:x:|:x:|:x:|:x:|
+|25|:x:|:x:|:x:|:x:|
 
 ## Solved challenges 2022 edition
 
 I've currently stopped working on them since the 2023 edition is here.
 
-|Days | C99 | GnuCobol | Nim | Rust |
+|Days|C99|GnuCobol|Nim|Rust|
 |-----|:-:|:-----:|:---:|:----:|
-| 1 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-| 2 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-| 3 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|
-| 4 |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|
-| 5 |:x:|:heavy_check_mark:|:heavy_check_mark:|:x:|
-| 6 |:x:|:x:|:heavy_check_mark:|:x:|
-| 7 |:x:|:x:|:x:|:x:|
-| 8 |:x:|:x:|:x:|:x:|
-| 9 |:x:|:x:|:x:|:x:|
-|10 |:x:|:x:|:x:|:x:|
-|11 |:x:|:x:|:x:|:x:|
-|12 |:x:|:x:|:x:|:x:|
-|13 |:x:|:x:|:x:|:x:|
-|14 |:x:|:x:|:x:|:x:|
-|15 |:x:|:x:|:x:|:x:|
-|16 |:x:|:x:|:x:|:x:|
-|17 |:x:|:x:|:x:|:x:|
-|18 |:x:|:x:|:x:|:x:|
-|19 |:x:|:x:|:x:|:x:|
-|20 |:x:|:x:|:x:|:x:|
-|21 |:x:|:x:|:x:|:x:|
-|22 |:x:|:x:|:x:|:x:|
-|23 |:x:|:x:|:x:|:x:|
-|24 |:x:|:x:|:x:|:x:|
-|25 |:x:|:x:|:x:|:x:|
+|1|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|2|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|3|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|
+|4|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|
+|5|:x:|:heavy_check_mark:|:heavy_check_mark:|:x:|
+|6|:x:|:x:|:heavy_check_mark:|:x:|
+|7|:x:|:x:|:x:|:x:|
+|8|:x:|:x:|:x:|:x:|
+|9|:x:|:x:|:x:|:x:|
+|10|:x:|:x:|:x:|:x:|
+|11|:x:|:x:|:x:|:x:|
+|12|:x:|:x:|:x:|:x:|
+|13|:x:|:x:|:x:|:x:|
+|14|:x:|:x:|:x:|:x:|
+|15|:x:|:x:|:x:|:x:|
+|16|:x:|:x:|:x:|:x:|
+|17|:x:|:x:|:x:|:x:|
+|18|:x:|:x:|:x:|:x:|
+|19|:x:|:x:|:x:|:x:|
+|20|:x:|:x:|:x:|:x:|
+|21|:x:|:x:|:x:|:x:|
+|22|:x:|:x:|:x:|:x:|
+|23|:x:|:x:|:x:|:x:|
+|24|:x:|:x:|:x:|:x:|
+|25|:x:|:x:|:x:|:x:|
 
 ## Compiler and tools
 
@@ -192,6 +192,6 @@ As far as I know, there are always two parts during each days, so `PART=1` will 
 If no language is given, the solution will run all available languages.
 For instance `./adventLaunch.lua -y 2022 -d 2 -p 1` will run the first part of the second day of the 2022 edition written every languages (nim, rust, cobol, c99, zig and asm).
 
-## Wait, that's not the right solutions concidering the data I have...
+## Wait, that's not the right solutions concidering the data I have
 
 In the `YEAR/data` folder, there are the data used to solve each challenge. I'm using data I was given during the challenge, and I don't know if everyone was given the same.
