@@ -113,9 +113,9 @@ FOLDERS := $(wildcard 20*)
 YEARFOLDERS := $(FOLDERS:%=folder_%)
 
 # Convenient values
-empty:=
-space:= $(empty) $(empty)
-comma:= ,
+empty :=
+space := $(empty) $(empty)
+comma := ,
 
 .DELETE_ON_ERROR:
 build_all: prerequisite build_nim build_rust build_c99 build_cob build_zig build_py build_lua build_summary
