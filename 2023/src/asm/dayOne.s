@@ -1,3 +1,7 @@
+# Copyright (C) 2026 Rémy Cases
+# See LICENSE file for extended copyright information.
+# This file is part of adventOfCode project from https://github.com/remyCases/adventOfCode.
+
 .intel_syntax noprefix
 .global _day_one
 
