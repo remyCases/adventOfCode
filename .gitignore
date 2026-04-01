@@ -20,3 +20,6 @@ target
 **/.venv
 **/venv
 **/__pycache__
+
+# zig cache
+**/.zig-cache
